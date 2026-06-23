@@ -1,21 +1,25 @@
-import { Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight, Plus } from "lucide-react";
 import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
 import ButtonLink from "@/components/site/button-link";
+import { BOOKING_URL } from "@/components/site/config";
 
 /*
   PRICING
-  Three one-time build tiers (Orbit recommended + emphasized), then two
-  supporting blocks beneath: a la carte Add-ons and monthly care Plans.
-  Every feature list uses a thin divider between rows so it scans cleanly.
-  All CTAs route to #contact. No new styles: reuses the site tokens.
+  Four one-time build tiers with agency-rate value anchoring. Orbit is the
+  recommended pick; Apex (the ultimate tier) renders as a wide flagship band
+  below the other three so four options never crowd the row. Beneath: a shared
+  "included in every project" strip, payment + risk-reversal lines, the a la
+  carte Add-ons, the monthly care Plans, and a short objection-handling FAQ.
+  No new styles: reuses the site tokens.
 */
 
 const tiers = [
   {
     name: "Liftoff",
     tag: "The essential",
-    price: "$1,800",
+    anchor: "Typical agency build: $5,000+",
+    price: "$2,500",
     cadence: "one-time",
     note: "A clean, professional presence done right.",
     features: [
@@ -31,6 +35,7 @@ const tiers = [
   {
     name: "Orbit",
     tag: "The standout",
+    anchor: "Typical agency build: $10,000+",
     price: "$3,500",
     cadence: "one-time",
     note: "Custom design with motion that sets you apart.",
@@ -48,6 +53,7 @@ const tiers = [
   {
     name: "Beyond",
     tag: "The flagship",
+    anchor: "Typical agency build: $15,000 to $25,000",
     price: "From $7,500",
     cadence: "one-time",
     note: "Final price scales with scope and complexity.",
@@ -62,27 +68,38 @@ const tiers = [
     cta: "Start your project",
     featured: false,
   },
+  {
+    name: "Apex",
+    tag: "The sky is the offer",
+    anchor: "Comparable studio work: $30,000+",
+    price: "From $15,000",
+    cadence: "one-time",
+    note: "For brands that want the best that can be built.",
+    features: [
+      "Everything in Beyond, with nothing held back",
+      "The full signature behind-the-edge experience, custom to your brand",
+      "Bespoke 3D, motion, and a cinematic scroll journey",
+      "A full cinematic brand film",
+      "Complete conversion and growth system",
+      "Direct line to the founder and white-glove delivery",
+    ],
+    cta: "Request the flagship",
+    featured: false,
+    ultimate: true,
+  },
 ];
 
-// The ceiling. Rendered as a wide band below the three cards so four options
-// never crowd the row. Styled the most luxuriously of all (gradient border,
-// champagne checks, deeper glow).
-const apex = {
-  name: "Apex",
-  tag: "The sky is the offer",
-  price: "From $15,000",
-  cadence: "one-time",
-  note: "For brands that want the best that can be built. Open-ended by design.",
-  features: [
-    "Everything in Beyond, with nothing held back",
-    "The full signature behind-the-edge experience, a custom animated world built around your brand",
-    "Bespoke 3D, motion, and a cinematic scroll journey unique to you",
-    "A full cinematic brand film, not just a hero clip",
-    "Complete conversion and growth system",
-    "Direct line to the founder and white-glove delivery",
-  ],
-  cta: "Request the flagship",
-};
+// The three columns vs the wide flagship band.
+const buildTiers = tiers.filter((t) => !t.ultimate);
+const apex = tiers.find((t) => t.ultimate);
+
+const included = [
+  "Mobile responsive build",
+  "Speed and security",
+  "Free SSL",
+  "Hosting managed by us",
+  "A design you approve before we build",
+];
 
 const addons = [
   { item: "Extra page", price: "$150 to $250 each" },
@@ -127,6 +144,25 @@ const plans = [
   },
 ];
 
+const pricingFaqs = [
+  {
+    q: "Do I own my website?",
+    a: "Yes. Your build is yours. We host and manage it so you never have to think about it.",
+  },
+  {
+    q: "Could I just build this myself with a website builder?",
+    a: "You could. Most business owners do not, because the value is not the building. It is having it done at a level you cannot match, and never having to touch it again.",
+  },
+  {
+    q: "How long does it take?",
+    a: "Most builds ship in two to four weeks, depending on the tier and scope.",
+  },
+  {
+    q: "What if I need changes after launch?",
+    a: "Small changes are covered by your monthly plan. Anything bigger is a quick, clear quote.",
+  },
+];
+
 export default function Pricing() {
   return (
     <section id="pricing" className="relative mx-auto max-w-6xl px-6 py-28 sm:py-36">
@@ -138,14 +174,34 @@ export default function Pricing() {
           Built to go beyond the ordinary.
         </h2>
         <p className="mx-auto mt-5 max-w-lg text-[0.95rem] leading-relaxed text-muted-foreground">
-          Every project is custom designed and built for your brand. Choose
-          where you want to start.
+          Custom design and build for your brand, at a fraction of agency rates.
+          Choose where you want to start.
         </p>
       </Reveal>
 
+      {/* Included in every project */}
+      <Reveal delay={0.05} className="mt-12">
+        <div className="rounded-2xl border border-white/8 bg-white/[0.02] px-6 py-5">
+          <div className="flex flex-col items-center gap-x-6 gap-y-3 sm:flex-row sm:flex-wrap sm:justify-center">
+            <span className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-edge/80">
+              Included in every project
+            </span>
+            {included.map((item) => (
+              <span
+                key={item}
+                className="inline-flex items-center gap-2 text-sm text-muted-foreground"
+              >
+                <Check className="size-3.5 shrink-0 text-edge" />
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+
       {/* Three one-time build tiers */}
-      <div className="mt-16 grid items-stretch gap-5 lg:grid-cols-3">
-        {tiers.map((t, i) => (
+      <div className="mt-8 grid items-stretch gap-5 lg:grid-cols-3">
+        {buildTiers.map((t, i) => (
           <Reveal key={t.name} delay={i * 0.08} className="h-full">
             <article
               className={`relative flex h-full flex-col rounded-2xl border p-8 transition-all duration-500 ${
@@ -167,7 +223,8 @@ export default function Pricing() {
                 {t.tag}
               </p>
 
-              <p className="mt-6 flex flex-wrap items-baseline gap-2">
+              <p className="mt-6 text-xs text-muted-foreground/55">{t.anchor}</p>
+              <p className="mt-1 flex flex-wrap items-baseline gap-2">
                 <span className="font-display text-3xl font-semibold tracking-tight text-metallic">
                   {t.price}
                 </span>
@@ -210,7 +267,6 @@ export default function Pricing() {
       <Reveal delay={0.12}>
         <div className="mt-5 overflow-hidden rounded-2xl bg-gradient-to-br from-primary/45 via-edge/25 to-primary/45 p-px shadow-[0_0_110px_-35px_var(--primary)]">
           <article className="sheen relative overflow-hidden rounded-[calc(var(--radius)*1.8-1px)] bg-[oklch(0.17_0.022_264)] p-8 sm:p-10">
-            {/* luxe corner glow */}
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full"
@@ -232,7 +288,10 @@ export default function Pricing() {
                 <p className="mt-1.5 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-metallic">
                   {apex.tag}
                 </p>
-                <p className="mt-6 flex flex-wrap items-baseline gap-2">
+                <p className="mt-6 text-xs text-muted-foreground/55">
+                  {apex.anchor}
+                </p>
+                <p className="mt-1 flex flex-wrap items-baseline gap-2">
                   <span className="text-4xl font-semibold text-metallic">
                     {apex.price}
                   </span>
@@ -269,6 +328,29 @@ export default function Pricing() {
               </div>
             </div>
           </article>
+        </div>
+      </Reveal>
+
+      {/* Decision helper + payment + risk reversal */}
+      <Reveal delay={0.1}>
+        <p className="mx-auto mt-12 max-w-xl text-center text-[0.95rem] leading-relaxed text-muted-foreground">
+          Not sure which fits?{" "}
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline font-medium text-edge hover:text-edge-bright"
+          >
+            Book a quick call
+          </a>{" "}
+          and we will point you to the right one, honestly.
+        </p>
+        <div className="mx-auto mt-6 flex max-w-2xl flex-col items-center gap-2 text-center text-sm text-muted-foreground/75">
+          <p>Builds can be split into two payments: half to start, half at launch.</p>
+          <p>
+            You approve the design before we build. If the direction is not
+            right, we refine it until it is.
+          </p>
         </div>
       </Reveal>
 
@@ -354,13 +436,29 @@ export default function Pricing() {
         </Reveal>
       </div>
 
-      {/* Risk reversal + closing line */}
+      {/* Objection-handling FAQ (pricing-specific) */}
+      <Reveal delay={0.05} className="mx-auto mt-20 max-w-3xl">
+        <div className="flex justify-center">
+          <Eyebrow centered>Good to know</Eyebrow>
+        </div>
+        <div className="mt-8 divide-y divide-white/8 border-y border-white/8">
+          {pricingFaqs.map((f) => (
+            <details key={f.q} className="group py-5">
+              <summary className="flex cursor-pointer items-center justify-between gap-6 text-base font-medium">
+                {f.q}
+                <Plus className="size-5 shrink-0 text-edge transition-transform duration-300 group-open:rotate-45" />
+              </summary>
+              <p className="mt-3 max-w-2xl text-[0.95rem] leading-relaxed text-muted-foreground">
+                {f.a}
+              </p>
+            </details>
+          ))}
+        </div>
+      </Reveal>
+
+      {/* Closing line */}
       <Reveal delay={0.1}>
-        <p className="mx-auto mt-16 max-w-xl text-center text-sm leading-relaxed text-muted-foreground">
-          Every project starts with a design you approve before we build. If the
-          direction is not right, we refine it until it is.
-        </p>
-        <p className="mt-3 text-center text-sm text-muted-foreground/65">
+        <p className="mt-12 text-center text-sm text-muted-foreground/65">
           Final scope and pricing are confirmed on a quick call.
         </p>
       </Reveal>
