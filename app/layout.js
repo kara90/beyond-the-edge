@@ -5,6 +5,7 @@ import Intro from "@/components/site/intro";
 import ScrollProgress from "@/components/site/scroll-progress";
 import Cursor from "@/components/site/cursor";
 import JsonLd from "@/components/site/json-ld";
+import TubesCursor from "@/components/ui/tubes-cursor";
 
 // Body: clean, highly readable.
 const geistSans = Geist({
@@ -92,6 +93,7 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col overflow-x-hidden">
         <JsonLd />
+        <TubesCursor />
         <SmoothScroll />
         <Intro />
         <ScrollProgress />
