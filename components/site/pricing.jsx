@@ -150,7 +150,7 @@ export default function Pricing() {
             <article
               className={`relative flex h-full flex-col rounded-2xl border p-8 transition-all duration-500 ${
                 t.featured
-                  ? "sheen border-edge/40 bg-edge/[0.05] shadow-[0_0_70px_-18px_var(--edge)] lg:-my-3 lg:py-11"
+                  ? "border-edge/40 bg-edge/[0.05] shadow-[0_0_70px_-18px_var(--edge)] lg:-my-3 lg:py-11"
                   : "border-white/8 bg-white/[0.02] hover:-translate-y-1.5 hover:border-white/15 hover:bg-white/[0.04]"
               }`}
             >
