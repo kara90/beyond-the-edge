@@ -3,12 +3,11 @@
 import { useEffect, useRef } from "react";
 
 /*
-  ShaderGlow — a full-field "blue space" nebula rendered to a transparent WebGL
-  canvas, meant to sit BEHIND a section (background layer) and fill it top to
-  bottom. Domain-warped fbm in a bright space-blue palette; alpha-out so dark
-  areas stay see-through and the section's own background shows. The buffer is
-  downsampled (soft field, so low res upscales cleanly) to stay cheap on a tall
-  section. Reduced-motion paints one static frame.
+  ShaderGlow — a crisp neon "circle" (concentric blue rings) on a transparent
+  WebGL canvas, meant to sit BEHIND a section as an ambient accent. Rendered at
+  full resolution (capped dpr) so the ring stays sharp; keep this canvas a
+  contained size (not a giant full-section element) so the buffer stays light.
+  Reduced-motion paints one static frame.
 */
 const FRAG = `
   precision highp float;
@@ -24,33 +23,20 @@ const FRAG = `
     len -= variation(p, vec2(1.0, 0.0), 5.0, 2.0);
     return smoothstep(rad - width, rad, len) - smoothstep(rad, rad + width, len);
   }
-  float hash(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
-  float noise(vec2 p){
-    vec2 i = floor(p), f = fract(p);
-    float a = hash(i), b = hash(i + vec2(1.0, 0.0)), c = hash(i + vec2(0.0, 1.0)), d = hash(i + vec2(1.0, 1.0));
-    vec2 u = f * f * (3.0 - 2.0 * f);
-    return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
-  }
-  float fbm(vec2 p){ float v = 0.0, a = 0.5; for (int i = 0; i < 3; i++){ v += a * noise(p); p = p * 2.0 + vec2(1.7, 9.2); a *= 0.5; } return v; }
 
   void main(){
-    // Neon circle (concentric rings), centered in the upper area, kept circular.
-    vec2 c = vec2(0.5, 0.80) * iResolution.xy;
-    vec2 p = (gl_FragCoord.xy - c) / min(iResolution.x, iResolution.y);
+    // Centered neon circle (concentric rings), kept perfectly circular.
+    vec2 p = (gl_FragCoord.xy - 0.5 * iResolution.xy) / min(iResolution.x, iResolution.y);
     float radius = 0.34;
-    float rings = ring(p, radius, 0.03) + ring(p, radius - 0.018, 0.01) + ring(p, radius + 0.018, 0.005);
-    float inner = ring(p, radius, 0.0025);
-
-    // Faint blue-space nebula fill so the whole block still reads as space.
-    vec2 q = gl_FragCoord.xy / iResolution.xy * 3.0;
-    float neb = smoothstep(0.25, 1.0, fbm(q + iTime * 0.03)) * 0.16;
+    float rings = ring(p, radius, 0.02) + ring(p, radius - 0.012, 0.007) + ring(p, radius + 0.012, 0.004);
+    float inner = ring(p, radius, 0.0016);
 
     vec3 blue = vec3(0.14, 0.46, 1.0);
     vec3 cyan = vec3(0.42, 0.82, 1.0);
     vec3 col = mix(blue, cyan, clamp(rings, 0.0, 1.0));
     col = mix(col, vec3(1.0), inner * 0.85);
 
-    float alpha = clamp(rings * 0.95 + inner + neb, 0.0, 1.0);
+    float alpha = clamp(rings * 0.95 + inner, 0.0, 1.0);
     gl_FragColor = vec4(col, alpha);
   }
 `;
@@ -101,10 +87,10 @@ export default function ShaderGlow({ className = "" }) {
       const cw = canvas.clientWidth;
       const ch = canvas.clientHeight;
       if (cw === 0 || ch === 0) return;
-      // Render at a modest internal resolution and let CSS upscale.
-      const q = Math.min(1, 900 / ch);
-      const w = Math.max(1, Math.round(cw * q));
-      const h = Math.max(1, Math.round(ch * q));
+      // Full resolution (capped dpr) so the ring stays crisp, not pixelated.
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = Math.max(1, Math.round(cw * dpr));
+      const h = Math.max(1, Math.round(ch * dpr));
       if (canvas.width !== w || canvas.height !== h) {
         canvas.width = w;
         canvas.height = h;

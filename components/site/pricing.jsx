@@ -187,18 +187,22 @@ export default function Pricing() {
       id="pricing"
       className="relative isolate overflow-hidden mx-auto max-w-6xl px-6 py-28 sm:py-36"
     >
-      {/* Blue-space nebula filling the whole block, behind the glass cards.
-          All four edges are feathered so there is no visible rectangle. */}
+      {/* Smooth blue-space ambiance across the whole block (gradient = no pixels) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 opacity-70"
+        className="pointer-events-none absolute inset-0 -z-10"
         style={{
-          maskImage:
-            "linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent)",
-          maskComposite: "intersect",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent)",
-          WebkitMaskComposite: "source-in",
+          background:
+            "radial-gradient(55% 26% at 50% 14%, oklch(0.5 0.2 255 / 0.22), transparent 70%), radial-gradient(85% 60% at 50% 50%, oklch(0.38 0.14 255 / 0.07), transparent 80%), radial-gradient(70% 50% at 50% 90%, oklch(0.42 0.16 255 / 0.10), transparent 78%)",
+        }}
+      />
+      {/* Crisp neon blue circle, contained + full resolution; round edges feathered */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-4 -z-10 h-[540px] w-[540px] max-w-[150%] -translate-x-1/2 opacity-80 md:top-10 md:h-[780px] md:w-[780px]"
+        style={{
+          maskImage: "radial-gradient(closest-side, #000 72%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(closest-side, #000 72%, transparent 100%)",
         }}
       >
         <ShaderGlow className="h-full w-full" />
