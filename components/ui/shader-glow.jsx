@@ -3,46 +3,48 @@
 import { useEffect, useRef } from "react";
 
 /*
-  ShaderGlow — a re-themed, scoped take on the animated-glassy-pricing shader.
-  Instead of a full-screen rainbow canvas, this renders transparent concentric
-  "orbital" rings in the brand palette (edge cyan -> champagne, white-hot inner
-  line) sized to its own element, so it can sit behind a section as ambient
-  motion without touching the content. Reduced-motion paints one static frame.
+  ShaderGlow — a full-field "blue space" nebula rendered to a transparent WebGL
+  canvas, meant to sit BEHIND a section (background layer) and fill it top to
+  bottom. Domain-warped fbm in a bright space-blue palette; alpha-out so dark
+  areas stay see-through and the section's own background shows. The buffer is
+  downsampled (soft field, so low res upscales cleanly) to stay cheap on a tall
+  section. Reduced-motion paints one static frame.
 */
 const FRAG = `
   precision highp float;
   uniform float iTime;
   uniform vec2 iResolution;
 
-  mat2 rotate2d(float a){ float c=cos(a), s=sin(a); return mat2(c,-s,s,c); }
-  float variation(vec2 v1, vec2 v2, float strength, float speed){
-    return sin(dot(normalize(v1), normalize(v2)) * strength + iTime * speed) / 100.0;
+  float hash(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
+  float noise(vec2 p){
+    vec2 i = floor(p), f = fract(p);
+    float a = hash(i), b = hash(i + vec2(1.0, 0.0)), c = hash(i + vec2(0.0, 1.0)), d = hash(i + vec2(1.0, 1.0));
+    vec2 u = f * f * (3.0 - 2.0 * f);
+    return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
   }
-  float ring(vec2 p, float rad, float width){
-    float len = length(p);
-    len += variation(p, vec2(0.0, 1.0), 5.0, 2.0);
-    len -= variation(p, vec2(1.0, 0.0), 5.0, 2.0);
-    return smoothstep(rad - width, rad, len) - smoothstep(rad, rad + width, len);
+  float fbm(vec2 p){
+    float v = 0.0, a = 0.5;
+    for (int i = 0; i < 4; i++){ v += a * noise(p); p = p * 2.0 + vec2(1.7, 9.2); a *= 0.5; }
+    return v;
   }
+
   void main(){
-    // Centered + aspect-corrected so the rings stay circular.
-    vec2 p = (gl_FragCoord.xy - 0.5 * iResolution.xy) / min(iResolution.x, iResolution.y);
-    float radius = 0.35;
-    float mask = 0.0;
-    mask += ring(p, radius, 0.035);
-    mask += ring(p, radius - 0.018, 0.01);
-    mask += ring(p, radius + 0.018, 0.005);
-    float inner = ring(p, radius, 0.003);
+    vec2 uv = gl_FragCoord.xy / iResolution.xy;
+    vec2 p = vec2(uv.x * (iResolution.x / iResolution.y), uv.y) * 3.0;
+    float t = iTime * 0.05;
 
-    vec2 v = rotate2d(iTime * 0.3) * p;
-    vec3 edgeColor = vec3(0.37, 0.83, 0.96);   // boundary cyan
-    vec3 goldColor = vec3(0.89, 0.78, 0.60);   // champagne
-    float t = 0.5 + 0.5 * sin(iTime * 0.25 + v.x * 4.0 + v.y * 3.0);
-    vec3 col = mix(edgeColor, goldColor, t);
-    col = mix(col, vec3(1.0), inner);          // white-hot inner line
+    // Domain-warped fbm -> flowing nebula.
+    vec2 q = vec2(fbm(p + t), fbm(p + vec2(5.2, 1.3) - t));
+    float n = fbm(p + 2.0 * q + vec2(0.0, t * 1.5));
+    n = smoothstep(0.15, 1.0, n);
 
-    float alpha = clamp(mask + inner, 0.0, 1.0);
-    gl_FragColor = vec4(col, alpha);
+    vec3 deep = vec3(0.03, 0.08, 0.26);   // deep space blue
+    vec3 blue = vec3(0.13, 0.45, 1.0);    // bright space blue
+    vec3 cyan = vec3(0.38, 0.82, 1.0);    // luminous edge
+    vec3 col = mix(deep, blue, n);
+    col = mix(col, cyan, smoothstep(0.6, 1.0, n) * 0.55);
+
+    gl_FragColor = vec4(col, n * 0.95);
   }
 `;
 
@@ -57,7 +59,6 @@ export default function ShaderGlow({ className = "" }) {
     const gl = canvas.getContext("webgl", {
       alpha: true,
       premultipliedAlpha: false,
-      antialias: true,
     });
     if (!gl) return;
 
@@ -90,9 +91,13 @@ export default function ShaderGlow({ className = "" }) {
     const iResLoc = gl.getUniformLocation(program, "iResolution");
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const w = Math.max(1, Math.round(canvas.clientWidth * dpr));
-      const h = Math.max(1, Math.round(canvas.clientHeight * dpr));
+      const cw = canvas.clientWidth;
+      const ch = canvas.clientHeight;
+      if (cw === 0 || ch === 0) return;
+      // Soft field -> render at low internal resolution and let CSS upscale.
+      const q = Math.min(1, 760 / ch);
+      const w = Math.max(1, Math.round(cw * q));
+      const h = Math.max(1, Math.round(ch * q));
       if (canvas.width !== w || canvas.height !== h) {
         canvas.width = w;
         canvas.height = h;

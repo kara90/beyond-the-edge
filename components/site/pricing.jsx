@@ -187,8 +187,8 @@ export default function Pricing() {
       id="pricing"
       className="relative isolate overflow-hidden mx-auto max-w-6xl px-6 py-28 sm:py-36"
     >
-      {/* Ambient re-themed shader glow behind the pricing content */}
-      <ShaderGlow className="pointer-events-none absolute left-1/2 top-16 -z-10 h-[620px] w-[620px] max-w-none -translate-x-1/2 opacity-50 md:h-[820px] md:w-[820px]" />
+      {/* Blue-space nebula filling the whole block, behind the glass cards */}
+      <ShaderGlow className="pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-60" />
 
       <Reveal className="text-center">
         <div className="flex justify-center">
@@ -230,7 +230,7 @@ export default function Pricing() {
             <article
               className={`relative flex h-full flex-col rounded-2xl border p-8 transition-all duration-500 ${
                 t.featured
-                  ? "border-edge/40 bg-edge/[0.05] shadow-[0_0_70px_-18px_var(--edge)] lg:-my-3 lg:py-11"
+                  ? "border-edge/40 bg-edge/[0.05] shadow-[0_0_70px_-18px_var(--edge)] hover:-translate-y-1.5 lg:-my-3 lg:py-11"
                   : "border-white/8 bg-white/[0.02] hover:-translate-y-1.5 hover:border-white/15 hover:bg-white/[0.04]"
               }`}
             >
@@ -289,7 +289,7 @@ export default function Pricing() {
 
       {/* Apex — the ceiling, as a wide flagship band */}
       <Reveal delay={0.12}>
-        <div className="mt-5 overflow-hidden rounded-2xl bg-gradient-to-br from-primary/45 via-edge/25 to-primary/45 p-px shadow-[0_0_110px_-35px_var(--primary)]">
+        <div className="mt-5 overflow-hidden rounded-2xl bg-gradient-to-br from-primary/45 via-edge/25 to-primary/45 p-px shadow-[0_0_110px_-35px_var(--primary)] transition-transform duration-500 hover:-translate-y-1.5">
           <article className="sheen relative overflow-hidden rounded-[calc(var(--radius)*1.8-1px)] bg-[oklch(0.17_0.022_264)] p-8 sm:p-10">
             <div
               aria-hidden="true"
@@ -387,7 +387,7 @@ export default function Pricing() {
       <div className="mt-20 grid gap-5 lg:grid-cols-5">
         {/* Add-ons */}
         <Reveal className="lg:col-span-2">
-          <div className="h-full rounded-2xl border border-white/8 bg-white/[0.02] p-8">
+          <div className="h-full rounded-2xl border border-white/8 bg-white/[0.02] p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-white/15">
             <h3 className="font-display text-lg font-semibold tracking-tight">
               Add-ons
             </h3>
@@ -413,7 +413,7 @@ export default function Pricing() {
 
         {/* Keep it running */}
         <Reveal delay={0.08} className="lg:col-span-3">
-          <div className="h-full rounded-2xl border border-white/8 bg-white/[0.02] p-8">
+          <div className="h-full rounded-2xl border border-white/8 bg-white/[0.02] p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-white/15">
             <h3 className="font-display text-lg font-semibold tracking-tight">
               Keep it running
             </h3>
@@ -425,7 +425,7 @@ export default function Pricing() {
               {plans.map((p) => (
                 <div
                   key={p.name}
-                  className="flex flex-col rounded-xl border border-white/8 bg-background/40 p-5"
+                  className="flex flex-col rounded-xl border border-white/8 bg-background/40 p-5 transition-all duration-500 hover:-translate-y-1.5 hover:border-edge/25"
                 >
                   <h4 className="font-display text-base font-semibold tracking-tight">
                     {p.name}

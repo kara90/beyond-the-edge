@@ -57,7 +57,7 @@ export default function Work() {
             delay={i * 0.06}
             className={p.wide ? "sm:col-span-2" : ""}
           >
-            <article className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] transition-all duration-500 hover:border-edge/30 hover:shadow-[0_30px_80px_-30px_oklch(0.82_0.12_220/0.3)]">
+            <article className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] transition-all duration-500 hover:-translate-y-1.5 hover:border-edge/30 hover:shadow-[0_30px_80px_-30px_oklch(0.82_0.12_220/0.3)]">
               {/* MEDIA SWAP POINT — replace with <img>/<video> */}
               <div className={`relative ${p.ratio} w-full overflow-hidden`}>
                 <div
