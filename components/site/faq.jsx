@@ -29,9 +29,23 @@ const FAQS = [
   },
 ];
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 export default function Faq() {
   return (
     <section id="faq" className="relative mx-auto max-w-3xl px-6 py-28 sm:py-36">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Reveal className="text-center">
         <div className="flex justify-center">
           <Eyebrow centered>FAQ</Eyebrow>
