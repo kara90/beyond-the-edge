@@ -54,6 +54,11 @@ export const metadata = {
   robots: { index: true, follow: true },
 };
 
+export const viewport = {
+  // Match mobile browser chrome to the deep-space background.
+  themeColor: "#0a0e17",
+};
+
 export default function RootLayout({ children }) {
   return (
     <html
