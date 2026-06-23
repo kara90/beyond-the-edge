@@ -191,7 +191,7 @@ export default function Pricing() {
           All four edges are feathered so there is no visible rectangle. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 opacity-60"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-70"
         style={{
           maskImage:
             "linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent)",
@@ -219,7 +219,7 @@ export default function Pricing() {
 
       {/* Included in every project */}
       <Reveal delay={0.05} className="mt-12">
-        <div className="rounded-2xl border border-white/8 bg-white/[0.02] px-6 py-5">
+        <div className="rounded-2xl border border-white/12 bg-white/[0.05] px-6 py-5 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
           <div className="flex flex-col items-center gap-x-6 gap-y-3 sm:flex-row sm:flex-wrap sm:justify-center">
             <span className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-edge/80">
               Included in every project
@@ -242,10 +242,10 @@ export default function Pricing() {
         {buildTiers.map((t, i) => (
           <Reveal key={t.name} delay={i * 0.08} className="h-full">
             <article
-              className={`relative flex h-full flex-col rounded-2xl border p-8 transition-all duration-500 ${
+              className={`relative flex h-full flex-col rounded-2xl border p-8 backdrop-blur-xl transition-all duration-500 ${
                 t.featured
-                  ? "border-edge/40 bg-edge/[0.05] shadow-[0_0_70px_-18px_var(--edge)] hover:-translate-y-1.5 lg:-my-3 lg:py-11"
-                  : "border-white/8 bg-white/[0.02] hover:-translate-y-1.5 hover:border-white/15 hover:bg-white/[0.04]"
+                  ? "border-edge/40 bg-edge/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_70px_-18px_var(--edge)] hover:-translate-y-1.5 lg:-my-3 lg:py-11"
+                  : "border-white/12 bg-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] hover:-translate-y-1.5 hover:border-white/20 hover:bg-white/[0.07]"
               }`}
             >
               {t.featured && (
@@ -304,7 +304,7 @@ export default function Pricing() {
       {/* Apex — the ceiling, as a wide flagship band */}
       <Reveal delay={0.12}>
         <div className="mt-5 overflow-hidden rounded-2xl bg-gradient-to-br from-primary/45 via-edge/25 to-primary/45 p-px shadow-[0_0_110px_-35px_var(--primary)] transition-transform duration-500 hover:-translate-y-1.5">
-          <article className="sheen relative overflow-hidden rounded-[calc(var(--radius)*1.8-1px)] bg-[oklch(0.17_0.022_264)] p-8 sm:p-10">
+          <article className="sheen relative overflow-hidden rounded-[calc(var(--radius)*1.8-1px)] bg-white/[0.06] p-8 backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.10)] sm:p-10">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full"
@@ -401,7 +401,7 @@ export default function Pricing() {
       <div className="mt-20 grid gap-5 lg:grid-cols-5">
         {/* Add-ons */}
         <Reveal className="lg:col-span-2">
-          <div className="h-full rounded-2xl border border-white/8 bg-white/[0.02] p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-white/15">
+          <div className="h-full rounded-2xl border border-white/12 bg-white/[0.05] p-8 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-all duration-500 hover:-translate-y-1.5 hover:border-white/20">
             <h3 className="font-display text-lg font-semibold tracking-tight">
               Add-ons
             </h3>
@@ -427,7 +427,7 @@ export default function Pricing() {
 
         {/* Keep it running */}
         <Reveal delay={0.08} className="lg:col-span-3">
-          <div className="h-full rounded-2xl border border-white/8 bg-white/[0.02] p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-white/15">
+          <div className="h-full rounded-2xl border border-white/12 bg-white/[0.05] p-8 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-all duration-500 hover:-translate-y-1.5 hover:border-white/20">
             <h3 className="font-display text-lg font-semibold tracking-tight">
               Keep it running
             </h3>
@@ -439,7 +439,7 @@ export default function Pricing() {
               {plans.map((p) => (
                 <div
                   key={p.name}
-                  className="flex flex-col rounded-xl border border-white/8 bg-background/40 p-5 transition-all duration-500 hover:-translate-y-1.5 hover:border-edge/25"
+                  className="flex flex-col rounded-xl border border-white/12 bg-white/[0.05] p-5 backdrop-blur-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all duration-500 hover:-translate-y-1.5 hover:border-edge/25 hover:bg-white/[0.07]"
                 >
                   <h4 className="font-display text-base font-semibold tracking-tight">
                     {p.name}

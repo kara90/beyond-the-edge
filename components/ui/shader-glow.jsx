@@ -15,6 +15,15 @@ const FRAG = `
   uniform float iTime;
   uniform vec2 iResolution;
 
+  float variation(vec2 v1, vec2 v2, float strength, float speed){
+    return sin(dot(normalize(v1), normalize(v2)) * strength + iTime * speed) / 100.0;
+  }
+  float ring(vec2 p, float rad, float width){
+    float len = length(p);
+    len += variation(p, vec2(0.0, 1.0), 5.0, 2.0);
+    len -= variation(p, vec2(1.0, 0.0), 5.0, 2.0);
+    return smoothstep(rad - width, rad, len) - smoothstep(rad, rad + width, len);
+  }
   float hash(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
   float noise(vec2 p){
     vec2 i = floor(p), f = fract(p);
@@ -22,29 +31,27 @@ const FRAG = `
     vec2 u = f * f * (3.0 - 2.0 * f);
     return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
   }
-  float fbm(vec2 p){
-    float v = 0.0, a = 0.5;
-    for (int i = 0; i < 4; i++){ v += a * noise(p); p = p * 2.0 + vec2(1.7, 9.2); a *= 0.5; }
-    return v;
-  }
+  float fbm(vec2 p){ float v = 0.0, a = 0.5; for (int i = 0; i < 3; i++){ v += a * noise(p); p = p * 2.0 + vec2(1.7, 9.2); a *= 0.5; } return v; }
 
   void main(){
-    vec2 uv = gl_FragCoord.xy / iResolution.xy;
-    vec2 p = vec2(uv.x * (iResolution.x / iResolution.y), uv.y) * 3.0;
-    float t = iTime * 0.05;
+    // Neon circle (concentric rings), centered in the upper area, kept circular.
+    vec2 c = vec2(0.5, 0.80) * iResolution.xy;
+    vec2 p = (gl_FragCoord.xy - c) / min(iResolution.x, iResolution.y);
+    float radius = 0.34;
+    float rings = ring(p, radius, 0.03) + ring(p, radius - 0.018, 0.01) + ring(p, radius + 0.018, 0.005);
+    float inner = ring(p, radius, 0.0025);
 
-    // Domain-warped fbm -> flowing nebula.
-    vec2 q = vec2(fbm(p + t), fbm(p + vec2(5.2, 1.3) - t));
-    float n = fbm(p + 2.0 * q + vec2(0.0, t * 1.5));
-    n = smoothstep(0.15, 1.0, n);
+    // Faint blue-space nebula fill so the whole block still reads as space.
+    vec2 q = gl_FragCoord.xy / iResolution.xy * 3.0;
+    float neb = smoothstep(0.25, 1.0, fbm(q + iTime * 0.03)) * 0.16;
 
-    vec3 deep = vec3(0.03, 0.08, 0.26);   // deep space blue
-    vec3 blue = vec3(0.13, 0.45, 1.0);    // bright space blue
-    vec3 cyan = vec3(0.38, 0.82, 1.0);    // luminous edge
-    vec3 col = mix(deep, blue, n);
-    col = mix(col, cyan, smoothstep(0.6, 1.0, n) * 0.55);
+    vec3 blue = vec3(0.14, 0.46, 1.0);
+    vec3 cyan = vec3(0.42, 0.82, 1.0);
+    vec3 col = mix(blue, cyan, clamp(rings, 0.0, 1.0));
+    col = mix(col, vec3(1.0), inner * 0.85);
 
-    gl_FragColor = vec4(col, n * 0.95);
+    float alpha = clamp(rings * 0.95 + inner + neb, 0.0, 1.0);
+    gl_FragColor = vec4(col, alpha);
   }
 `;
 
@@ -94,8 +101,8 @@ export default function ShaderGlow({ className = "" }) {
       const cw = canvas.clientWidth;
       const ch = canvas.clientHeight;
       if (cw === 0 || ch === 0) return;
-      // Soft field -> render at low internal resolution and let CSS upscale.
-      const q = Math.min(1, 760 / ch);
+      // Render at a modest internal resolution and let CSS upscale.
+      const q = Math.min(1, 900 / ch);
       const w = Math.max(1, Math.round(cw * q));
       const h = Math.max(1, Math.round(ch * q));
       if (canvas.width !== w || canvas.height !== h) {
