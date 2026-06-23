@@ -1,4 +1,4 @@
-import { ArrowUpRight, Play, ImageIcon, Quote } from "lucide-react";
+import { ArrowUpRight, Play, Quote } from "lucide-react";
 import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
 
@@ -45,7 +45,7 @@ export default function Work() {
           </h2>
         </div>
         <p className="max-w-sm text-[0.95rem] leading-relaxed text-muted-foreground">
-          A selection of recent work. More added as projects ship.
+          Selected work. More added as new projects ship.
         </p>
       </Reveal>
 
@@ -75,14 +75,17 @@ export default function Work() {
                   aria-hidden="true"
                   className="absolute inset-0 -translate-x-full bg-[linear-gradient(105deg,transparent_30%,oklch(1_0_0/0.08)_48%,transparent_62%)] transition-transform duration-[1.1s] ease-out group-hover:translate-x-full"
                 />
-                {p.video && (
-                  <span className="absolute left-1/2 top-1/2 flex size-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/[0.04] backdrop-blur-sm transition-all duration-500 group-hover:scale-110 group-hover:border-edge/50">
-                    <Play className="size-5 translate-x-px fill-edge text-edge" />
+                {/* Composed placeholder — reads intentional until real media lands */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+                  {p.video && (
+                    <span className="flex size-14 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] backdrop-blur-sm transition-all duration-500 group-hover:scale-110 group-hover:border-edge/40">
+                      <Play className="size-5 translate-x-px fill-edge/80 text-edge/80" />
+                    </span>
+                  )}
+                  <span className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-muted-foreground/55">
+                    Project coming soon
                   </span>
-                )}
-                <span className="absolute left-5 top-5 inline-flex items-center gap-2 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted-foreground/60">
-                  <ImageIcon className="size-3.5" /> Media
-                </span>
+                </div>
                 <div className="absolute inset-x-0 bottom-0 flex items-end bg-gradient-to-t from-black/55 to-transparent p-5 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                   <span className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground">
                     View project

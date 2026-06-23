@@ -157,7 +157,11 @@ const plans = [
 const pricingFaqs = [
   {
     q: "Do I own my website?",
-    a: "Yes. Your build is yours. We host and manage it so you never have to think about it.",
+    a: "If you purchase a build, Liftoff, Orbit, Beyond, or Apex, it is yours. We host and manage it so you never have to think about it, and if you ever move on, we provide your files. A free or promotional landing page provided as part of a monthly plan stays part of that plan and remains live for as long as the plan is active. We will always be clear about what is yours to keep before you start.",
+  },
+  {
+    q: "What happens if I pause my monthly plan?",
+    a: "Anything you purchased outright is always yours. Anything included free as part of a plan, like a complimentary landing page, stays live while the plan is active. No surprises, we make this clear up front.",
   },
   {
     q: "Could I just build this myself with a website builder?",
