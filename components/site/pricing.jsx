@@ -64,6 +64,26 @@ const tiers = [
   },
 ];
 
+// The ceiling. Rendered as a wide band below the three cards so four options
+// never crowd the row. Styled the most luxuriously of all (gradient border,
+// champagne checks, deeper glow).
+const apex = {
+  name: "Apex",
+  tag: "The sky is the offer",
+  price: "From $15,000",
+  cadence: "one-time",
+  note: "For brands that want the best that can be built. Open-ended by design.",
+  features: [
+    "Everything in Beyond, with nothing held back",
+    "The full signature behind-the-edge experience, a custom animated world built around your brand",
+    "Bespoke 3D, motion, and a cinematic scroll journey unique to you",
+    "A full cinematic brand film, not just a hero clip",
+    "Complete conversion and growth system",
+    "Direct line to the founder and white-glove delivery",
+  ],
+  cta: "Request the flagship",
+};
+
 const addons = [
   { item: "Extra page", price: "$150 to $250 each" },
   { item: "Produced brand video", price: "from $1,500" },
@@ -186,6 +206,72 @@ export default function Pricing() {
         ))}
       </div>
 
+      {/* Apex — the ceiling, as a wide flagship band */}
+      <Reveal delay={0.12}>
+        <div className="mt-5 overflow-hidden rounded-2xl bg-gradient-to-br from-primary/45 via-edge/25 to-primary/45 p-px shadow-[0_0_110px_-35px_var(--primary)]">
+          <article className="sheen relative overflow-hidden rounded-[calc(var(--radius)*1.8-1px)] bg-[oklch(0.17_0.022_264)] p-8 sm:p-10">
+            {/* luxe corner glow */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full"
+              style={{
+                background:
+                  "radial-gradient(circle, oklch(0.85 0.07 80 / 0.18) 0%, transparent 70%)",
+              }}
+            />
+            <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
+              {/* Left: identity + price + CTA */}
+              <div className="lg:w-[38%]">
+                <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/[0.08] px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-primary">
+                  <span className="size-1.5 rounded-full bg-primary shadow-[0_0_8px_var(--primary)]" />
+                  The ceiling
+                </span>
+                <h3 className="mt-5 text-3xl font-semibold sm:text-4xl">
+                  {apex.name}
+                </h3>
+                <p className="mt-1.5 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-metallic">
+                  {apex.tag}
+                </p>
+                <p className="mt-6 flex items-baseline gap-2">
+                  <span className="text-4xl font-semibold text-metallic">
+                    {apex.price}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    {apex.cadence}
+                  </span>
+                </p>
+                <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
+                  {apex.note}
+                </p>
+                <ButtonLink
+                  href="#contact"
+                  size="lg"
+                  className="sheen group mt-8 h-12 rounded-full bg-primary px-7 font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_34px_-6px_var(--primary)]"
+                >
+                  {apex.cta}
+                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </ButtonLink>
+              </div>
+
+              {/* Right: full feature set */}
+              <div className="lg:w-[62%] lg:border-l lg:border-white/[0.08] lg:pl-12">
+                <ul className="grid gap-x-8 gap-y-3.5 sm:grid-cols-2">
+                  {apex.features.map((f) => (
+                    <li
+                      key={f}
+                      className="flex items-start gap-3 text-sm text-foreground/90"
+                    >
+                      <Check className="mt-0.5 size-4 shrink-0 text-primary" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </article>
+        </div>
+      </Reveal>
+
       {/* Supporting blocks: Add-ons + Care plans */}
       <div className="mt-20 grid gap-5 lg:grid-cols-5">
         {/* Add-ons */}
@@ -268,9 +354,13 @@ export default function Pricing() {
         </Reveal>
       </div>
 
-      {/* Closing line */}
+      {/* Risk reversal + closing line */}
       <Reveal delay={0.1}>
-        <p className="mt-16 text-center text-sm text-muted-foreground">
+        <p className="mx-auto mt-16 max-w-xl text-center text-sm leading-relaxed text-muted-foreground">
+          Every project starts with a design you approve before we build. If the
+          direction is not right, we refine it until it is.
+        </p>
+        <p className="mt-3 text-center text-sm text-muted-foreground/65">
           Final scope and pricing are confirmed on a quick call.
         </p>
       </Reveal>

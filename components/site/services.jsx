@@ -7,19 +7,19 @@ const SERVICES = [
     icon: Globe,
     title: "Websites",
     meta: "Design · Build · Launch",
-    body: "Sites that feel like a flagship. Fast, cinematic, and built to convert. The kind of first impression that makes a local business look national.",
+    body: "A site that makes a local business look national. Fast, cinematic, and built to turn visitors into booked calls and sales.",
   },
   {
     icon: Clapperboard,
     title: "Cinematic video",
     meta: "Brand films · Social",
-    body: "Brand films, product pieces, and social cutdowns shot and cut to feel like a campaign. Footage that earns attention and holds it.",
+    body: "Brand films and social cuts that stop the scroll and make people remember you. The kind of footage your competitors cannot match.",
   },
   {
     icon: LineChart,
     title: "Ongoing growth",
     meta: "Content · Optimization",
-    body: "We do not disappear at launch. A steady cadence of content and refinement that keeps the brand sharp and the pipeline moving.",
+    body: "We do not vanish at launch. A steady flow of fresh content and refinement that keeps you visible and keeps the leads coming.",
   },
 ];
 

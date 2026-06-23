@@ -339,8 +339,9 @@ function HeroCopy() {
         </span>
       </h1>
       <p className="mt-7 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-        High-end websites and cinematic video for businesses that refuse to look
-        average. Major-brand quality, made accessible.
+        High-end websites and cinematic video for businesses ready to look like
+        the leader in their market. Major-brand quality, without the major-brand
+        agency price.
       </p>
       <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">
         <ButtonLink
@@ -360,6 +361,11 @@ function HeroCopy() {
           See the work
         </ButtonLink>
       </div>
+
+      {/* TRUST LINE — swap for real credits or remove */}
+      <p className="mt-7 font-mono text-[0.7rem] uppercase tracking-[0.22em] text-muted-foreground/60">
+        Trusted by brands that refuse to blend in
+      </p>
     </>
   );
 }

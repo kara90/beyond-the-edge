@@ -1,22 +1,38 @@
-import { ArrowUpRight, Play, ImageIcon } from "lucide-react";
+import { ArrowUpRight, Play, ImageIcon, Quote } from "lucide-react";
 import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
 
 /*
-  THE WORK — placeholder grid, ready for real projects.
-  Each frame is a labelled media swap point. Replace the gradient block with an
-  <img> / <video> and update the title, category and `video` flag.
+  THE WORK — proof structure, built to convert. Three layers:
+    1) Project cards: media + client type + one-line result
+    2) A credits strip (client logos / "as seen")
+    3) One testimonial block
 
-  ── SWAP NOTE ──────────────────────────────────────────────────────────────
-  Drop project media into each frame's media layer. Keep the ratios per item so
-  the grid stays balanced.
+  Everything below is a labelled placeholder. Swap the media, fill the result
+  lines, drop in real logos, and replace the testimonial. The structure is
+  built so that once real pieces land, it reads as strong proof.
+
+  ── SWAP NOTES ──────────────────────────────────────────────────────────────
+  - PROJECTS: replace the gradient media layer with <img>/<video>; set
+    `clientType` and `result` (the one-line outcome) per project.
+  - LOGOS: replace each frame with a real client / press logo.
+  - TESTIMONIAL: replace quote, name, business.
 */
 const PROJECTS = [
-  { id: "P-01", label: "Featured film", category: "Cinematic video", ratio: "aspect-[16/10]", wide: true, video: true },
-  { id: "P-02", label: "Flagship website", category: "Web", ratio: "aspect-[4/5]" },
-  { id: "P-03", label: "Brand campaign", category: "Video · Web", ratio: "aspect-[4/5]", video: true },
-  { id: "P-04", label: "Product launch", category: "Web", ratio: "aspect-[16/10]", wide: true },
+  { id: "P-01", clientType: "Restaurant group", result: "One-line result goes here", ratio: "aspect-[16/10]", wide: true, video: true },
+  { id: "P-02", clientType: "Dental clinic", result: "One-line result goes here", ratio: "aspect-[4/5]" },
+  { id: "P-03", clientType: "Real estate", result: "One-line result goes here", ratio: "aspect-[4/5]", video: true },
+  { id: "P-04", clientType: "Home services", result: "One-line result goes here", ratio: "aspect-[16/10]", wide: true },
 ];
+
+const LOGOS = ["Logo", "Logo", "Logo", "Logo", "Logo"];
+
+const TESTIMONIAL = {
+  quote:
+    "Client testimonial goes here. One or two sentences on the result we delivered, in their own words.",
+  name: "Client name",
+  business: "Business, industry",
+};
 
 export default function Work() {
   return (
@@ -29,11 +45,11 @@ export default function Work() {
           </h2>
         </div>
         <p className="max-w-sm text-[0.95rem] leading-relaxed text-muted-foreground">
-          A selection of recent work lands here. Each piece built to make a
-          business look like the leader in its market.
+          A selection of recent work. More added as projects ship.
         </p>
       </Reveal>
 
+      {/* 1) Project cards */}
       <div className="mt-16 grid gap-5 sm:grid-cols-2">
         {PROJECTS.map((p, i) => (
           <Reveal
@@ -42,7 +58,7 @@ export default function Work() {
             className={p.wide ? "sm:col-span-2" : ""}
           >
             <article className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] transition-all duration-500 hover:border-edge/30 hover:shadow-[0_30px_80px_-30px_oklch(0.82_0.12_220/0.3)]">
-              {/* MEDIA SWAP POINT — replace this block with <img>/<video> */}
+              {/* MEDIA SWAP POINT — replace with <img>/<video> */}
               <div className={`relative ${p.ratio} w-full overflow-hidden`}>
                 <div
                   className="absolute inset-0 transition-transform duration-[1.2s] ease-out group-hover:scale-[1.06]"
@@ -51,29 +67,22 @@ export default function Work() {
                       "radial-gradient(120% 120% at 30% 20%, oklch(0.26 0.04 250) 0%, oklch(0.18 0.025 264) 55%, oklch(0.14 0.02 268) 100%)",
                   }}
                 />
-                {/* faint boundary arc echoing the brand */}
                 <div
                   aria-hidden="true"
                   className="absolute -right-16 -top-16 size-56 rounded-full border border-edge/15 transition-colors duration-500 group-hover:border-edge/30"
                 />
-
-                {/* light sweep on hover */}
                 <span
                   aria-hidden="true"
                   className="absolute inset-0 -translate-x-full bg-[linear-gradient(105deg,transparent_30%,oklch(1_0_0/0.08)_48%,transparent_62%)] transition-transform duration-[1.1s] ease-out group-hover:translate-x-full"
                 />
-
                 {p.video && (
                   <span className="absolute left-1/2 top-1/2 flex size-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/[0.04] backdrop-blur-sm transition-all duration-500 group-hover:scale-110 group-hover:border-edge/50">
                     <Play className="size-5 translate-x-px fill-edge text-edge" />
                   </span>
                 )}
-
                 <span className="absolute left-5 top-5 inline-flex items-center gap-2 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted-foreground/60">
                   <ImageIcon className="size-3.5" /> Media
                 </span>
-
-                {/* hover reveal: View project */}
                 <div className="absolute inset-x-0 bottom-0 flex items-end bg-gradient-to-t from-black/55 to-transparent p-5 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                   <span className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground">
                     View project
@@ -82,19 +91,64 @@ export default function Work() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between px-6 py-5">
+              <div className="flex items-center justify-between gap-4 px-6 py-5">
                 <div>
-                  <h3 className="text-lg font-semibold">{p.label}</h3>
-                  <p className="mt-1 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted-foreground">
-                    {p.category}
+                  <p className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-edge/70">
+                    {p.clientType}
                   </p>
+                  <h3 className="mt-1.5 text-lg font-semibold text-foreground/90">
+                    {p.result}
+                  </h3>
                 </div>
-                <ArrowUpRight className="size-5 text-muted-foreground/40 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-edge" />
+                <ArrowUpRight className="size-5 shrink-0 text-muted-foreground/40 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-edge" />
               </div>
             </article>
           </Reveal>
         ))}
       </div>
+
+      {/* 2) Credits strip */}
+      <Reveal delay={0.05} className="mt-20">
+        <p className="text-center font-mono text-[0.7rem] uppercase tracking-[0.28em] text-muted-foreground/60">
+          Trusted by brands that refuse to blend in
+        </p>
+        <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-5">
+          {LOGOS.map((l, i) => (
+            <div
+              key={i}
+              className="flex h-16 items-center justify-center rounded-xl border border-white/8 bg-white/[0.02] font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted-foreground/40"
+            >
+              {/* LOGO SWAP POINT */}
+              {l}
+            </div>
+          ))}
+        </div>
+      </Reveal>
+
+      {/* 3) Testimonial */}
+      <Reveal delay={0.1} className="mt-12">
+        <figure className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-10 sm:p-14">
+          <Quote
+            aria-hidden="true"
+            className="absolute right-8 top-8 size-16 text-edge/10"
+          />
+          <blockquote className="relative max-w-3xl text-balance text-xl font-medium leading-relaxed text-foreground/90 sm:text-2xl">
+            {TESTIMONIAL.quote}
+          </blockquote>
+          <figcaption className="mt-8 flex items-center gap-4">
+            {/* avatar / logo placeholder */}
+            <span className="flex size-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] font-mono text-[0.6rem] uppercase tracking-widest text-muted-foreground/50">
+              IMG
+            </span>
+            <div>
+              <p className="text-sm font-semibold">{TESTIMONIAL.name}</p>
+              <p className="text-sm text-muted-foreground">
+                {TESTIMONIAL.business}
+              </p>
+            </div>
+          </figcaption>
+        </figure>
+      </Reveal>
     </section>
   );
 }
