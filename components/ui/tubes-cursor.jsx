@@ -20,13 +20,22 @@ import { useEffect, useRef } from "react";
 const SRC =
   "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js";
 
-const randomColors = (count) =>
+// Space palette: blues and edge-cyan only (no purple/pink/yellow).
+const BLUE_POOL = [
+  "#1e5fff",
+  "#2b8cff",
+  "#3aa0ff",
+  "#4f7bff",
+  "#21d4fd",
+  "#11cdef",
+  "#5fd4f5",
+  "#0ea5e9",
+];
+
+const pickBlues = (count) =>
   new Array(count)
     .fill(0)
-    .map(
-      () =>
-        "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0")
-    );
+    .map(() => BLUE_POOL[Math.floor(Math.random() * BLUE_POOL.length)]);
 
 export default function TubesCursor() {
   const canvasRef = useRef(null);
@@ -50,10 +59,10 @@ export default function TubesCursor() {
           const TubesCursorFx = module.default;
           appRef.current = TubesCursorFx(canvasRef.current, {
             tubes: {
-              colors: ["#5e72e4", "#8965e0", "#f5365c"],
+              colors: ["#1e5fff", "#3aa0ff", "#5fd4f5"],
               lights: {
-                intensity: 200,
-                colors: ["#21d4fd", "#b721ff", "#f4d03f", "#11cdef"],
+                intensity: 150,
+                colors: ["#21d4fd", "#11cdef", "#3a7bff", "#5fd4f5"],
               },
             },
           });
@@ -86,11 +95,11 @@ export default function TubesCursor() {
         );
     }, 100);
 
-    // Click anywhere randomizes the palette (core behavior of the effect).
+    // Click anywhere reshuffles within the blue/space palette (stays on-theme).
     const onClick = () => {
       if (appRef.current) {
-        appRef.current.tubes.setColors(randomColors(3));
-        appRef.current.tubes.setLightsColors(randomColors(4));
+        appRef.current.tubes.setColors(pickBlues(3));
+        appRef.current.tubes.setLightsColors(pickBlues(4));
       }
     };
     window.addEventListener("click", onClick);
@@ -112,7 +121,7 @@ export default function TubesCursor() {
     // screen blend lives on the wrapper, so the neon composites over the site.
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-30 overflow-hidden mix-blend-screen"
+      className="pointer-events-none absolute inset-0 z-30 overflow-hidden opacity-50 mix-blend-screen"
     >
       <canvas ref={canvasRef} className="block h-full w-full" />
     </div>
