@@ -11,6 +11,7 @@ import {
 import { ArrowRight } from "lucide-react";
 import Starfield from "@/components/site/starfield";
 import ButtonLink from "@/components/site/button-link";
+import TubesCursor from "@/components/ui/tubes-cursor";
 
 /*
   HERO — the signature moment.
@@ -114,6 +115,9 @@ export default function Hero() {
     >
       {/* Pinned stage */}
       <div className="sticky top-0 flex h-[100svh] items-center justify-center overflow-hidden">
+        {/* Neon tubes cursor — confined to the hero stage */}
+        <TubesCursor />
+
         {/* Stage background: deep-space gradient */}
         <div
           aria-hidden="true"

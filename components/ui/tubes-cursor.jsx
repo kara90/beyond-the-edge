@@ -4,10 +4,11 @@ import { useEffect, useRef } from "react";
 
 /*
   TubesCursor — neon WebGL tubes that follow the mouse, adapted from the
-  threejs-components "tubes1" cursor as a site-wide overlay (not the full-screen
-  demo). Rendered as a fixed, click-through canvas with mix-blend-screen, so the
-  neon glows over the existing site and the dark areas drop out. Sits below the
-  nav / custom cursor / scroll bar so nothing is blocked. Desktop + motion only.
+  threejs-components "tubes1" cursor. Mounted INSIDE the hero as an absolute,
+  click-through layer with mix-blend-screen, so the neon glows over the hero
+  and is clipped to it (the hero stage has overflow-hidden) and scrolls away
+  with it. The library sizes its buffer to this layer's parent, so confining it
+  to the hero keeps the buffer at viewport size. Desktop + motion only.
 
   The library is loaded from a CDN at runtime (client only), kept out of the
   static bundle via a non-analyzable dynamic import. Click anywhere recolors it.
@@ -111,7 +112,7 @@ export default function TubesCursor() {
     // screen blend lives on the wrapper, so the neon composites over the site.
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[40] overflow-hidden mix-blend-screen"
+      className="pointer-events-none absolute inset-0 z-30 overflow-hidden mix-blend-screen"
     >
       <canvas ref={canvasRef} className="block h-full w-full" />
     </div>
