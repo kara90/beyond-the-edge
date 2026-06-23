@@ -11,7 +11,7 @@ import {
 import { ArrowRight } from "lucide-react";
 import Starfield from "@/components/site/starfield";
 import ButtonLink from "@/components/site/button-link";
-import TubesCursor from "@/components/ui/tubes-cursor";
+import { BeamsBackground } from "@/components/ui/beams-background";
 
 /*
   HERO — the signature moment.
@@ -115,8 +115,22 @@ export default function Hero() {
     >
       {/* Pinned stage */}
       <div className="sticky top-0 flex h-[100svh] items-center justify-center overflow-hidden">
-        {/* Neon tubes cursor — confined to the hero stage */}
-        <TubesCursor />
+        {/* Ambient blue light beams drifting through the hero space.
+            Edges feathered so the layer blends with no visible boundary. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-[2] opacity-70 mix-blend-screen"
+          style={{
+            maskImage:
+              "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent)",
+            maskComposite: "intersect",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent)",
+            WebkitMaskComposite: "source-in",
+          }}
+        >
+          <BeamsBackground intensity="medium" className="h-full w-full" />
+        </div>
 
         {/* Stage background: deep-space gradient */}
         <div

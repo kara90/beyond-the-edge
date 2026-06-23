@@ -187,8 +187,22 @@ export default function Pricing() {
       id="pricing"
       className="relative isolate overflow-hidden mx-auto max-w-6xl px-6 py-28 sm:py-36"
     >
-      {/* Blue-space nebula filling the whole block, behind the glass cards */}
-      <ShaderGlow className="pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-60" />
+      {/* Blue-space nebula filling the whole block, behind the glass cards.
+          All four edges are feathered so there is no visible rectangle. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-60"
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent)",
+          maskComposite: "intersect",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent)",
+          WebkitMaskComposite: "source-in",
+        }}
+      >
+        <ShaderGlow className="h-full w-full" />
+      </div>
 
       <Reveal className="text-center">
         <div className="flex justify-center">
