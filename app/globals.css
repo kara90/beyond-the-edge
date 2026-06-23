@@ -266,6 +266,38 @@
   }
 }
 
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Custom cursor: hide native on pointers/links/buttons, keep caret on inputs */
+.has-custom-cursor,
+.has-custom-cursor a,
+.has-custom-cursor button,
+.has-custom-cursor [role="button"],
+.has-custom-cursor summary {
+  cursor: none;
+}
+
+/* FAQ accordion: drop the native disclosure triangle */
+summary {
+  list-style: none;
+}
+summary::-webkit-details-marker {
+  display: none;
+}
+
 /* Respect reduced motion globally for any CSS-driven motion */
 @media (prefers-reduced-motion: reduce) {
   html {

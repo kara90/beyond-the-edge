@@ -1,5 +1,9 @@
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import SmoothScroll from "@/components/site/smooth-scroll";
+import Intro from "@/components/site/intro";
+import ScrollProgress from "@/components/site/scroll-progress";
+import Cursor from "@/components/site/cursor";
 
 // Body: clean, highly readable.
 const geistSans = Geist({
@@ -66,6 +70,10 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col overflow-x-hidden">
+        <SmoothScroll />
+        <Intro />
+        <ScrollProgress />
+        <Cursor />
         {children}
       </body>
     </html>
