@@ -167,7 +167,7 @@ export default function Pricing() {
                 {t.tag}
               </p>
 
-              <p className="mt-6 flex items-baseline gap-2">
+              <p className="mt-6 flex flex-wrap items-baseline gap-2">
                 <span className="font-display text-3xl font-semibold tracking-tight text-metallic">
                   {t.price}
                 </span>
@@ -232,7 +232,7 @@ export default function Pricing() {
                 <p className="mt-1.5 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-metallic">
                   {apex.tag}
                 </p>
-                <p className="mt-6 flex items-baseline gap-2">
+                <p className="mt-6 flex flex-wrap items-baseline gap-2">
                   <span className="text-4xl font-semibold text-metallic">
                     {apex.price}
                   </span>
@@ -319,7 +319,7 @@ export default function Pricing() {
                   <h4 className="font-display text-base font-semibold tracking-tight">
                     {p.name}
                   </h4>
-                  <p className="mt-2 flex items-baseline gap-1.5">
+                  <p className="mt-2 flex flex-wrap items-baseline gap-x-1.5">
                     <span className="font-display text-xl font-semibold tracking-tight text-metallic">
                       {p.price}
                     </span>
