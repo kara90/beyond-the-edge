@@ -327,8 +327,8 @@ export default function Hero() {
 function HeroCopy() {
   return (
     <>
-      <span className="eyebrow mb-6 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-4 py-1.5 backdrop-blur-sm">
-        <span className="h-1.5 w-1.5 rounded-full bg-edge shadow-[0_0_8px_var(--edge)]" />
+      <span className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-edge/35 bg-white/[0.07] px-4 py-2 font-mono text-xs uppercase tracking-[0.26em] text-foreground/90 shadow-[0_0_26px_-8px_var(--edge)] backdrop-blur-md">
+        <span className="h-1.5 w-1.5 rounded-full bg-edge shadow-[0_0_10px_2px_var(--edge)]" />
         Websites · Cinematic video · Growth
       </span>
       <h1 className="font-display text-balance text-5xl font-bold leading-[1.02] tracking-tight sm:text-7xl">
