@@ -9,17 +9,29 @@ const NAV = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/8 px-6 py-14">
+    <footer className="relative overflow-hidden border-t border-white/8 px-6 pt-16">
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-10 md:flex-row">
         <div className="max-w-xs">
-          <a href="#top" className="flex items-center gap-2.5 font-display text-base font-semibold">
+          <a
+            href="#top"
+            className="flex items-center gap-2.5 text-base font-semibold"
+          >
             <BrandMark />
-            Beyond the <span className="text-metallic">Edge</span>
+            <span className="font-display">
+              Beyond the <span className="text-metallic">Edge</span>
+            </span>
           </a>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
             Websites and cinematic video for businesses that refuse to look
             average.
           </p>
+          <a
+            href="#contact"
+            className="mt-5 inline-flex items-center gap-2 text-sm text-edge transition-colors hover:text-edge-bright"
+          >
+            <span className="size-1.5 rounded-full bg-edge shadow-[0_0_8px_var(--edge)]" />
+            Booking new projects
+          </a>
         </div>
 
         <div className="flex flex-col gap-10 sm:flex-row sm:gap-16">
@@ -30,7 +42,7 @@ export default function Footer() {
                 <li key={l.href}>
                   <a
                     href={l.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="link-underline text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
                     {l.label}
                   </a>
@@ -45,7 +57,7 @@ export default function Footer() {
               <li>
                 <a
                   href="mailto:hello@beyondtheedgestudio.com"
-                  className="text-muted-foreground transition-colors hover:text-foreground"
+                  className="link-underline text-muted-foreground transition-colors hover:text-foreground"
                 >
                   hello@beyondtheedgestudio.com
                 </a>
@@ -57,8 +69,21 @@ export default function Footer() {
       </div>
 
       <div className="mx-auto mt-12 flex max-w-6xl flex-col items-center justify-between gap-3 border-t border-white/8 pt-6 text-xs text-muted-foreground sm:flex-row">
-        <p>© {new Date().getFullYear()} Beyond the Edge Studio. All rights reserved.</p>
+        <p>
+          © {new Date().getFullYear()} Beyond the Edge Studio. All rights
+          reserved.
+        </p>
         <p className="font-mono tracking-wider">Beyond the edge of expected.</p>
+      </div>
+
+      {/* Oversized wordmark watermark — fades up into the void */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none mt-8 select-none text-center"
+      >
+        <span className="block whitespace-nowrap bg-gradient-to-b from-white/[0.07] to-transparent bg-clip-text text-[19vw] font-bold leading-[0.85] tracking-tight text-transparent">
+          Beyond the Edge
+        </span>
       </div>
     </footer>
   );

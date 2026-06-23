@@ -346,16 +346,16 @@ function HeroCopy() {
         <ButtonLink
           href="#contact"
           size="lg"
-          className="h-12 rounded-full bg-primary px-7 text-[0.95rem] font-semibold text-primary-foreground hover:bg-primary/85"
+          className="sheen group h-12 rounded-full bg-primary px-7 text-[0.95rem] font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_34px_-6px_var(--primary)]"
         >
           Start your project
-          <ArrowRight className="size-4" />
+          <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
         </ButtonLink>
         <ButtonLink
           href="#work"
           variant="outline"
           size="lg"
-          className="h-12 rounded-full border-white/15 bg-white/[0.02] px-7 text-[0.95rem] text-foreground hover:bg-white/[0.06]"
+          className="h-12 rounded-full border-white/15 bg-white/[0.02] px-7 text-[0.95rem] text-foreground backdrop-blur-sm transition-all duration-300 hover:border-edge/40 hover:bg-white/[0.06]"
         >
           See the work
         </ButtonLink>

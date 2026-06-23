@@ -1,4 +1,5 @@
 import Reveal from "@/components/site/reveal";
+import Eyebrow from "@/components/site/eyebrow";
 
 const POINTS = [
   {
@@ -33,21 +34,21 @@ export default function Why() {
 
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
-          <p className="eyebrow">03 / Why beyond the edge</p>
-          <h2 className="mt-5 max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tight sm:text-5xl">
+          <Eyebrow>The difference</Eyebrow>
+          <h2 className="mt-6 max-w-3xl text-3xl font-semibold leading-[1.05] sm:text-5xl">
             There is a line most brands never cross.
             <span className="text-metallic"> We live on the other side of it.</span>
           </h2>
         </Reveal>
 
-        <div className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/[0.04] md:grid-cols-3">
+        <div className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/8 md:grid-cols-3">
           {POINTS.map((p, i) => (
             <Reveal key={p.k} delay={i * 0.1}>
-              <div className="h-full bg-background/40 p-8">
-                <p className="eyebrow text-edge/80">{p.k}</p>
-                <h3 className="mt-5 font-display text-xl font-semibold tracking-tight">
-                  {p.title}
-                </h3>
+              <div className="group h-full bg-background/60 p-8 transition-colors duration-500 hover:bg-background/30">
+                <p className="font-mono text-[0.7rem] uppercase tracking-[0.28em] text-edge/80">
+                  {String(i + 1).padStart(2, "0")} &middot; {p.k}
+                </p>
+                <h3 className="mt-5 text-xl font-semibold">{p.title}</h3>
                 <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">
                   {p.body}
                 </p>

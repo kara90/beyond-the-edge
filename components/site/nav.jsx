@@ -45,7 +45,7 @@ export default function Nav() {
             <li key={l.href}>
               <a
                 href={l.href}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                className="link-underline text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 {l.label}
               </a>
@@ -56,7 +56,7 @@ export default function Nav() {
         <ButtonLink
           href="#contact"
           size="sm"
-          className="h-9 rounded-full bg-primary px-5 font-semibold text-primary-foreground hover:bg-primary/85"
+          className="sheen h-9 rounded-full bg-primary px-5 font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_24px_-4px_var(--primary)]"
         >
           Book a call
         </ButtonLink>

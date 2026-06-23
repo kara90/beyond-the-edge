@@ -1,5 +1,6 @@
 import Nav from "@/components/site/nav";
 import Hero from "@/components/site/hero";
+import Marquee from "@/components/site/marquee";
 import Services from "@/components/site/services";
 import Work from "@/components/site/work";
 import Why from "@/components/site/why";
@@ -13,6 +14,7 @@ export default function Home() {
       <Nav />
       <main id="top">
         <Hero />
+        <Marquee />
         <Services />
         <Work />
         <Why />

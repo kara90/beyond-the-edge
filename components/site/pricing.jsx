@@ -1,5 +1,6 @@
 import { Check, ArrowRight } from "lucide-react";
 import Reveal from "@/components/site/reveal";
+import Eyebrow from "@/components/site/eyebrow";
 import ButtonLink from "@/components/site/button-link";
 
 /*
@@ -110,8 +111,10 @@ export default function Pricing() {
   return (
     <section id="pricing" className="relative mx-auto max-w-6xl px-6 py-28 sm:py-36">
       <Reveal className="text-center">
-        <p className="eyebrow">04 / Pricing</p>
-        <h2 className="mx-auto mt-5 max-w-2xl font-display text-3xl font-semibold leading-tight tracking-tight sm:text-5xl">
+        <div className="flex justify-center">
+          <Eyebrow centered>Pricing</Eyebrow>
+        </div>
+        <h2 className="mx-auto mt-6 max-w-2xl text-3xl font-semibold leading-[1.05] sm:text-5xl">
           Built to go beyond the ordinary.
         </h2>
         <p className="mx-auto mt-5 max-w-lg text-[0.95rem] leading-relaxed text-muted-foreground">
@@ -125,10 +128,10 @@ export default function Pricing() {
         {tiers.map((t, i) => (
           <Reveal key={t.name} delay={i * 0.08} className="h-full">
             <article
-              className={`relative flex h-full flex-col rounded-2xl border p-8 transition-colors duration-300 ${
+              className={`relative flex h-full flex-col rounded-2xl border p-8 transition-all duration-500 ${
                 t.featured
-                  ? "border-edge/40 bg-edge/[0.05] shadow-[0_0_60px_-18px_var(--edge)] lg:-my-3 lg:py-11"
-                  : "border-white/8 bg-white/[0.02] hover:border-white/15"
+                  ? "sheen border-edge/40 bg-edge/[0.05] shadow-[0_0_70px_-18px_var(--edge)] lg:-my-3 lg:py-11"
+                  : "border-white/8 bg-white/[0.02] hover:-translate-y-1.5 hover:border-white/15 hover:bg-white/[0.04]"
               }`}
             >
               {t.featured && (
