@@ -2,6 +2,7 @@ import { Check, ArrowRight, Plus } from "lucide-react";
 import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
 import ButtonLink from "@/components/site/button-link";
+import ShaderGlow from "@/components/ui/shader-glow";
 import { BOOKING_URL } from "@/components/site/config";
 
 /*
@@ -178,7 +179,13 @@ const pricingFaqs = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="relative mx-auto max-w-6xl px-6 py-28 sm:py-36">
+    <section
+      id="pricing"
+      className="relative isolate overflow-hidden mx-auto max-w-6xl px-6 py-28 sm:py-36"
+    >
+      {/* Ambient re-themed shader glow behind the pricing content */}
+      <ShaderGlow className="pointer-events-none absolute left-1/2 top-16 -z-10 h-[620px] w-[620px] max-w-none -translate-x-1/2 opacity-50 md:h-[820px] md:w-[820px]" />
+
       <Reveal className="text-center">
         <div className="flex justify-center">
           <Eyebrow centered>Pricing</Eyebrow>
