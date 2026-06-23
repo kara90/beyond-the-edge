@@ -1,0 +1,6 @@
+# Cloudflare Pages headers.
+# The exported OG image has no file extension, so force its content type
+# (and cache it) for social scrapers.
+/opengraph-image
+  Content-Type: image/png
+  Cache-Control: public, max-age=86400
