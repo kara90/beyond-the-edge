@@ -26,6 +26,8 @@ const tiers = [
       "Custom designed website, up to 5 pages",
       "Mobile responsive, fast, and secure",
       "Lead capture and contact form",
+      "SEO-ready build: fast, mobile, and structured so search engines can read your site",
+      "Basic local search setup: your business, location, and services marked up correctly",
       "Search and analytics setup",
       "Hosting set up and managed by us",
     ],
@@ -45,6 +47,8 @@ const tiers = [
       "A conversion funnel built into the site",
       "A set of professionally produced images",
       "One short branded hero video",
+      "Advanced on-page SEO: schema markup, keyword-aware structure, and full local optimization",
+      "Search Console and sitemap setup, so you start on solid ground",
       "Search and analytics setup",
     ],
     cta: "Start your project",
@@ -59,6 +63,7 @@ const tiers = [
     note: "Final price scales with scope and complexity.",
     features: [
       "Everything in Orbit, fully bespoke",
+      "Complete advanced SEO setup, tuned for speed and local visibility across every page",
       "Flagship design: advanced 3D and custom animation",
       "The look of a $20,000 plus experience",
       "Cinematic hero video",
@@ -77,6 +82,7 @@ const tiers = [
     note: "For brands that want the best that can be built.",
     features: [
       "Everything in Beyond, with nothing held back",
+      "Best-in-class SEO foundation, fully optimized and built to be found",
       "The full signature behind-the-edge experience, custom to your brand",
       "Bespoke 3D, motion, and a cinematic scroll journey",
       "A full cinematic brand film",
@@ -97,6 +103,7 @@ const included = [
   "Mobile responsive build",
   "Speed and security",
   "Free SSL",
+  "SEO-ready code",
   "Hosting managed by us",
   "A design you approve before we build",
 ];
@@ -108,6 +115,7 @@ const addons = [
   { item: "Professional copywriting", price: "from $150 per page" },
   { item: "Logo and brand identity", price: "from $750" },
   { item: "Online store or booking setup", price: "from $600" },
+  { item: "Ongoing SEO program", price: "from $500 per month" },
   { item: "Rush delivery", price: "plus 25 percent" },
 ];
 
@@ -139,6 +147,7 @@ const plans = [
     features: [
       "Everything in Presence",
       "Ongoing content and campaign management",
+      "Ongoing SEO and Google Business management",
       "Ads creative and performance optimization",
     ],
   },
@@ -160,6 +169,10 @@ const pricingFaqs = [
   {
     q: "What if I need changes after launch?",
     a: "Small changes are covered by your monthly plan. Anything bigger is a quick, clear quote.",
+  },
+  {
+    q: "Will my site rank on Google?",
+    a: "Your site is built SEO-ready: fast, structured, and locally optimized, which gives you the strongest possible foundation to be found. Ongoing ranking work, like Google Business management, reviews, and content, is a separate monthly service, because rankings build over time. We optimize everything we control and are honest about the rest.",
   },
 ];
 
@@ -346,6 +359,11 @@ export default function Pricing() {
           and we will point you to the right one, honestly.
         </p>
         <div className="mx-auto mt-6 flex max-w-2xl flex-col items-center gap-2 text-center text-sm text-muted-foreground/75">
+          <p>
+            Every site we build is SEO-optimized at the code level. Ongoing
+            Google ranking work is a separate service, because real rankings
+            build over time.
+          </p>
           <p>Builds can be split into two payments: half to start, half at launch.</p>
           <p>
             You approve the design before we build. If the direction is not
