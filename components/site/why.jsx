@@ -32,10 +32,15 @@ export default function Why() {
         videoClassName="h-full w-full object-cover opacity-[0.15] motion-reduce:hidden"
         grain
       />
-      {/* Black scrim to darken the video, feathered so it adds no edge */}
+      {/* Black gradient scrim: solid black at the top/bottom edges to bury the
+          video's hard edges, lightly darkening the middle. */}
       <div
         aria-hidden="true"
-        className="media-feather-y-strong pointer-events-none absolute inset-0 -z-10 bg-black/35"
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background:
+            "linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.32) 30%, rgba(0,0,0,0.32) 70%, #000 100%)",
+        }}
       />
       {/* Ambient light-beam aura above the video */}
       <BeamsLayer className="-z-10" opacity={0.5} />
