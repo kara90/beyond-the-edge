@@ -46,7 +46,7 @@ export default function RockDivider({
           io.disconnect();
         }
       },
-      { rootMargin: "700px" }
+      { rootMargin: "1400px" }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -57,6 +57,16 @@ export default function RockDivider({
     const v = videoRef.current;
     if (!v) return;
     v.pause();
+
+    // Paint a visible frame as soon as the clip loads so the rock shows up
+    // even before it is scrolled through (it would otherwise be blank).
+    const paintFirst = () => {
+      try {
+        if (v.currentTime < 0.05) v.currentTime = (v.duration || 4) * 0.4;
+      } catch {}
+    };
+    if (v.readyState >= 1) paintFirst();
+    else v.addEventListener("loadedmetadata", paintFirst, { once: true });
 
     if (reduce) {
       const set = () => {

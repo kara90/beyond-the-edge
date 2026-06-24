@@ -8,16 +8,6 @@ import { BOOKING_URL } from "@/components/site/config";
 export default function Contact() {
   return (
     <section id="contact" className="relative overflow-hidden px-6 py-32 sm:py-44">
-      {/* A final boundary glow rising from below */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[70vh]"
-        style={{
-          background:
-            "radial-gradient(60% 80% at 50% 120%, oklch(0.82 0.12 220 / 0.18) 0%, transparent 60%)",
-        }}
-      />
-
       <Reveal className="mx-auto max-w-3xl text-center">
         <div className="flex justify-center">
           <Eyebrow centered>Start your project</Eyebrow>

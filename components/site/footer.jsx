@@ -1,6 +1,7 @@
 import { BrandMark } from "@/components/site/nav";
 import CineGrain from "@/components/site/cine-grain";
 import BeamsLayer from "@/components/site/beams-layer";
+import VideoEdges from "@/components/site/video-edges";
 
 const NAV = [
   { href: "#services", label: "What we do" },
@@ -19,7 +20,7 @@ export default function Footer() {
         muted
         playsInline
         aria-hidden="true"
-        className="hf-liquid media-feather-y pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-50 motion-reduce:hidden"
+        className="hf-liquid pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-50 motion-reduce:hidden"
       >
         <source
           src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b7947967e20d627d6e338.mp4"
@@ -30,6 +31,8 @@ export default function Footer() {
       <BeamsLayer className="-z-10" opacity={0.45} />
       {/* Cinematic grain over the footage */}
       <CineGrain className="-z-10" opacity={0.26} />
+      {/* Thin animated blue/gray edge top + bottom */}
+      <VideoEdges />
       {/* Veil so footer text stays readable over the video */}
       <div
         aria-hidden="true"
