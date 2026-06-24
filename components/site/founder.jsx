@@ -1,6 +1,5 @@
 import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
-import Rock, { ROCK_SRCS } from "@/components/site/rock";
 
 /*
   FOUNDER — the trust multiplier. Puts a face to "direct line to the founder."
@@ -9,7 +8,6 @@ import Rock, { ROCK_SRCS } from "@/components/site/rock";
 export default function Founder() {
   return (
     <section className="relative mx-auto max-w-6xl px-6 py-28 sm:py-36">
-      <Rock src={ROCK_SRCS[1]} size={96} className="hidden lg:block right-[16%] top-[6%]" />
       <div className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr]">
         {/* PORTRAIT SWAP POINT — drop a real founder photo here */}
         <Reveal>

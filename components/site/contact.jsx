@@ -3,7 +3,6 @@ import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
 import ButtonLink from "@/components/site/button-link";
 import LeadForm from "@/components/site/lead-form";
-import Rock, { ROCK_SRCS } from "@/components/site/rock";
 import { BOOKING_URL } from "@/components/site/config";
 
 export default function Contact() {
@@ -19,9 +18,6 @@ export default function Contact() {
         }}
       />
 
-      {/* Floating rocks in the dark (desktop) */}
-      <Rock src={ROCK_SRCS[2]} size={100} className="hidden lg:block left-[8%] top-[14%]" />
-      <Rock src={ROCK_SRCS[3]} size={84} className="hidden lg:block right-[9%] bottom-[18%]" />
       <Reveal className="mx-auto max-w-3xl text-center">
         <div className="flex justify-center">
           <Eyebrow centered>Start your project</Eyebrow>

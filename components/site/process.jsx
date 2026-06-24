@@ -1,6 +1,5 @@
 import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
-import Rock, { ROCK_SRCS } from "@/components/site/rock";
 
 /*
   PROCESS — a real, ordered sequence, so the numbering carries meaning. Backs
@@ -28,7 +27,6 @@ const STEPS = [
 export default function Process() {
   return (
     <section id="process" className="relative mx-auto max-w-6xl px-6 py-28 sm:py-36">
-      <Rock src={ROCK_SRCS[3]} size={90} className="hidden lg:block right-[4%] top-[10%]" />
       <Reveal>
         <Eyebrow>How we work</Eyebrow>
         <h2 className="mt-6 max-w-2xl text-3xl font-semibold leading-[1.05] sm:text-5xl">

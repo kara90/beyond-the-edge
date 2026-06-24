@@ -1,7 +1,6 @@
 import { Globe, Clapperboard, LineChart, ArrowUpRight } from "lucide-react";
 import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
-import Rock, { ROCK_SRCS } from "@/components/site/rock";
 
 const SERVICES = [
   {
@@ -30,7 +29,6 @@ export default function Services() {
       id="services"
       className="relative mx-auto max-w-6xl px-6 py-28 sm:py-36"
     >
-      <Rock src={ROCK_SRCS[2]} size={86} className="hidden lg:block right-[3%] top-[12%]" />
       <Reveal>
         <Eyebrow>What we do</Eyebrow>
         <h2 className="mt-6 max-w-2xl text-3xl font-semibold leading-[1.05] sm:text-5xl">

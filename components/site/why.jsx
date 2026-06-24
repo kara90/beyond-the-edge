@@ -1,6 +1,5 @@
 import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
-import Rock, { ROCK_SRCS } from "@/components/site/rock";
 import ScrubVideo from "@/components/site/scrub-video";
 import BeamsLayer from "@/components/site/beams-layer";
 
@@ -48,8 +47,6 @@ export default function Why() {
       />
 
       {/* Floating rocks in the dark gutters (desktop) */}
-      <Rock src={ROCK_SRCS[0]} size={104} className="hidden lg:block left-[5%] top-[18%]" />
-      <Rock src={ROCK_SRCS[1]} size={84} className="hidden lg:block right-[6%] bottom-[16%]" />
 
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
