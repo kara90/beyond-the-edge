@@ -202,18 +202,6 @@ export default function Pricing() {
           WebkitMaskComposite: "source-in",
         }}
       />
-      {/* Crisp neon blue circle, contained + full resolution; round edges feathered */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[1100px] w-[1100px] max-w-none -translate-x-1/2 opacity-40 md:h-[1850px] md:w-[1850px]"
-        style={{
-          maskImage: "radial-gradient(closest-side, #000 74%, transparent 100%)",
-          WebkitMaskImage: "radial-gradient(closest-side, #000 74%, transparent 100%)",
-        }}
-      >
-        <ShaderGlow className="h-full w-full" />
-      </div>
-
       {/* Content stays centered while the background bleeds full-width */}
       <div className="relative mx-auto max-w-6xl px-6">
       <Reveal className="text-center">
@@ -229,8 +217,39 @@ export default function Pricing() {
         </p>
       </Reveal>
 
+      {/* Pricing tiers sit over a soft background video, feathered on every side */}
+      <div className="relative isolate mt-12">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-0 -z-10 h-full w-screen max-w-none -translate-x-1/2 overflow-hidden"
+          style={{
+            maskImage:
+              "linear-gradient(to right, transparent, #000 14%, #000 86%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent)",
+            maskComposite: "intersect",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent, #000 14%, #000 86%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent)",
+            WebkitMaskComposite: "source-in",
+          }}
+        >
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            aria-hidden="true"
+            className="h-full w-full object-cover opacity-50 motion-reduce:hidden"
+          >
+            <source
+              src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b85a06a414441905c9c6b.mp4"
+              type="video/mp4"
+            />
+          </video>
+          {/* Readability veil so tier text stays crisp over the video */}
+          <div className="absolute inset-0 bg-background/45" />
+        </div>
+
       {/* Included in every project */}
-      <Reveal delay={0.05} className="mt-12">
+      <Reveal delay={0.05}>
         <div className="spotlight-edge glass rounded-3xl px-6 py-5">
           <div className="flex flex-col items-center gap-x-6 gap-y-3 sm:flex-row sm:flex-wrap sm:justify-center">
             <span className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-edge/80">
@@ -380,6 +399,7 @@ export default function Pricing() {
           </article>
         </div>
       </Reveal>
+      </div>
 
       {/* Decision helper + payment + risk reversal */}
       <Reveal delay={0.1}>
@@ -409,8 +429,19 @@ export default function Pricing() {
         </div>
       </Reveal>
 
-      {/* Supporting blocks: Add-ons + Care plans */}
-      <div className="mt-20 grid gap-5 lg:grid-cols-5">
+      {/* Supporting blocks: Add-ons + Care plans — neon circle glows behind them */}
+      <div className="relative isolate mt-20">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[1100px] w-[1100px] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-40 md:h-[1500px] md:w-[1500px]"
+          style={{
+            maskImage: "radial-gradient(closest-side, #000 74%, transparent 100%)",
+            WebkitMaskImage: "radial-gradient(closest-side, #000 74%, transparent 100%)",
+          }}
+        >
+          <ShaderGlow className="h-full w-full" />
+        </div>
+        <div className="grid gap-5 lg:grid-cols-5">
         {/* Add-ons */}
         <Reveal className="lg:col-span-2">
           <div className="spotlight-edge glass h-full rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1.5">
@@ -489,6 +520,7 @@ export default function Pricing() {
             </div>
           </div>
         </Reveal>
+        </div>
       </div>
 
       {/* Objection-handling FAQ (pricing-specific) */}
