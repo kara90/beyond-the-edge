@@ -185,15 +185,21 @@ export default function Pricing() {
   return (
     <section
       id="pricing"
-      className="relative isolate overflow-hidden mx-auto max-w-6xl px-6 py-28 sm:py-36"
+      className="relative isolate overflow-hidden py-28 sm:py-36"
     >
-      {/* Smooth blue-space ambiance across the whole block (gradient = no pixels) */}
+      {/* Full-bleed blue-space ambiance, feathered on every side (no hard box) */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(55% 26% at 50% 14%, oklch(0.5 0.2 255 / 0.22), transparent 70%), radial-gradient(85% 60% at 50% 50%, oklch(0.38 0.14 255 / 0.07), transparent 80%), radial-gradient(70% 50% at 50% 90%, oklch(0.42 0.16 255 / 0.10), transparent 78%)",
+            "radial-gradient(40% 26% at 50% 12%, oklch(0.5 0.2 255 / 0.20), transparent 70%), radial-gradient(70% 55% at 50% 50%, oklch(0.38 0.14 255 / 0.06), transparent 80%), radial-gradient(55% 45% at 50% 92%, oklch(0.42 0.16 255 / 0.09), transparent 78%)",
+          maskImage:
+            "linear-gradient(to right, transparent, #000 16%, #000 84%, transparent), linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent)",
+          maskComposite: "intersect",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent, #000 16%, #000 84%, transparent), linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent)",
+          WebkitMaskComposite: "source-in",
         }}
       />
       {/* Crisp neon blue circle, contained + full resolution; round edges feathered */}
@@ -208,6 +214,8 @@ export default function Pricing() {
         <ShaderGlow className="h-full w-full" />
       </div>
 
+      {/* Content stays centered while the background bleeds full-width */}
+      <div className="relative mx-auto max-w-6xl px-6">
       <Reveal className="text-center">
         <div className="flex justify-center">
           <Eyebrow centered>Pricing</Eyebrow>
@@ -509,6 +517,7 @@ export default function Pricing() {
           Final scope and pricing are confirmed on a quick call.
         </p>
       </Reveal>
+      </div>
     </section>
   );
 }
