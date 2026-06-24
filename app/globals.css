@@ -303,7 +303,8 @@
     animates the displacement). When scrolling settles, the filter is removed,
     so idle rendering cost is zero.
   */
-  html.hf-scrolling .hf-liquid {
+  html.hf-liquid-on .hf-liquid,
+  html.hf-liquid-on .hf-rippling {
     filter: url(#hf-liquid);
   }
 
