@@ -242,6 +242,27 @@
       transparent
     );
   }
+
+  /* Frosted glass panels — transparent, edgeless, premium. Definition comes
+     from blur + a soft floating shadow + a faint top sheen, not a hard border. */
+  .glass {
+    background-color: oklch(0.24 0.05 256 / 0.28);
+    -webkit-backdrop-filter: blur(24px) saturate(1.2);
+    backdrop-filter: blur(24px) saturate(1.2);
+    border: 1px solid oklch(1 0 0 / 0.04);
+    box-shadow:
+      0 40px 90px -50px oklch(0 0 0 / 0.8),
+      inset 0 1px 0 0 oklch(1 0 0 / 0.05);
+  }
+  .glass-featured {
+    background-color: oklch(0.27 0.06 238 / 0.32);
+    -webkit-backdrop-filter: blur(24px) saturate(1.2);
+    backdrop-filter: blur(24px) saturate(1.2);
+    border: 1px solid oklch(0.82 0.12 220 / 0.28);
+    box-shadow:
+      0 0 80px -22px oklch(0.82 0.12 220 / 0.45),
+      inset 0 1px 0 0 oklch(1 0 0 / 0.08);
+  }
 }
 
 @keyframes marquee {
