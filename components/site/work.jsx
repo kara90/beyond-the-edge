@@ -57,7 +57,7 @@ export default function Work() {
             delay={i * 0.06}
             className={p.wide ? "sm:col-span-2" : ""}
           >
-            <article className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] transition-all duration-500 hover:-translate-y-1.5 hover:border-edge/30 hover:shadow-[0_30px_80px_-30px_oklch(0.82_0.12_220/0.3)]">
+            <article className="spotlight-edge group relative cursor-pointer overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] transition-all duration-500 hover:-translate-y-1.5 hover:border-edge/30 hover:shadow-[0_30px_80px_-30px_oklch(0.82_0.12_220/0.3)]">
               {/* MEDIA SWAP POINT — replace with <img>/<video> */}
               <div className={`relative ${p.ratio} w-full overflow-hidden`}>
                 <div
@@ -119,7 +119,7 @@ export default function Work() {
           {LOGOS.map((l, i) => (
             <div
               key={i}
-              className="flex h-16 items-center justify-center rounded-xl border border-white/8 bg-white/[0.02] font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted-foreground/40"
+              className="spotlight-edge flex h-16 items-center justify-center rounded-xl border border-white/8 bg-white/[0.02] font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted-foreground/40"
             >
               {/* LOGO SWAP POINT */}
               {l}
@@ -130,7 +130,7 @@ export default function Work() {
 
       {/* 3) Testimonial */}
       <Reveal delay={0.1} className="mt-12">
-        <figure className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-10 sm:p-14">
+        <figure className="spotlight-edge relative overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-10 sm:p-14">
           <Quote
             aria-hidden="true"
             className="absolute right-8 top-8 size-16 text-edge/10"

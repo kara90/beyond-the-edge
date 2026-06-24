@@ -4,6 +4,7 @@ import SmoothScroll from "@/components/site/smooth-scroll";
 import Intro from "@/components/site/intro";
 import ScrollProgress from "@/components/site/scroll-progress";
 import Cursor from "@/components/site/cursor";
+import Spotlight from "@/components/site/spotlight";
 import JsonLd from "@/components/site/json-ld";
 
 // Body: clean, highly readable.
@@ -96,6 +97,7 @@ export default function RootLayout({ children }) {
         <Intro />
         <ScrollProgress />
         <Cursor />
+        <Spotlight />
         {children}
       </body>
     </html>

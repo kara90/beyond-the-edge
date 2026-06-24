@@ -37,7 +37,7 @@ export default function LeadForm() {
 
   if (status === "success") {
     return (
-      <div className="flex flex-col items-center rounded-2xl border border-edge/25 bg-edge/[0.04] p-10 text-center">
+      <div className="spotlight-edge flex flex-col items-center rounded-2xl border border-edge/25 bg-edge/[0.04] p-10 text-center">
         <span className="flex size-12 items-center justify-center rounded-full border border-edge/40 bg-edge/10 text-edge">
           <Check className="size-6" />
         </span>
@@ -53,7 +53,7 @@ export default function LeadForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-2xl border border-white/8 bg-white/[0.02] p-8 text-left"
+      className="spotlight-edge rounded-2xl border border-white/8 bg-white/[0.02] p-8 text-left"
     >
       <div className="grid gap-5 sm:grid-cols-2">
         <div>

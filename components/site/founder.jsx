@@ -11,7 +11,7 @@ export default function Founder() {
       <div className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr]">
         {/* PORTRAIT SWAP POINT — drop a real founder photo here */}
         <Reveal>
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl border border-white/8 transition-transform duration-500 hover:-translate-y-1.5">
+          <div className="spotlight-edge relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl border border-white/8 transition-transform duration-500 hover:-translate-y-1.5">
             <div
               className="absolute inset-0"
               style={{

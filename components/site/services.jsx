@@ -39,7 +39,7 @@ export default function Services() {
       <div className="mt-16 grid gap-5 md:grid-cols-3">
         {SERVICES.map((s, i) => (
           <Reveal key={s.title} delay={i * 0.08}>
-            <article className="group relative h-full overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-edge/30 hover:bg-white/[0.04] hover:shadow-[0_24px_70px_-24px_oklch(0.82_0.12_220/0.3)]">
+            <article className="spotlight-edge group relative h-full overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-edge/30 hover:bg-white/[0.04] hover:shadow-[0_24px_70px_-24px_oklch(0.82_0.12_220/0.3)]">
               {/* Accent line that draws across the top on hover */}
               <span className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-transparent via-edge to-transparent transition-transform duration-500 group-hover:scale-x-100" />
 

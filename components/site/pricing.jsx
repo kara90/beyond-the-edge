@@ -231,7 +231,7 @@ export default function Pricing() {
 
       {/* Included in every project */}
       <Reveal delay={0.05} className="mt-12">
-        <div className="glass rounded-3xl px-6 py-5">
+        <div className="spotlight-edge glass rounded-3xl px-6 py-5">
           <div className="flex flex-col items-center gap-x-6 gap-y-3 sm:flex-row sm:flex-wrap sm:justify-center">
             <span className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-edge/80">
               Included in every project
@@ -254,7 +254,7 @@ export default function Pricing() {
         {buildTiers.map((t, i) => (
           <Reveal key={t.name} delay={i * 0.08} className="h-full">
             <article
-              className={`relative flex h-full flex-col rounded-3xl p-8 transition-all duration-500 ${
+              className={`spotlight-edge relative flex h-full flex-col rounded-3xl p-8 transition-all duration-500 ${
                 t.featured
                   ? "glass-featured hover:-translate-y-1.5 lg:-my-3 lg:py-11"
                   : "glass hover:-translate-y-1.5"
@@ -315,7 +315,7 @@ export default function Pricing() {
 
       {/* Apex — the ceiling, as a wide flagship band */}
       <Reveal delay={0.12}>
-        <div className="mt-5 overflow-hidden rounded-3xl bg-gradient-to-br from-primary/40 via-edge/20 to-primary/40 p-px shadow-[0_0_110px_-40px_var(--primary)] transition-transform duration-500 hover:-translate-y-1.5">
+        <div className="spotlight-edge mt-5 overflow-hidden rounded-3xl bg-gradient-to-br from-primary/40 via-edge/20 to-primary/40 p-px shadow-[0_0_110px_-40px_var(--primary)] transition-transform duration-500 hover:-translate-y-1.5">
           <article className="glass sheen relative overflow-hidden rounded-[calc(var(--radius)*2.2-1px)] p-8 sm:p-10">
             <div
               aria-hidden="true"
@@ -413,7 +413,7 @@ export default function Pricing() {
       <div className="mt-20 grid gap-5 lg:grid-cols-5">
         {/* Add-ons */}
         <Reveal className="lg:col-span-2">
-          <div className="glass h-full rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1.5">
+          <div className="spotlight-edge glass h-full rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1.5">
             <h3 className="font-display text-lg font-semibold tracking-tight">
               Add-ons
             </h3>
@@ -439,7 +439,7 @@ export default function Pricing() {
 
         {/* Keep it running */}
         <Reveal delay={0.08} className="lg:col-span-3">
-          <div className="glass h-full rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1.5">
+          <div className="spotlight-edge glass h-full rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1.5">
             <h3 className="font-display text-lg font-semibold tracking-tight">
               Keep it running
             </h3>
@@ -451,7 +451,7 @@ export default function Pricing() {
               {plans.map((p) => (
                 <div
                   key={p.name}
-                  className="glass flex flex-col rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1.5"
+                  className="spotlight-edge glass flex flex-col rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1.5"
                 >
                   <h4 className="font-display text-base font-semibold tracking-tight">
                     {p.name}

@@ -263,6 +263,76 @@
       0 0 80px -22px oklch(0.82 0.12 220 / 0.45),
       inset 0 1px 0 0 oklch(1 0 0 / 0.08);
   }
+
+  /*
+    Spotlight edge — a cursor-following neon glow that lights the rim of any
+    framed element (cards, photos, videos). The Spotlight component publishes
+    --spot-x/-y/-xp on <html>; the glow tracks them. background-attachment:
+    fixed means one global coordinate lights whichever frame the cursor is
+    over, exactly as the cursor passes its edge.
+
+    The glow is masked to a thin border ring (padding-box XOR border-box), so
+    it never washes over content or media -- it only paints the edges. Two
+    layers: a space-blue body that drifts toward cyan to the right, plus a
+    white-hot core. Radius is inherited, so it matches each frame's corners.
+  */
+  .spotlight-edge {
+    --spot-size: 320px;
+    --spot-base: 212; /* space blue */
+    --spot-spread: 120; /* drifts toward cyan to the right */
+    --spot-bd: 1.5px; /* glow rim thickness */
+    --spot-hue: calc(var(--spot-base) + (var(--spot-xp, 0.5) * var(--spot-spread)));
+    position: relative;
+  }
+  .spotlight-edge::before,
+  .spotlight-edge::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    border-radius: inherit;
+    padding: var(--spot-bd);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    /* Clip the gradient to the border ring only. */
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  /* Colored body of the glow */
+  .spotlight-edge::before {
+    background-image: radial-gradient(
+      calc(var(--spot-size) * 0.95) calc(var(--spot-size) * 0.95) at
+        calc(var(--spot-x, -400) * 1px) calc(var(--spot-y, -400) * 1px),
+      hsl(var(--spot-hue) 95% 68% / 0.95),
+      transparent 72%
+    );
+    filter: brightness(1.5);
+  }
+  /* White-hot core nearest the cursor */
+  .spotlight-edge::after {
+    background-image: radial-gradient(
+      calc(var(--spot-size) * 0.5) calc(var(--spot-size) * 0.5) at
+        calc(var(--spot-x, -400) * 1px) calc(var(--spot-y, -400) * 1px),
+      hsl(0 0% 100% / 0.85),
+      transparent 70%
+    );
+  }
+  /* Reveal the glow only where a real pointer can drive it. */
+  @media (hover: hover) and (pointer: fine) {
+    .spotlight-edge::before,
+    .spotlight-edge::after {
+      opacity: 1;
+    }
+  }
 }
 
 @keyframes marquee {

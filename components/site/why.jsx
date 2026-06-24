@@ -41,7 +41,7 @@ export default function Why() {
           </h2>
         </Reveal>
 
-        <div className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/8 md:grid-cols-3">
+        <div className="spotlight-edge mt-16 grid gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/8 md:grid-cols-3">
           {POINTS.map((p, i) => (
             <Reveal key={p.k} delay={i * 0.1}>
               <div className="group h-full bg-background/60 p-8 transition-colors duration-500 hover:bg-background/30">
