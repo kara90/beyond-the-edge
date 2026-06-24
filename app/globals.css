@@ -264,6 +264,18 @@
       inset 0 1px 0 0 oklch(1 0 0 / 0.08);
   }
 
+  /* Clearer glass: much more transparent so a video behind reads through it
+     even at rest. Blur + a faint fill keep text legible. */
+  .glass-clear {
+    background-color: oklch(0.22 0.05 256 / 0.1);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    backdrop-filter: blur(18px) saturate(1.2);
+    border: 1px solid oklch(1 0 0 / 0.07);
+    box-shadow:
+      0 40px 90px -50px oklch(0 0 0 / 0.8),
+      inset 0 1px 0 0 oklch(1 0 0 / 0.07);
+  }
+
   /*
     Every background video fades out at its top and bottom so the edges are
     invisible and the clip reads as part of the page, never a pasted-in box.

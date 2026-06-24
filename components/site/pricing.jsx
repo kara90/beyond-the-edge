@@ -327,7 +327,7 @@ export default function Pricing() {
       {/* Apex — the ceiling, as a wide flagship band */}
       <Reveal delay={0.12}>
         <div className="spotlight-edge mt-5 overflow-hidden rounded-3xl bg-gradient-to-br from-primary/40 via-edge/20 to-primary/40 p-px shadow-[0_0_110px_-40px_var(--primary)] transition-transform duration-500 hover:-translate-y-1.5">
-          <article className="glass sheen relative overflow-hidden rounded-[calc(var(--radius)*2.2-1px)] p-8 sm:p-10">
+          <article className="glass-clear sheen relative overflow-hidden rounded-[calc(var(--radius)*2.2-1px)] p-8 sm:p-10">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full"
