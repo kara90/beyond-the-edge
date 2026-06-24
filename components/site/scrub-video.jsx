@@ -95,7 +95,7 @@ export default function ScrubVideo({
         className={videoClassName}
         style={videoStyle}
       />
-      {grain && <CineGrain opacity={0.26} />}
+      {grain && <CineGrain opacity={0.13} />}
     </div>
   );
 }

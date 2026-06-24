@@ -30,7 +30,7 @@ export default function Why() {
       <ScrubVideo
         src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b962d967e20d627da48ed.mp4"
         className="hf-liquid pointer-events-none absolute inset-0 -z-10 overflow-hidden"
-        videoClassName="h-full w-full object-cover opacity-40 motion-reduce:hidden"
+        videoClassName="h-full w-full object-cover opacity-[0.14] motion-reduce:hidden"
         grain
       />
       {/* Ambient light-beam aura above the video */}

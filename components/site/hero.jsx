@@ -146,7 +146,7 @@ export default function Hero() {
         />
 
         {/* Cinematic grain over the footage */}
-        <CineGrain opacity={0.26} />
+        <CineGrain opacity={0.13} />
 
         {/* Ambient light-beam aura over the footage */}
         <BeamsLayer className="z-[2]" opacity={0.7} intensity="medium" />

@@ -30,7 +30,7 @@ export default function Footer() {
       {/* Ambient light-beam aura above the footage */}
       <BeamsLayer className="-z-10" opacity={0.45} />
       {/* Cinematic grain over the footage */}
-      <CineGrain className="-z-10" opacity={0.26} />
+      <CineGrain className="-z-10" opacity={0.13} />
       {/* Thin animated blue/gray edge top + bottom */}
       <VideoEdges />
       {/* Veil so footer text stays readable over the video */}

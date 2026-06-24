@@ -240,7 +240,7 @@ export default function Pricing() {
           {/* Ambient light-beam aura above the footage */}
           <BeamsLayer opacity={0.4} />
           {/* Cinematic grain over the footage */}
-          <CineGrain opacity={0.24} />
+          <CineGrain opacity={0.12} />
           {/* Readability veil so tier text stays crisp over the video */}
           <div className="absolute inset-0 bg-background/45" />
         </div>
