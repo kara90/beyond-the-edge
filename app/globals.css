@@ -315,6 +315,23 @@
       transparent 100%
     );
   }
+  /* Longer top/bottom fade, for a video that needs to dissolve more fully. */
+  .media-feather-y-strong {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 30%,
+      #000 70%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 30%,
+      #000 70%,
+      transparent 100%
+    );
+  }
   .media-feather-xy {
     -webkit-mask-image:
       linear-gradient(to right, transparent 0%, #000 13%, #000 87%, transparent 100%),
