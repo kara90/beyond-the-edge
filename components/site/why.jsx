@@ -1,6 +1,5 @@
 import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
-import BeamsLayer from "@/components/site/beams-layer";
 
 const POINTS = [
   {
@@ -22,9 +21,7 @@ const POINTS = [
 
 export default function Why() {
   return (
-    <section id="why" className="relative isolate overflow-hidden bg-background py-20 sm:py-28">
-      {/* Ambient light-beam aura */}
-      <BeamsLayer className="-z-10" opacity={0.5} />
+    <section id="why" className="relative overflow-hidden py-20 sm:py-28">
 
       {/* Quiet boundary motif — smaller and soft-edged (no hard ring line) */}
       <div
