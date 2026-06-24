@@ -134,10 +134,36 @@ export default function LeadForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="spotlight-edge rounded-2xl border border-white/8 bg-white/[0.02] p-8 text-left"
+      className="spotlight-edge relative overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-8 text-left"
     >
+      {/* Subtle background video inside the box. screen-blend drops its dark
+          background so it reads as part of the box; no scroll/grid effects. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          maskImage:
+            "radial-gradient(120% 120% at 50% 45%, #000 40%, transparent 100%)",
+          WebkitMaskImage:
+            "radial-gradient(120% 120% at 50% 45%, #000 40%, transparent 100%)",
+        }}
+      >
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="h-full w-full object-cover opacity-30 mix-blend-screen motion-reduce:hidden"
+        >
+          <source
+            src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b950e817563b473c5f5e6.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </div>
+
       {/* Contact details */}
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="relative z-10 grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="lf-name" className="mb-2 block text-sm font-medium">
             Name

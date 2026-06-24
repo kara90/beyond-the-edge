@@ -7,7 +7,7 @@ import { BOOKING_URL } from "@/components/site/config";
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative overflow-hidden px-6 py-32 sm:py-44">
+    <section id="contact" className="relative overflow-hidden bg-background px-6 py-32 sm:py-44">
       <Reveal className="mx-auto max-w-3xl text-center">
         <div className="flex justify-center">
           <Eyebrow centered>Start your project</Eyebrow>
