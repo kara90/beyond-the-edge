@@ -2,7 +2,6 @@ import { Check, ArrowRight, Plus } from "lucide-react";
 import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
 import ButtonLink from "@/components/site/button-link";
-import ShaderGlow from "@/components/ui/shader-glow";
 import CineGrain from "@/components/site/cine-grain";
 import { BOOKING_URL } from "@/components/site/config";
 
@@ -424,18 +423,27 @@ export default function Pricing() {
         </div>
       </Reveal>
 
-      {/* Supporting blocks: Add-ons + Care plans — neon circle glows behind them */}
+      {/* Supporting blocks: Add-ons + Care plans — a discreet breathing aura
+          (deep space + soft underwater light) sits behind them, no hard shape */}
       <div className="relative isolate mt-20">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[1100px] w-[1100px] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-40 md:h-[1500px] md:w-[1500px]"
+          className="aura-breathe pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[150%] w-[92%] max-w-none -translate-x-1/2 -translate-y-1/2"
           style={{
-            maskImage: "radial-gradient(closest-side, #000 74%, transparent 100%)",
-            WebkitMaskImage: "radial-gradient(closest-side, #000 74%, transparent 100%)",
+            background:
+              "radial-gradient(42% 50% at 50% 46%, oklch(0.55 0.14 245 / 0.16), oklch(0.48 0.12 232 / 0.06) 40%, transparent 72%)",
+            filter: "blur(48px)",
           }}
-        >
-          <ShaderGlow className="h-full w-full" />
-        </div>
+        />
+        <div
+          aria-hidden="true"
+          className="aura-breathe-slow pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[95%] w-[52%] max-w-none -translate-x-1/2 -translate-y-1/2"
+          style={{
+            background:
+              "radial-gradient(50% 50% at 50% 54%, oklch(0.82 0.12 220 / 0.1), transparent 70%)",
+            filter: "blur(56px)",
+          }}
+        />
         <div className="grid gap-5 lg:grid-cols-5">
         {/* Add-ons */}
         <Reveal className="lg:col-span-2">

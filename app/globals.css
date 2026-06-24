@@ -408,6 +408,26 @@
   }
 }
 
+/* Discreet ambient aura: a soft glow that slowly breathes and drifts, like
+   distant nebula light or light filtering through deep water. Two layers at
+   different speeds interfere for an organic, premium feel. */
+@keyframes aura-breathe {
+  0% {
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0.68;
+  }
+  100% {
+    transform: translate(-50%, -52%) scale(1.1);
+    opacity: 1;
+  }
+}
+.aura-breathe {
+  animation: aura-breathe 13s ease-in-out infinite alternate;
+}
+.aura-breathe-slow {
+  animation: aura-breathe 19s ease-in-out infinite alternate;
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);
