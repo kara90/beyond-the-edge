@@ -24,8 +24,8 @@ export default function Home() {
         <Process />
         <Founder />
         <Pricing />
-        <Faq />
         <Contact />
+        <Faq />
       </main>
       <Footer />
     </>
