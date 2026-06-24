@@ -1,6 +1,5 @@
 import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
-import ScrubVideo from "@/components/site/scrub-video";
 import BeamsLayer from "@/components/site/beams-layer";
 
 const POINTS = [
@@ -23,26 +22,8 @@ const POINTS = [
 
 export default function Why() {
   return (
-    <section id="why" className="relative isolate overflow-hidden bg-background py-28 sm:py-36">
-      {/* Background video — full-bleed, scroll-scrubbed (no autoplay), grained.
-          Feathered on every edge so it blends seamlessly with no visible line. */}
-      <ScrubVideo
-        src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3ba2e3817563b473c76ee8.mp4"
-        className="hf-liquid media-feather-y-strong pointer-events-none absolute inset-0 -z-10 overflow-hidden"
-        videoClassName="h-full w-full object-cover opacity-[0.15] motion-reduce:hidden"
-        grain
-      />
-      {/* Black gradient scrim: solid black at the top/bottom edges to bury the
-          video's hard edges, lightly darkening the middle. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10"
-        style={{
-          background:
-            "linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.32) 30%, rgba(0,0,0,0.32) 70%, #000 100%)",
-        }}
-      />
-      {/* Ambient light-beam aura above the video */}
+    <section id="why" className="relative isolate overflow-hidden bg-background py-20 sm:py-28">
+      {/* Ambient light-beam aura */}
       <BeamsLayer className="-z-10" opacity={0.5} />
 
       {/* Quiet boundary motif — smaller and soft-edged (no hard ring line) */}
@@ -68,7 +49,7 @@ export default function Why() {
           </h2>
         </Reveal>
 
-        <div className="spotlight-edge mt-16 grid gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/8 md:grid-cols-3">
+        <div className="spotlight-edge mt-10 grid gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/8 md:grid-cols-3">
           {POINTS.map((p, i) => (
             <Reveal key={p.k} delay={i * 0.1}>
               <div className="group h-full bg-background/60 p-8 transition-colors duration-500 hover:bg-background/30">
