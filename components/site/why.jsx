@@ -48,8 +48,8 @@ export default function Why() {
       />
 
       {/* Floating rocks in the dark gutters (desktop) */}
-      <Rock src={ROCK_SRCS[0]} size={158} className="hidden lg:block left-[4%] top-[20%]" />
-      <Rock src={ROCK_SRCS[1]} size={104} className="hidden lg:block right-[5%] bottom-[16%]" />
+      <Rock src={ROCK_SRCS[0]} size={104} className="hidden lg:block left-[5%] top-[18%]" />
+      <Rock src={ROCK_SRCS[1]} size={84} className="hidden lg:block right-[6%] bottom-[16%]" />
 
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>

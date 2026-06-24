@@ -20,8 +20,8 @@ export default function Contact() {
       />
 
       {/* Floating rocks in the dark (desktop) */}
-      <Rock src={ROCK_SRCS[2]} size={168} className="hidden lg:block left-[7%] top-[16%]" />
-      <Rock src={ROCK_SRCS[3]} size={116} className="hidden lg:block right-[8%] bottom-[18%]" />
+      <Rock src={ROCK_SRCS[2]} size={100} className="hidden lg:block left-[8%] top-[14%]" />
+      <Rock src={ROCK_SRCS[3]} size={84} className="hidden lg:block right-[9%] bottom-[18%]" />
       <Reveal className="mx-auto max-w-3xl text-center">
         <div className="flex justify-center">
           <Eyebrow centered>Start your project</Eyebrow>
