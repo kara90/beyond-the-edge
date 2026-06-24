@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useScroll, useReducedMotion } from "framer-motion";
+import CineGrain from "@/components/site/cine-grain";
 
 /*
   ScrubVideo — a background video that does NOT play on its own. Its playhead
@@ -17,6 +18,8 @@ export default function ScrubVideo({
   src,
   className = "",
   videoClassName = "",
+  videoStyle,
+  grain = false,
   spins = 1,
 }) {
   const reduce = useReducedMotion();
@@ -90,7 +93,9 @@ export default function ScrubVideo({
         playsInline
         preload="auto"
         className={videoClassName}
+        style={videoStyle}
       />
+      {grain && <CineGrain opacity={0.1} />}
     </div>
   );
 }

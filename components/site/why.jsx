@@ -24,13 +24,21 @@ const POINTS = [
 export default function Why() {
   return (
     <section id="why" className="relative overflow-hidden py-28 sm:py-36">
-      {/* Background video — scroll-scrubbed (does not autoplay), faint + feathered.
-          object-contain keeps the whole frame visible so the circle is smaller
-          and never cropped. */}
+      {/* Background video — scroll-scrubbed (does not autoplay), faint + grained.
+          object-contain + scale-down keeps the whole frame visible and shrinks
+          the circle; a radial mask fades every edge so it blends with no box. */}
       <ScrubVideo
         src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b962d967e20d627da48ed.mp4"
-        className="hf-liquid media-feather-xy pointer-events-none absolute inset-0 -z-10 overflow-hidden"
-        videoClassName="h-full w-full object-contain opacity-[0.22] motion-reduce:hidden"
+        className="hf-liquid pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+        videoClassName="h-full w-full object-contain opacity-[0.2] motion-reduce:hidden"
+        videoStyle={{
+          transform: "scale(0.72)",
+          maskImage:
+            "radial-gradient(closest-side, #000 52%, transparent 90%)",
+          WebkitMaskImage:
+            "radial-gradient(closest-side, #000 52%, transparent 90%)",
+        }}
+        grain
       />
 
       {/* Quiet boundary motif behind the section */}

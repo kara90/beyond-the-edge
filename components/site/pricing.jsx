@@ -3,6 +3,7 @@ import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
 import ButtonLink from "@/components/site/button-link";
 import ShaderGlow from "@/components/ui/shader-glow";
+import CineGrain from "@/components/site/cine-grain";
 import { BOOKING_URL } from "@/components/site/config";
 
 /*
@@ -236,13 +237,15 @@ export default function Pricing() {
               type="video/mp4"
             />
           </video>
+          {/* Cinematic grain over the footage */}
+          <CineGrain opacity={0.1} />
           {/* Readability veil so tier text stays crisp over the video */}
           <div className="absolute inset-0 bg-background/45" />
         </div>
 
       {/* Included in every project */}
       <Reveal delay={0.05}>
-        <div className="spotlight-edge glass rounded-3xl px-6 py-5">
+        <div className="spotlight-edge glass-clear rounded-3xl px-6 py-5">
           <div className="flex flex-col items-center gap-x-6 gap-y-3 sm:flex-row sm:flex-wrap sm:justify-center">
             <span className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-edge/80">
               Included in every project
@@ -267,8 +270,8 @@ export default function Pricing() {
             <article
               className={`spotlight-edge relative flex h-full flex-col rounded-3xl p-8 transition-all duration-500 ${
                 t.featured
-                  ? "glass-featured hover:-translate-y-1.5 lg:-my-3 lg:py-11"
-                  : "glass hover:-translate-y-1.5"
+                  ? "glass-featured-clear hover:-translate-y-1.5 lg:-my-3 lg:py-11"
+                  : "glass-clear hover:-translate-y-1.5"
               }`}
             >
               {t.featured && (
@@ -436,7 +439,7 @@ export default function Pricing() {
         <div className="grid gap-5 lg:grid-cols-5">
         {/* Add-ons */}
         <Reveal className="lg:col-span-2">
-          <div className="spotlight-edge glass h-full rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1.5">
+          <div className="spotlight-edge glass-clear h-full rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1.5">
             <h3 className="font-display text-lg font-semibold tracking-tight">
               Add-ons
             </h3>
@@ -462,7 +465,7 @@ export default function Pricing() {
 
         {/* Keep it running */}
         <Reveal delay={0.08} className="lg:col-span-3">
-          <div className="spotlight-edge glass h-full rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1.5">
+          <div className="spotlight-edge glass-clear h-full rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1.5">
             <h3 className="font-display text-lg font-semibold tracking-tight">
               Keep it running
             </h3>
@@ -474,7 +477,7 @@ export default function Pricing() {
               {plans.map((p) => (
                 <div
                   key={p.name}
-                  className="spotlight-edge glass flex flex-col rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1.5"
+                  className="spotlight-edge glass-clear flex flex-col rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1.5"
                 >
                   <h4 className="font-display text-base font-semibold tracking-tight">
                     {p.name}

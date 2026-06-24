@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import ButtonLink from "@/components/site/button-link";
+import CineGrain from "@/components/site/cine-grain";
 
 /*
   HERO — a scroll-scrubbed cinematic.
@@ -142,6 +143,9 @@ export default function Hero() {
           className="absolute inset-0 h-full w-full object-cover"
           style={{ scale }}
         />
+
+        {/* Cinematic grain over the footage */}
+        <CineGrain opacity={0.1} />
 
         {/* Soft vignette for depth + readability */}
         <div

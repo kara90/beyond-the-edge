@@ -1,4 +1,5 @@
 import { BrandMark } from "@/components/site/nav";
+import CineGrain from "@/components/site/cine-grain";
 
 const NAV = [
   { href: "#services", label: "What we do" },
@@ -24,6 +25,8 @@ export default function Footer() {
           type="video/mp4"
         />
       </video>
+      {/* Cinematic grain over the footage */}
+      <CineGrain className="-z-10" opacity={0.1} />
       {/* Veil so footer text stays readable over the video */}
       <div
         aria-hidden="true"

@@ -264,16 +264,33 @@
       inset 0 1px 0 0 oklch(1 0 0 / 0.08);
   }
 
-  /* Clearer glass: much more transparent so a video behind reads through it
-     even at rest. Blur + a faint fill keep text legible. */
+  /* Transparent, lightly textured glass: a video or glow behind reads through
+     it even at rest. Blur + a faint top sheen give the frosted texture while
+     keeping text legible. Used across all pricing blocks. */
   .glass-clear {
-    background-color: oklch(0.22 0.05 256 / 0.1);
-    -webkit-backdrop-filter: blur(18px) saturate(1.2);
-    backdrop-filter: blur(18px) saturate(1.2);
-    border: 1px solid oklch(1 0 0 / 0.07);
+    background-color: oklch(0.2 0.045 256 / 0.16);
+    background-image:
+      linear-gradient(160deg, oklch(1 0 0 / 0.06) 0%, transparent 34%),
+      radial-gradient(120% 80% at 50% 0%, oklch(0.6 0.12 250 / 0.07), transparent 62%);
+    -webkit-backdrop-filter: blur(20px) saturate(1.25);
+    backdrop-filter: blur(20px) saturate(1.25);
+    border: 1px solid oklch(1 0 0 / 0.08);
     box-shadow:
       0 40px 90px -50px oklch(0 0 0 / 0.8),
-      inset 0 1px 0 0 oklch(1 0 0 / 0.07);
+      inset 0 1px 0 0 oklch(1 0 0 / 0.08);
+  }
+  /* Same glass, with the recommended-tier cyan accent. */
+  .glass-featured-clear {
+    background-color: oklch(0.22 0.05 238 / 0.18);
+    background-image:
+      linear-gradient(160deg, oklch(1 0 0 / 0.07) 0%, transparent 34%),
+      radial-gradient(120% 90% at 28% 100%, oklch(0.82 0.12 220 / 0.14), transparent 60%);
+    -webkit-backdrop-filter: blur(20px) saturate(1.25);
+    backdrop-filter: blur(20px) saturate(1.25);
+    border: 1px solid oklch(0.82 0.12 220 / 0.3);
+    box-shadow:
+      0 0 80px -26px oklch(0.82 0.12 220 / 0.42),
+      inset 0 1px 0 0 oklch(1 0 0 / 0.1);
   }
 
   /*

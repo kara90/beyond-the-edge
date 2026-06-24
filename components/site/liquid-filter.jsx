@@ -44,8 +44,10 @@ export default function LiquidFilter() {
     let lastTS = performance.now();
     let current = null; // block currently receiving the localized ripple
 
-    const FLOOR = 3;
-    const CAP = 15;
+    // Gentle, organic water: small floor, modest cap, builds and settles
+    // slowly so it never snaps in.
+    const FLOOR = 1.5;
+    const CAP = 9;
 
     const wake = (speed, k) => {
       target = Math.min(CAP, Math.max(FLOOR, speed * k));
@@ -59,7 +61,7 @@ export default function LiquidFilter() {
       const dt = Math.max(8, now - lastTP);
       if (px >= 0) {
         const sp = (Math.hypot(e.clientX - px, e.clientY - py) / dt) * 1000;
-        wake(sp, 0.015);
+        wake(sp, 0.009);
       }
       px = e.clientX;
       py = e.clientY;
@@ -81,25 +83,27 @@ export default function LiquidFilter() {
       const sp = (Math.abs(window.scrollY - lastSY) / dt) * 1000;
       lastSY = window.scrollY;
       lastTS = now;
-      wake(sp, 0.02);
+      wake(sp, 0.012);
     };
 
     const loop = () => {
       const now = performance.now();
-      if (now - lastActiveAt > 110) target = 0;
-      scale += (target - scale) * 0.16;
-      phase += 0.004;
+      if (now - lastActiveAt > 160) target = 0;
+      // Slow lerp so the water swells and settles instead of snapping in.
+      scale += (target - scale) * 0.06;
+      phase += 0.0022;
 
       if (dispRef.current) dispRef.current.setAttribute("scale", scale.toFixed(2));
       if (turbRef.current) {
-        const bf = 0.011 + Math.sin(phase) * 0.0018;
+        // Low frequency = broad, smooth swells (water), gently drifting.
+        const bf = 0.0062 + Math.sin(phase) * 0.0011;
         turbRef.current.setAttribute(
           "baseFrequency",
-          `${bf.toFixed(4)} ${(bf * 1.35).toFixed(4)}`
+          `${bf.toFixed(4)} ${(bf * 1.3).toFixed(4)}`
         );
       }
 
-      if (target === 0 && scale < 0.25) {
+      if (target === 0 && scale < 0.12) {
         scale = 0;
         dispRef.current?.setAttribute("scale", "0");
         root.classList.remove("hf-liquid-on");
@@ -142,8 +146,8 @@ export default function LiquidFilter() {
           <feTurbulence
             ref={turbRef}
             type="fractalNoise"
-            baseFrequency="0.011 0.015"
-            numOctaves="2"
+            baseFrequency="0.0062 0.008"
+            numOctaves="3"
             seed="4"
             result="noise"
           />
