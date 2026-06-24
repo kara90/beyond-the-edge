@@ -24,13 +24,11 @@ export const ROCK_SRCS = [
   "https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b950e659bec99fcd04e9e.mp4",
 ];
 
-const FEATHER = "radial-gradient(closest-side, #000 56%, transparent 100%)";
-
 export default function Rock({
   src,
   size = 150,
   spins = 1,
-  opacity = 0.85,
+  opacity = 0.95,
   className = "",
 }) {
   const reduce = useReducedMotion();
@@ -129,12 +127,8 @@ export default function Rock({
         muted
         playsInline
         preload="auto"
-        className="h-full w-full object-cover mix-blend-screen"
-        style={{
-          opacity,
-          maskImage: FEATHER,
-          WebkitMaskImage: FEATHER,
-        }}
+        className="h-full w-full object-contain mix-blend-screen"
+        style={{ opacity }}
       />
     </div>
   );

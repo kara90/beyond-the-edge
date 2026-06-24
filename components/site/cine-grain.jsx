@@ -4,9 +4,9 @@
   with overlay; pointer-safe and cheap. Drop it inside a video's wrapper.
 */
 const NOISE =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E\")";
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.62' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E\")";
 
-export default function CineGrain({ className = "", opacity = 0.12 }) {
+export default function CineGrain({ className = "", opacity = 0.28 }) {
   return (
     <div
       aria-hidden="true"
@@ -15,7 +15,7 @@ export default function CineGrain({ className = "", opacity = 0.12 }) {
         opacity,
         mixBlendMode: "overlay",
         backgroundImage: NOISE,
-        backgroundSize: "160px 160px",
+        backgroundSize: "140px 140px",
       }}
     />
   );

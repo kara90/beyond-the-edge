@@ -428,6 +428,38 @@
   animation: aura-breathe 19s ease-in-out infinite alternate;
 }
 
+/* Thin animated blue/gray edge — a flowing highlight that travels along a hair
+   line, used at the top and bottom of full-bleed video sections instead of a
+   soft fade. */
+@keyframes edge-flow {
+  0% {
+    background-position: -40% 0;
+  }
+  100% {
+    background-position: 140% 0;
+  }
+}
+.edge-flow {
+  background-color: oklch(1 0 0 / 0.06);
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(0.78 0.02 250 / 0.55) 34%,
+    oklch(0.82 0.12 220 / 0.95) 50%,
+    oklch(0.78 0.02 250 / 0.55) 66%,
+    transparent 100%
+  );
+  background-size: 55% 100%;
+  background-repeat: no-repeat;
+  animation: edge-flow 7s linear infinite;
+  box-shadow: 0 0 12px -2px oklch(0.82 0.12 220 / 0.5);
+}
+@media (prefers-reduced-motion: reduce) {
+  .edge-flow {
+    animation: none;
+  }
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);
