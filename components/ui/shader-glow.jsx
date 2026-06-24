@@ -31,12 +31,15 @@ const FRAG = `
     float rings = ring(p, radius, 0.02) + ring(p, radius - 0.012, 0.007) + ring(p, radius + 0.012, 0.004);
     float inner = ring(p, radius, 0.0016);
 
+    // Soft glow / bloom radiating out from the ring line.
+    float halo = smoothstep(0.20, 0.0, abs(length(p) - radius));
+
     vec3 blue = vec3(0.14, 0.46, 1.0);
     vec3 cyan = vec3(0.42, 0.82, 1.0);
     vec3 col = mix(blue, cyan, clamp(rings, 0.0, 1.0));
     col = mix(col, vec3(1.0), inner * 0.85);
 
-    float alpha = clamp(rings * 0.95 + inner, 0.0, 1.0);
+    float alpha = clamp(rings * 0.95 + inner + halo * halo * 0.45, 0.0, 1.0);
     gl_FragColor = vec4(col, alpha);
   }
 `;

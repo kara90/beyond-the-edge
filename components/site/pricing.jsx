@@ -199,7 +199,7 @@ export default function Pricing() {
       {/* Crisp neon blue circle, contained + full resolution; round edges feathered */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[1000px] w-[1000px] max-w-none -translate-x-1/2 opacity-80 md:h-[1600px] md:w-[1600px]"
+        className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[1000px] w-[1000px] max-w-none -translate-x-1/2 opacity-40 md:h-[1600px] md:w-[1600px]"
         style={{
           maskImage: "radial-gradient(closest-side, #000 74%, transparent 100%)",
           WebkitMaskImage: "radial-gradient(closest-side, #000 74%, transparent 100%)",
