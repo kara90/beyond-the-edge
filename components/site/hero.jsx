@@ -55,9 +55,6 @@ export default function Hero() {
   const headlineY = useTransform(p, [0, 0.3], [0, -48]);
   const cueOpacity = useTransform(p, [0, 0.07], [1, 0]);
 
-  const beyondOpacity = useTransform(p, [0.62, 0.78, 0.96], [0, 1, 1]);
-  const beyondY = useTransform(p, [0.62, 0.9], [36, 0]);
-
   // ── Scene "camera" push: planet sinks and grows as we pass through ───────
   const sceneScale = useTransform(p, [0.45, 1], [1, 1.55]);
   const sceneYNum = useTransform(p, [0.45, 1], [0, 42]); // vh
@@ -313,17 +310,6 @@ export default function Hero() {
           style={{ opacity: headlineOpacity, y: headlineY }}
         >
           <HeroCopy />
-        </motion.div>
-
-        {/* "Beyond the edge" reveal after the break */}
-        <motion.div
-          className="pointer-events-none absolute inset-x-0 top-[34vh] z-10 flex flex-col items-center px-6 text-center"
-          style={{ opacity: beyondOpacity, y: beyondY }}
-        >
-          <p className="eyebrow mb-3 text-edge-bright/80">The boundary is behind you</p>
-          <h2 className="font-display text-3xl font-semibold tracking-tight text-foreground sm:text-5xl">
-            Welcome <span className="text-metallic">beyond the edge.</span>
-          </h2>
         </motion.div>
 
         {/* Scroll cue */}
