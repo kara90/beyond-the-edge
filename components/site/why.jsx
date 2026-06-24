@@ -1,5 +1,6 @@
 import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
+import Rock, { ROCK_SRCS } from "@/components/site/rock";
 
 const POINTS = [
   {
@@ -31,6 +32,10 @@ export default function Why() {
             "radial-gradient(50% 50% at 50% 50%, transparent 58%, oklch(0.82 0.12 220 / 0.06) 60%, transparent 64%)",
         }}
       />
+
+      {/* Floating rocks in the dark gutters (desktop) */}
+      <Rock src={ROCK_SRCS[0]} size={158} className="hidden lg:block left-[4%] top-[20%]" />
+      <Rock src={ROCK_SRCS[1]} size={104} className="hidden lg:block right-[5%] bottom-[16%]" />
 
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
