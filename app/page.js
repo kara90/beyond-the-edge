@@ -17,6 +17,8 @@ export default function Home() {
       <Nav />
       <main id="top">
         <Hero />
+        {/* Single animated blue/gray separator right under the hero */}
+        <div aria-hidden="true" className="edge-flow relative h-[2px] w-full" />
         <Marquee />
         <Services />
         <Work />
