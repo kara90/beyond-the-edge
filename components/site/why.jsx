@@ -23,7 +23,7 @@ const POINTS = [
 
 export default function Why() {
   return (
-    <section id="why" className="relative overflow-hidden py-28 sm:py-36">
+    <section id="why" className="relative isolate overflow-hidden bg-background py-28 sm:py-36">
       {/* Background video — full-bleed, scroll-scrubbed (no autoplay), grained.
           Feathered on every edge so it blends seamlessly with no visible line. */}
       <ScrubVideo

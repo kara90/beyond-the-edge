@@ -186,7 +186,7 @@ export default function Pricing() {
   return (
     <section
       id="pricing"
-      className="relative isolate overflow-hidden py-28 sm:py-36"
+      className="relative isolate overflow-hidden bg-background py-28 sm:py-36"
     >
       {/* Full-bleed blue-space ambiance, feathered on every side (no hard box) */}
       <div

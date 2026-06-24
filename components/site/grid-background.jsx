@@ -47,7 +47,7 @@ export default function GridBackground({ className = "" }) {
         ref={revealRef}
         className="absolute inset-0"
         style={{
-          ...gridStyle("0.26"),
+          ...gridStyle("0.36"),
           maskImage: REVEAL_MASK,
           WebkitMaskImage: REVEAL_MASK,
         }}
