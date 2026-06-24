@@ -1,5 +1,6 @@
 import { BrandMark } from "@/components/site/nav";
 import CineGrain from "@/components/site/cine-grain";
+import BeamsLayer from "@/components/site/beams-layer";
 
 const NAV = [
   { href: "#services", label: "What we do" },
@@ -25,6 +26,8 @@ export default function Footer() {
           type="video/mp4"
         />
       </video>
+      {/* Ambient light-beam aura above the footage */}
+      <BeamsLayer className="-z-10" opacity={0.45} />
       {/* Cinematic grain over the footage */}
       <CineGrain className="-z-10" opacity={0.1} />
       {/* Veil so footer text stays readable over the video */}

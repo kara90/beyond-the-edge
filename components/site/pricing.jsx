@@ -3,6 +3,7 @@ import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
 import ButtonLink from "@/components/site/button-link";
 import CineGrain from "@/components/site/cine-grain";
+import BeamsLayer from "@/components/site/beams-layer";
 import { BOOKING_URL } from "@/components/site/config";
 
 /*
@@ -236,6 +237,8 @@ export default function Pricing() {
               type="video/mp4"
             />
           </video>
+          {/* Ambient light-beam aura above the footage */}
+          <BeamsLayer opacity={0.4} />
           {/* Cinematic grain over the footage */}
           <CineGrain opacity={0.1} />
           {/* Readability veil so tier text stays crisp over the video */}

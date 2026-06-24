@@ -106,12 +106,27 @@ export function BeamsBackground({ className, intensity = "medium" }) {
         if (beam.y + beam.length < -100) resetBeam(beam, index, total);
         drawBeam(beam);
       });
-      if (!reduce) rafRef.current = requestAnimationFrame(draw);
+      rafRef.current = !reduce && visible ? requestAnimationFrame(draw) : 0;
     };
+
+    // Animate only while on screen, so several instances across the page stay
+    // cheap (the off-screen ones don't run the blurred canvas loop).
+    let visible = true;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        visible = e.isIntersecting;
+        if (visible && !reduce && !rafRef.current) {
+          rafRef.current = requestAnimationFrame(draw);
+        }
+      },
+      { rootMargin: "120px" }
+    );
+    io.observe(canvas);
     draw();
 
     return () => {
       window.removeEventListener("resize", updateSize);
+      io.disconnect();
       cancelAnimationFrame(rafRef.current);
     };
   }, [intensity]);
