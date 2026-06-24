@@ -298,6 +298,16 @@
   }
 
   /*
+    Liquid water distortion. Applied to the grid + background videos ONLY while
+    the page is actively scrolling (LiquidFilter toggles html.hf-scrolling and
+    animates the displacement). When scrolling settles, the filter is removed,
+    so idle rendering cost is zero.
+  */
+  html.hf-scrolling .hf-liquid {
+    filter: url(#hf-liquid);
+  }
+
+  /*
     Spotlight edge — a cursor-following neon glow that lights the rim of any
     framed element (cards, photos, videos). The Spotlight component publishes
     --spot-x/-y/-xp on <html>; the glow tracks them. background-attachment:

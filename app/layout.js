@@ -5,6 +5,8 @@ import Intro from "@/components/site/intro";
 import ScrollProgress from "@/components/site/scroll-progress";
 import Cursor from "@/components/site/cursor";
 import Spotlight from "@/components/site/spotlight";
+import GridBackground from "@/components/site/grid-background";
+import LiquidFilter from "@/components/site/liquid-filter";
 import JsonLd from "@/components/site/json-ld";
 
 // Body: clean, highly readable.
@@ -93,6 +95,8 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col overflow-x-hidden">
         <JsonLd />
+        <LiquidFilter />
+        <GridBackground className="pointer-events-none fixed inset-0 -z-10" />
         <SmoothScroll />
         <Intro />
         <ScrollProgress />

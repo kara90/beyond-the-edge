@@ -229,7 +229,7 @@ export default function Pricing() {
             muted
             playsInline
             aria-hidden="true"
-            className="h-full w-full object-cover opacity-50 motion-reduce:hidden"
+            className="hf-liquid h-full w-full object-cover opacity-50 motion-reduce:hidden"
           >
             <source
               src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b85a06a414441905c9c6b.mp4"

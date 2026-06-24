@@ -17,7 +17,7 @@ export default function Footer() {
         muted
         playsInline
         aria-hidden="true"
-        className="media-feather-y pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-50 motion-reduce:hidden"
+        className="hf-liquid media-feather-y pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-50 motion-reduce:hidden"
       >
         <source
           src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b7947967e20d627d6e338.mp4"
