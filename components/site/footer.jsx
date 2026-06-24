@@ -17,11 +17,7 @@ export default function Footer() {
         muted
         playsInline
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-50 motion-reduce:hidden"
-        style={{
-          maskImage: "linear-gradient(to bottom, transparent, #000 28%)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent, #000 28%)",
-        }}
+        className="media-feather-y pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-50 motion-reduce:hidden"
       >
         <source
           src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b7947967e20d627d6e338.mp4"

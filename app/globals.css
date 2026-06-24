@@ -265,6 +265,39 @@
   }
 
   /*
+    Every background video fades out at its top and bottom so the edges are
+    invisible and the clip reads as part of the page, never a pasted-in box.
+    Standard treatment for all site videos. Compose with .media-feather-x when
+    a video also bleeds full-width and needs its left/right edges softened.
+  */
+  .media-feather-y {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 15%,
+      #000 85%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 15%,
+      #000 85%,
+      transparent 100%
+    );
+  }
+  .media-feather-xy {
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, #000 13%, #000 87%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, transparent 0%, #000 13%, #000 87%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%);
+    mask-composite: intersect;
+  }
+
+  /*
     Spotlight edge — a cursor-following neon glow that lights the rim of any
     framed element (cards, photos, videos). The Spotlight component publishes
     --spot-x/-y/-xp on <html>; the glow tracks them. background-attachment:

@@ -221,15 +221,7 @@ export default function Pricing() {
       <div className="relative isolate mt-12">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-0 -z-10 h-full w-screen max-w-none -translate-x-1/2 overflow-hidden"
-          style={{
-            maskImage:
-              "linear-gradient(to right, transparent, #000 14%, #000 86%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent)",
-            maskComposite: "intersect",
-            WebkitMaskImage:
-              "linear-gradient(to right, transparent, #000 14%, #000 86%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent)",
-            WebkitMaskComposite: "source-in",
-          }}
+          className="media-feather-xy pointer-events-none absolute left-1/2 top-0 -z-10 h-full w-screen max-w-none -translate-x-1/2 overflow-hidden"
         >
           <video
             autoPlay
