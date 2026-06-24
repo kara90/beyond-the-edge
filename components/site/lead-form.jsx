@@ -153,13 +153,15 @@ export default function LeadForm() {
           loop
           muted
           playsInline
-          className="h-full w-full object-cover opacity-30 mix-blend-screen motion-reduce:hidden"
+          className="h-full w-full object-cover opacity-[0.18] mix-blend-screen motion-reduce:hidden"
         >
           <source
             src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b950e817563b473c5f5e6.mp4"
             type="video/mp4"
           />
         </video>
+        {/* Black layer to darken the video further */}
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
       {/* Contact details */}

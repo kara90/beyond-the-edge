@@ -27,7 +27,7 @@ export default function Why() {
       {/* Background video — full-bleed, scroll-scrubbed (no autoplay), grained.
           Feathered on every edge so it blends seamlessly with no visible line. */}
       <ScrubVideo
-        src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b962d967e20d627da48ed.mp4"
+        src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3ba2e3817563b473c76ee8.mp4"
         className="hf-liquid media-feather-y-strong pointer-events-none absolute inset-0 -z-10 overflow-hidden"
         videoClassName="h-full w-full object-cover opacity-[0.15] motion-reduce:hidden"
         grain
@@ -61,8 +61,9 @@ export default function Why() {
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
           <Eyebrow>The difference</Eyebrow>
-          <h2 className="mt-6 max-w-3xl text-3xl font-semibold leading-[1.05] sm:text-5xl">
+          <h2 className="mt-6 text-3xl font-semibold leading-[1.05] sm:text-5xl">
             There is a line most brands never cross.
+            <br className="hidden sm:block" />
             <span className="text-metallic"> We live on the other side of it.</span>
           </h2>
         </Reveal>
