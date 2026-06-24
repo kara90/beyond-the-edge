@@ -24,7 +24,7 @@ export default function Footer() {
         }}
       >
         <source
-          src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3a8a23109a1ab49dbb379a.mp4"
+          src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b7947967e20d627d6e338.mp4"
           type="video/mp4"
         />
       </video>
