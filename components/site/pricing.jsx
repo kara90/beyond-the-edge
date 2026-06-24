@@ -20,7 +20,7 @@ const tiers = [
     name: "Liftoff",
     tag: "The essential",
     anchor: "Typical agency build: $5,000+",
-    price: "$2,500",
+    price: "$2,497",
     cadence: "one-time",
     note: "A clean, professional presence done right.",
     features: [
@@ -39,7 +39,7 @@ const tiers = [
     name: "Orbit",
     tag: "The standout",
     anchor: "Typical agency build: $10,000+",
-    price: "$3,500",
+    price: "$3,497",
     cadence: "one-time",
     note: "Custom design with motion that sets you apart.",
     features: [
