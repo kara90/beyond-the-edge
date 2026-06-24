@@ -1,6 +1,7 @@
 import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
 import Rock, { ROCK_SRCS } from "@/components/site/rock";
+import ScrubVideo from "@/components/site/scrub-video";
 
 const POINTS = [
   {
@@ -23,24 +24,14 @@ const POINTS = [
 export default function Why() {
   return (
     <section id="why" className="relative overflow-hidden py-28 sm:py-36">
-      {/* Background video, kept faint and feathered so it reads as atmosphere */}
-      <div
-        aria-hidden="true"
+      {/* Background video — scroll-scrubbed (does not autoplay), faint + feathered.
+          object-contain keeps the whole frame visible so the circle is smaller
+          and never cropped. */}
+      <ScrubVideo
+        src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b962d967e20d627da48ed.mp4"
         className="hf-liquid media-feather-xy pointer-events-none absolute inset-0 -z-10 overflow-hidden"
-      >
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="h-full w-full object-cover opacity-[0.22] motion-reduce:hidden"
-        >
-          <source
-            src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b962d967e20d627da48ed.mp4"
-            type="video/mp4"
-          />
-        </video>
-      </div>
+        videoClassName="h-full w-full object-contain opacity-[0.22] motion-reduce:hidden"
+      />
 
       {/* Quiet boundary motif behind the section */}
       <div
