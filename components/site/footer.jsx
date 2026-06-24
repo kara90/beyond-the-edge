@@ -9,7 +9,31 @@ const NAV = [
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-white/8 px-6 pt-16">
+    <footer className="relative isolate overflow-hidden border-t border-white/8 px-6 pt-16">
+      {/* Subtle background video (~50% transparent, top edge feathered) */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-50 motion-reduce:hidden"
+        style={{
+          maskImage: "linear-gradient(to bottom, transparent, #000 28%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent, #000 28%)",
+        }}
+      >
+        <source
+          src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3a8a23109a1ab49dbb379a.mp4"
+          type="video/mp4"
+        />
+      </video>
+      {/* Veil so footer text stays readable over the video */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-background/40"
+      />
+
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-10 md:flex-row">
         <div className="max-w-xs">
           <a

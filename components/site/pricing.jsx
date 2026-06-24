@@ -199,10 +199,10 @@ export default function Pricing() {
       {/* Crisp neon blue circle, contained + full resolution; round edges feathered */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-4 -z-10 h-[540px] w-[540px] max-w-[150%] -translate-x-1/2 opacity-80 md:top-10 md:h-[780px] md:w-[780px]"
+        className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[1000px] w-[1000px] max-w-none -translate-x-1/2 opacity-80 md:h-[1600px] md:w-[1600px]"
         style={{
-          maskImage: "radial-gradient(closest-side, #000 72%, transparent 100%)",
-          WebkitMaskImage: "radial-gradient(closest-side, #000 72%, transparent 100%)",
+          maskImage: "radial-gradient(closest-side, #000 74%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(closest-side, #000 74%, transparent 100%)",
         }}
       >
         <ShaderGlow className="h-full w-full" />
@@ -223,7 +223,7 @@ export default function Pricing() {
 
       {/* Included in every project */}
       <Reveal delay={0.05} className="mt-12">
-        <div className="rounded-2xl border border-white/12 bg-white/[0.05] px-6 py-5 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+        <div className="rounded-2xl border border-white/[0.08] bg-[oklch(0.23_0.05_256/0.42)] px-6 py-5 backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
           <div className="flex flex-col items-center gap-x-6 gap-y-3 sm:flex-row sm:flex-wrap sm:justify-center">
             <span className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-edge/80">
               Included in every project
@@ -246,10 +246,10 @@ export default function Pricing() {
         {buildTiers.map((t, i) => (
           <Reveal key={t.name} delay={i * 0.08} className="h-full">
             <article
-              className={`relative flex h-full flex-col rounded-2xl border p-8 backdrop-blur-xl transition-all duration-500 ${
+              className={`relative flex h-full flex-col rounded-2xl border p-8 backdrop-blur-2xl transition-all duration-500 ${
                 t.featured
-                  ? "border-edge/40 bg-edge/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_70px_-18px_var(--edge)] hover:-translate-y-1.5 lg:-my-3 lg:py-11"
-                  : "border-white/12 bg-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] hover:-translate-y-1.5 hover:border-white/20 hover:bg-white/[0.07]"
+                  ? "border-edge/30 bg-[oklch(0.27_0.07_240/0.45)] shadow-[inset_0_1px_0_rgba(255,255,255,0.10),0_0_70px_-18px_var(--edge)] hover:-translate-y-1.5 lg:-my-3 lg:py-11"
+                  : "border-white/[0.08] bg-[oklch(0.23_0.05_256/0.42)] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] hover:-translate-y-1.5 hover:border-white/15"
               }`}
             >
               {t.featured && (
@@ -308,7 +308,7 @@ export default function Pricing() {
       {/* Apex — the ceiling, as a wide flagship band */}
       <Reveal delay={0.12}>
         <div className="mt-5 overflow-hidden rounded-2xl bg-gradient-to-br from-primary/45 via-edge/25 to-primary/45 p-px shadow-[0_0_110px_-35px_var(--primary)] transition-transform duration-500 hover:-translate-y-1.5">
-          <article className="sheen relative overflow-hidden rounded-[calc(var(--radius)*1.8-1px)] bg-white/[0.06] p-8 backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.10)] sm:p-10">
+          <article className="sheen relative overflow-hidden rounded-[calc(var(--radius)*1.8-1px)] bg-[oklch(0.24_0.055_250/0.5)] p-8 backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] sm:p-10">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full"
@@ -405,7 +405,7 @@ export default function Pricing() {
       <div className="mt-20 grid gap-5 lg:grid-cols-5">
         {/* Add-ons */}
         <Reveal className="lg:col-span-2">
-          <div className="h-full rounded-2xl border border-white/12 bg-white/[0.05] p-8 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-all duration-500 hover:-translate-y-1.5 hover:border-white/20">
+          <div className="h-full rounded-2xl border border-white/[0.08] bg-[oklch(0.23_0.05_256/0.42)] p-8 backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all duration-500 hover:-translate-y-1.5 hover:border-white/15">
             <h3 className="font-display text-lg font-semibold tracking-tight">
               Add-ons
             </h3>
@@ -431,7 +431,7 @@ export default function Pricing() {
 
         {/* Keep it running */}
         <Reveal delay={0.08} className="lg:col-span-3">
-          <div className="h-full rounded-2xl border border-white/12 bg-white/[0.05] p-8 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-all duration-500 hover:-translate-y-1.5 hover:border-white/20">
+          <div className="h-full rounded-2xl border border-white/[0.08] bg-[oklch(0.23_0.05_256/0.42)] p-8 backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all duration-500 hover:-translate-y-1.5 hover:border-white/15">
             <h3 className="font-display text-lg font-semibold tracking-tight">
               Keep it running
             </h3>
@@ -443,7 +443,7 @@ export default function Pricing() {
               {plans.map((p) => (
                 <div
                   key={p.name}
-                  className="flex flex-col rounded-xl border border-white/12 bg-white/[0.05] p-5 backdrop-blur-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all duration-500 hover:-translate-y-1.5 hover:border-edge/25 hover:bg-white/[0.07]"
+                  className="flex flex-col rounded-xl border border-white/[0.08] bg-[oklch(0.25_0.05_256/0.45)] p-5 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all duration-500 hover:-translate-y-1.5 hover:border-edge/25"
                 >
                   <h4 className="font-display text-base font-semibold tracking-tight">
                     {p.name}
