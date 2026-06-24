@@ -3,7 +3,6 @@ import Eyebrow from "@/components/site/eyebrow";
 import Rock, { ROCK_SRCS } from "@/components/site/rock";
 import ScrubVideo from "@/components/site/scrub-video";
 import BeamsLayer from "@/components/site/beams-layer";
-import VideoEdges from "@/components/site/video-edges";
 
 const POINTS = [
   {
@@ -27,17 +26,15 @@ export default function Why() {
   return (
     <section id="why" className="relative overflow-hidden py-28 sm:py-36">
       {/* Background video — full-bleed, scroll-scrubbed (no autoplay), grained.
-          No fade: defined with a thin animated blue/gray edge top and bottom. */}
+          Feathered on every edge so it blends seamlessly with no visible line. */}
       <ScrubVideo
         src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b962d967e20d627da48ed.mp4"
-        className="hf-liquid pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+        className="hf-liquid media-feather-xy pointer-events-none absolute inset-0 -z-10 overflow-hidden"
         videoClassName="h-full w-full object-cover opacity-40 motion-reduce:hidden"
         grain
       />
       {/* Ambient light-beam aura above the video */}
       <BeamsLayer className="-z-10" opacity={0.5} />
-      {/* Animated blue/gray edge top + bottom (replaces the fade) */}
-      <VideoEdges />
 
       {/* Quiet boundary motif — smaller and soft-edged (no hard ring line) */}
       <div

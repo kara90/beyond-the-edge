@@ -266,7 +266,7 @@ export default function Pricing() {
       </Reveal>
 
       {/* Three one-time build tiers */}
-      <div className="mt-8 grid items-stretch gap-5 lg:grid-cols-3">
+      <div className="mt-16 grid items-stretch gap-5 lg:grid-cols-3">
         {buildTiers.map((t, i) => (
           <Reveal key={t.name} delay={i * 0.08} className="h-full">
             <article
