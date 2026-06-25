@@ -135,6 +135,7 @@ export default function LeadForm() {
   return (
     <form
       onSubmit={handleSubmit}
+      data-fluid-off
       className="spotlight-edge relative overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-8 text-left"
     >
       {/* Subtle background video inside the box. screen-blend drops its dark
