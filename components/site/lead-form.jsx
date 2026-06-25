@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import BgVideo from "@/components/site/bg-video";
+import CineGrain from "@/components/site/cine-grain";
 import { FORM_ENDPOINT } from "@/components/site/config";
 
 /*
@@ -156,6 +157,8 @@ export default function LeadForm() {
         />
         {/* Black layer to darken the video further */}
         <div className="absolute inset-0 bg-black/40" />
+        {/* Cinematic grain over the footage, like the other videos */}
+        <CineGrain opacity={0.12} />
       </div>
 
       {/* Contact details */}
