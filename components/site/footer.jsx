@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { BrandMark } from "@/components/site/nav";
 import BgVideo from "@/components/site/bg-video";
 import CineGrain from "@/components/site/cine-grain";
@@ -108,7 +109,17 @@ export default function Footer() {
           © {new Date().getFullYear()} Beyond the Edge Studio. All rights
           reserved.
         </p>
-        <p className="font-mono tracking-wider">Beyond the edge of expected.</p>
+        <div className="flex items-center gap-5">
+          <Link
+            href="/terms"
+            className="link-underline transition-colors hover:text-foreground"
+          >
+            Terms of Service
+          </Link>
+          <p className="font-mono tracking-wider">
+            Beyond the edge of expected.
+          </p>
+        </div>
       </div>
     </footer>
   );
