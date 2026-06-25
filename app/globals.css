@@ -9,8 +9,7 @@
 html.lite .grid-bg,
 html.lite .cine-grain,
 html.lite .fluid-canvas,
-html.lite .beams-layer,
-html.lite .bg-video {
+html.lite .beams-layer {
   display: none !important;
 }
 

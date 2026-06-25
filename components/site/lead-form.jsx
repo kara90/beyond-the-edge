@@ -153,6 +153,7 @@ export default function LeadForm() {
       >
         <BgVideo
           src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b950e817563b473c5f5e6.mp4"
+          poster="/media/contact-poster.webp"
           className="h-full w-full object-cover opacity-[0.18] mix-blend-screen motion-reduce:hidden"
         />
         {/* Black layer to darken the video further */}

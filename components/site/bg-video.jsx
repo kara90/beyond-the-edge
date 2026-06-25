@@ -13,13 +13,12 @@ import { isLite, onLite } from "@/components/site/perf";
   starts even if the first play() call landed before the data was ready.
   Honors reduced-motion (stays paused).
 
-  Lite mode: these are decorative clips. On weak devices several simultaneous
-  video decodes are a big part of the lag (and some never get a decoder slot,
-  so they "don't play at all"), so here we never load/play them — the section
-  just shows its dark background. The .bg-video class is also hidden via
-  html.lite CSS.
+  Lite mode: these are decorative clips, and several simultaneous video decodes
+  are a big part of the lag on weak devices (some never get a decoder slot, so
+  they "don't play at all"). In lite we never load or play the clip — the
+  poster still frame shows in its place (no decode, only a small image).
 */
-export default function BgVideo({ src, className = "", ...rest }) {
+export default function BgVideo({ src, poster, className = "", ...rest }) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -27,14 +26,16 @@ export default function BgVideo({ src, className = "", ...rest }) {
     if (!v) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const disable = () => {
+    // Show the still poster only: stop fetching/playing the clip entirely.
+    const posterOnly = () => {
       try {
         v.pause();
       } catch {}
+      v.preload = "none";
       v.removeAttribute("autoplay");
     };
     if (isLite()) {
-      disable();
+      posterOnly();
       return;
     }
 
@@ -74,10 +75,10 @@ export default function BgVideo({ src, className = "", ...rest }) {
       v.removeEventListener("loadeddata", tryPlay);
       v.removeEventListener("canplay", tryPlay);
     };
-    // If the page is janking, stop decoding this clip too.
+    // If the page is janking, stop decoding this clip too (poster stays).
     const unsubLite = onLite(() => {
       cleanup();
-      disable();
+      posterOnly();
     });
 
     return () => {
@@ -93,6 +94,7 @@ export default function BgVideo({ src, className = "", ...rest }) {
       loop
       playsInline
       preload="metadata"
+      poster={poster}
       className={`bg-video ${className}`}
       {...rest}
     >

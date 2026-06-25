@@ -36,6 +36,9 @@ const HERO_VIDEO = "/media/hero.mp4";
 // which all-intra makes expensive to play back.
 const HERO_VIDEO_PLAIN =
   "https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3d62cedb2129be183684ed.mp4";
+// Still frame used as the hero on lite devices (no video at all) and as the
+// poster while the scrub clip loads.
+const HERO_POSTER = "/media/hero-poster.webp";
 const FALLBACK_DURATION = 15;
 // The clip fades in from black; open on the flower scene and end just shy of
 // the final frame so the hero never shows a black edge.
@@ -125,6 +128,7 @@ export default function Hero() {
         <video
           ref={videoRef}
           src={HERO_VIDEO_PLAIN}
+          poster={HERO_POSTER}
           muted
           playsInline
           preload="auto"
@@ -146,18 +150,14 @@ export default function Hero() {
     );
   }
 
-  // Lite path: a single-screen hero that simply autoplays the clip (no pinned
-  // scroll-scrub, no WebGL), so weak devices scroll smoothly.
+  // Lite path: a single-screen hero showing a still cinematic frame (no video,
+  // no scrub, no WebGL), so weak devices stay completely flat and smooth.
   if (lite) {
     return (
       <section data-fluid-off className="relative isolate flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 text-center">
-        <video
-          src={HERO_VIDEO_PLAIN}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
+        <img
+          src={HERO_POSTER}
+          alt=""
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover"
         />
@@ -188,6 +188,7 @@ export default function Hero() {
         <motion.video
           ref={videoRef}
           src={HERO_VIDEO}
+          poster={HERO_POSTER}
           muted
           playsInline
           preload="auto"
