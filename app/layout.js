@@ -6,6 +6,7 @@ import ScrollProgress from "@/components/site/scroll-progress";
 import Cursor from "@/components/site/cursor";
 import Spotlight from "@/components/site/spotlight";
 import GridBackground from "@/components/site/grid-background";
+import FluidCursor from "@/components/site/fluid-cursor";
 import LiquidFilter from "@/components/site/liquid-filter";
 import JsonLd from "@/components/site/json-ld";
 
@@ -96,6 +97,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col overflow-x-hidden">
         <JsonLd />
         <LiquidFilter />
+        <FluidCursor className="fixed inset-0 z-[2] opacity-[0.68] mix-blend-screen" />
         <GridBackground className="pointer-events-none fixed inset-0 -z-10" />
         <SmoothScroll />
         <Intro />
