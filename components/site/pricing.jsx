@@ -60,7 +60,7 @@ const tiers = [
     name: "Beyond",
     tag: "The flagship",
     anchor: "Typical agency build: $15,000 to $25,000",
-    price: "From $7,500",
+    price: "From $7,497",
     cadence: "one-time",
     note: "Final price scales with scope and complexity.",
     features: [
