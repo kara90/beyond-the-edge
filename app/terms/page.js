@@ -20,7 +20,7 @@ const SECTIONS = [
     n: 2,
     title: "Use of the Site",
     body: [
-      "You may use the Site for lawful purposes only. You agree not to misuse the Site, attempt to gain unauthorized access, interfere with its operation, or copy, scrape, or reproduce its content without permission. All content on the Site, including text, design, graphics, video, and code, is owned by or licensed to Beyond the Edge and is protected by intellectual property laws.",
+      "You may use the Site for lawful purposes only. You agree not to misuse the Site, attempt to gain unauthorized access, interfere with its operation, or copy, scrape, or reproduce its content without permission. All content on the Site, including text, design, graphics, video, and code, is owned by or licensed to Beyond the Edge and is protected by intellectual property laws. Submitting information through a form on the Site does not create a confidential or client relationship and is handled under our Privacy Policy.",
     ],
   },
   {
@@ -34,7 +34,7 @@ const SECTIONS = [
     n: 4,
     title: "No guarantee of results",
     body: [
-      "We deliver professional work to a high standard, but we do not and cannot guarantee specific business outcomes, including search engine rankings, traffic, leads, sales, revenue, or return on investment. Any examples, samples, or statements about potential results are illustrative only and are not promises. Search engine rankings in particular depend on factors outside our control, including search providers and competition.",
+      "We deliver professional work to a high standard, but we do not and cannot guarantee specific business outcomes, including search engine rankings, traffic, leads, sales, revenue, or return on investment. Any examples, samples, testimonials, or statements about potential results are illustrative only, are not typical, and are not promises. Search engine rankings in particular depend on factors outside our control, including search providers and competition.",
     ],
   },
   {
@@ -42,6 +42,7 @@ const SECTIONS = [
     title: "Intellectual property and ownership",
     body: [
       "Ownership of work we create for a client is governed by the Client Services Agreement. In summary, and subject to that agreement: work that is fully paid for transfers to the client upon receipt of full payment, while work that is provided free or as part of a subscription remains our property and is licensed only while the relevant plan is active. We retain the right to reuse general skills, methods, code frameworks, and non-client-specific components, and to display completed work in our portfolio unless agreed otherwise in writing.",
+      "To be clear: a website or landing page you purchase becomes yours once it is fully paid. A landing page or site provided free or as part of a monthly plan is not purchased and is not owned by you. It remains our property, is provided only as part of your active plan, and is taken offline if the plan is cancelled or payment stops. The full terms are set out in your Client Services Agreement.",
     ],
   },
   {
@@ -55,14 +56,14 @@ const SECTIONS = [
     n: 7,
     title: "Third-party services",
     body: [
-      "Our services may rely on third-party providers, including domain registrars, hosting platforms, analytics, marketing platforms, and payment processors. Your use of those services may be subject to their own terms, and we are not responsible for their acts, omissions, availability, or pricing.",
+      "Our services may rely on third-party providers, including domain registrars, hosting platforms, analytics, marketing platforms, and payment processors. Your use of those services may be subject to their own terms, and we are not responsible for their acts, omissions, availability, changes, or pricing.",
     ],
   },
   {
     n: 8,
     title: "Disclaimers",
     body: [
-      'The Site and our services are provided on an "as is" and "as available" basis to the fullest extent permitted by law. We disclaim all warranties not expressly stated in a signed agreement, including implied warranties of merchantability and fitness for a particular purpose.',
+      'The Site and our services are provided on an "as is" and "as available" basis to the fullest extent permitted by law. We do not warrant that the Site will be uninterrupted, error free, or secure. We disclaim all warranties not expressly stated in a signed agreement, including implied warranties of merchantability and fitness for a particular purpose.',
     ],
   },
   {
@@ -76,25 +77,32 @@ const SECTIONS = [
     n: 10,
     title: "Limitation of liability",
     body: [
-      "To the fullest extent permitted by law, Beyond the Edge and its owners, members, and contractors will not be liable for any indirect, incidental, special, consequential, or punitive damages, or for lost profits, revenue, data, or goodwill, arising from your use of the Site or our services. Our total liability for any claim will not exceed the amount you paid us for the specific service giving rise to the claim.",
+      "To the fullest extent permitted by law, Beyond the Edge and its owner, contractors, employees, and affiliates will not be liable for any indirect, incidental, special, consequential, or punitive damages, or for lost profits, revenue, data, or goodwill, arising from your use of the Site or our services. Our total liability for any claim will not exceed the amount you paid us for the specific service giving rise to the claim.",
     ],
   },
   {
     n: 11,
     title: "Indemnification",
     body: [
-      "You agree to indemnify and hold harmless Beyond the Edge and its owners, members, and contractors from any claims, damages, or expenses, including reasonable legal fees, arising from your content, your use of our work, your violation of these Terms, or your violation of any law or third-party right.",
+      "You agree to indemnify and hold harmless Beyond the Edge and its owner, contractors, employees, and affiliates from any claims, damages, or expenses, including reasonable legal fees, arising from your content, your products or services, your use of our work, your violation of these Terms, or your violation of any law or third-party right.",
     ],
   },
   {
     n: 12,
     title: "Governing law and disputes",
     body: [
-      "These Terms are governed by the laws of the State of Nevada, without regard to conflict of law rules. Any dispute will be resolved exclusively in the state or federal courts located in Clark County, Nevada, and you consent to that jurisdiction.",
+      "These Terms are governed by the laws of the State of Nevada, without regard to conflict of law rules. Any dispute will be resolved exclusively in the state or federal courts located in Clark County, Nevada, and you consent to that jurisdiction. To the extent permitted by law, you waive any right to a jury trial. Any claim arising from these Terms or our services must be brought within one year after it arises, or it is permanently barred.",
     ],
   },
   {
     n: 13,
+    title: "General",
+    body: [
+      "These Terms, together with any Client Services Agreement and our Privacy Policy, are the entire agreement between you and us regarding the Site and our services. If any provision is found unenforceable, the rest remains in effect. You may not assign your rights under these Terms without our consent, and we may assign ours, including to a business entity we form. Electronic acceptance, including continued use of the Site, is binding.",
+    ],
+  },
+  {
+    n: 14,
     title: "Changes to these Terms",
     body: [
       "We may update these Terms at any time. The updated version takes effect when posted, with the revised date shown above. Continued use of the Site or our services after changes means you accept them.",
@@ -161,7 +169,7 @@ export default function TermsPage() {
           ))}
 
           <section>
-            <h2 className="text-xl font-semibold">14. Contact</h2>
+            <h2 className="text-xl font-semibold">15. Contact</h2>
             <address className="mt-3 not-italic text-[0.95rem] leading-relaxed text-muted-foreground">
               Sebastien Vautier d/b/a Beyond the Edge Studio
               <br />
