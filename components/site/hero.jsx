@@ -101,7 +101,7 @@ export default function Hero() {
   // Reduced motion: a calm, static opening frame with the copy.
   if (reduce) {
     return (
-      <section className="relative isolate flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 text-center">
+      <section data-fluid-off className="relative isolate flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 text-center">
         <video
           ref={videoRef}
           src={HERO_VIDEO}
@@ -130,6 +130,7 @@ export default function Hero() {
     <section
       ref={trackRef}
       aria-label="Beyond the Edge Studio"
+      data-fluid-off
       className="relative h-[360vh]"
     >
       {/* Pinned cinematic stage */}

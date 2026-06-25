@@ -12,7 +12,7 @@ const NAV = [
 
 export default function Footer() {
   return (
-    <footer className="relative isolate overflow-hidden border-t border-white/8 bg-background px-6 pt-16">
+    <footer data-fluid-off className="relative isolate overflow-hidden border-t border-white/8 bg-background px-6 pt-16">
       {/* Subtle background video (~50% transparent, top edge feathered) */}
       <video
         autoPlay

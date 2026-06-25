@@ -97,7 +97,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col overflow-x-hidden">
         <JsonLd />
         <LiquidFilter />
-        <FluidCursor className="fixed inset-0 z-[2] opacity-[0.46] mix-blend-screen" />
+        <FluidCursor className="fixed inset-0 z-[2] mix-blend-screen" />
         <GridBackground className="pointer-events-none fixed inset-0 -z-10" />
         <SmoothScroll />
         <Intro />

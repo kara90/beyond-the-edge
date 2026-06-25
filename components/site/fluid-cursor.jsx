@@ -216,6 +216,7 @@ export default function FluidCursor({ className = "" }) {
       p.x = x; p.y = y;
       p.moved = Math.abs(p.dx) > 0 || Math.abs(p.dy) > 0;
       if (!p._init) { p._init = true; p.moved = false; }
+      if (faded) { p.moved = false; return; }
       if (p.moved) {
         p.color = brandColor();
         lastActive = performance.now();
@@ -249,6 +250,11 @@ export default function FluidCursor({ className = "" }) {
     // user reads. Movement restarts it instantly. Starts idle until first move.
     const IDLE_MS = 3000;
     let lastActive = performance.now() - 100000;
+    // The layer fades out over the hero and footer (tagged [data-fluid-off])
+    // and runs at full strength on the sections between. While faded we also
+    // stop feeding the sim so it does no GPU work there.
+    const BASE_OPACITY = 0.46;
+    let faded = false;
 
     const step = (dt) => {
       gl.disable(gl.BLEND);
@@ -346,10 +352,36 @@ export default function FluidCursor({ className = "" }) {
     document.addEventListener("visibilitychange", onVisibility);
     window.addEventListener("resize", resize);
 
+    // Fade the layer out wherever a [data-fluid-off] section (hero, footer)
+    // fills the viewport; full strength on everything in between.
+    let fadeRaf = 0;
+    const computeFade = () => {
+      fadeRaf = 0;
+      const vh = window.innerHeight || 1;
+      let maxFade = 0;
+      const els = document.querySelectorAll("[data-fluid-off]");
+      for (const el of els) {
+        const r = el.getBoundingClientRect();
+        const overlap = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
+        const f = Math.max(0, Math.min(1, (overlap / vh - 0.1) / 0.35));
+        if (f > maxFade) maxFade = f;
+      }
+      faded = maxFade > 0.95;
+      canvas.style.opacity = (BASE_OPACITY * (1 - maxFade)).toFixed(3);
+    };
+    const onScrollFade = () => { if (!fadeRaf) fadeRaf = requestAnimationFrame(computeFade); };
+    computeFade();
+    canvas.style.transition = "opacity 0.4s ease";
+    window.addEventListener("scroll", onScrollFade, { passive: true });
+    window.addEventListener("resize", onScrollFade);
+
     return () => {
       cancelAnimationFrame(raf);
+      cancelAnimationFrame(fadeRaf);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", onScrollFade);
+      window.removeEventListener("resize", onScrollFade);
       document.removeEventListener("visibilitychange", onVisibility);
       const lose = gl.getExtension("WEBGL_lose_context");
       if (lose) lose.loseContext();
