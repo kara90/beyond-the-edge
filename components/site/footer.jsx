@@ -116,6 +116,12 @@ export default function Footer() {
           >
             Terms of Service
           </Link>
+          <Link
+            href="/privacy"
+            className="link-underline transition-colors hover:text-foreground"
+          >
+            Privacy Policy
+          </Link>
           <p className="font-mono tracking-wider">
             Beyond the edge of expected.
           </p>
