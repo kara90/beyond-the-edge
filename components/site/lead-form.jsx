@@ -12,7 +12,7 @@ import { FORM_ENDPOINT } from "@/components/site/config";
 */
 
 const FIELD =
-  "w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-colors focus:border-edge/50 focus:ring-2 focus:ring-edge/20";
+  "w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-foreground placeholder:text-foreground/45 outline-none transition-colors focus:border-edge/50 focus:ring-2 focus:ring-edge/20";
 
 // Are you already working with us?
 const RELATIONSHIP = [
@@ -54,7 +54,7 @@ function ChipRadio({ name, value, label, defaultChecked }) {
         defaultChecked={defaultChecked}
         className="peer sr-only"
       />
-      <span className="flex h-full items-center rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-muted-foreground transition-all duration-200 hover:border-white/20 peer-checked:border-edge/50 peer-checked:bg-edge/[0.08] peer-checked:text-foreground peer-checked:shadow-[0_0_22px_-8px_var(--edge)] peer-focus-visible:ring-2 peer-focus-visible:ring-edge/30">
+      <span className="flex h-full items-center rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-foreground/85 transition-all duration-200 hover:border-white/20 hover:text-foreground peer-checked:border-edge/50 peer-checked:bg-edge/[0.08] peer-checked:text-foreground peer-checked:shadow-[0_0_22px_-8px_var(--edge)] peer-focus-visible:ring-2 peer-focus-visible:ring-edge/30">
         {label}
       </span>
     </label>
@@ -65,7 +65,7 @@ function ChipCheck({ name, value }) {
   return (
     <label className="cursor-pointer">
       <input type="checkbox" name={name} value={value} className="peer sr-only" />
-      <span className="flex h-full items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-muted-foreground transition-all duration-200 hover:border-white/20 peer-checked:border-edge/50 peer-checked:bg-edge/[0.08] peer-checked:text-foreground peer-checked:shadow-[0_0_22px_-8px_var(--edge)] peer-focus-visible:ring-2 peer-focus-visible:ring-edge/30 peer-checked:[&_.lf-box]:border-edge peer-checked:[&_.lf-box]:bg-edge/15 peer-checked:[&_.lf-check]:opacity-100">
+      <span className="flex h-full items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-foreground/85 transition-all duration-200 hover:border-white/20 hover:text-foreground peer-checked:border-edge/50 peer-checked:bg-edge/[0.08] peer-checked:text-foreground peer-checked:shadow-[0_0_22px_-8px_var(--edge)] peer-focus-visible:ring-2 peer-focus-visible:ring-edge/30 peer-checked:[&_.lf-box]:border-edge peer-checked:[&_.lf-box]:bg-edge/15 peer-checked:[&_.lf-check]:opacity-100">
         {/* The check indicator is driven from this span (the input's real
             sibling) via descendant-targeting variants, so it toggles reliably. */}
         <span className="lf-box grid size-4 shrink-0 place-items-center rounded-[5px] border border-white/25 text-edge transition-colors">
@@ -83,7 +83,7 @@ function Group({ label, hint, children, cols = "sm:grid-cols-2" }) {
       <legend className="mb-1 block text-sm font-medium text-foreground">
         {label}
       </legend>
-      {hint && <p className="mb-3 text-xs text-muted-foreground/70">{hint}</p>}
+      {hint && <p className="mb-3 text-xs text-foreground/60">{hint}</p>}
       {!hint && <div className="mb-3" />}
       <div className={`grid gap-2.5 ${cols}`}>{children}</div>
     </fieldset>
@@ -210,7 +210,7 @@ export default function LeadForm() {
         </div>
         <div>
           <label htmlFor="lf-phone" className="mb-2 block text-sm font-medium">
-            Phone <span className="text-muted-foreground/60">(optional)</span>
+            Phone <span className="text-foreground/55">(optional)</span>
           </label>
           <input
             id="lf-phone"
@@ -282,7 +282,7 @@ export default function LeadForm() {
       <div className="mt-7">
         <label htmlFor="lf-details" className="mb-2 block text-sm font-medium">
           Anything else?{" "}
-          <span className="text-muted-foreground/60">(optional)</span>
+          <span className="text-foreground/55">(optional)</span>
         </label>
         <textarea
           id="lf-details"
@@ -307,7 +307,7 @@ export default function LeadForm() {
             Something went wrong. Email us at hello@beyondtheedgestudio.com.
           </p>
         ) : (
-          <p className="text-xs text-muted-foreground/70">
+          <p className="text-xs text-foreground/60">
             No spam. We reply within one business day.
           </p>
         )}
