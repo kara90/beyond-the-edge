@@ -26,8 +26,10 @@ import BeamsLayer from "@/components/site/beams-layer";
   A subtle scroll-linked push-in adds depth; the copy fades early so the
   animation is seen cleanly. prefers-reduced-motion: a still first frame.
 */
-const HERO_VIDEO =
-  "https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b92b86a414441905e543b.mp4";
+// Served from the site's own CDN, re-encoded all-intra (every frame a
+// keyframe) so the scroll scrub can seek to any frame instantly and stays
+// smooth instead of snapping between sparse keyframes.
+const HERO_VIDEO = "/media/hero.mp4";
 const FALLBACK_DURATION = 15;
 // The clip fades in from black; open on the flower scene and end just shy of
 // the final frame so the hero never shows a black edge.
