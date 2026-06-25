@@ -10,16 +10,16 @@ import { useEffect, useRef } from "react";
   the water is "disturbed"; when you stop, it settles back to flat and the
   filter is removed entirely (idle cost zero).
 
-  What ripples:
-    - the grid + the background videos (class .hf-liquid) react to any movement,
-      like a surface the cursor passes over;
-    - the single block/card directly under the cursor (.hf-rippling) gets the
-      localized "touch" ripple, so the water distorts right where you are.
+  What ripples: only the grid + the background videos (class .hf-liquid) react,
+  like a surface the cursor passes over. Cards/squares are deliberately NOT
+  distorted: the displacement filter fringed their edges (black artifacts) and,
+  by establishing a filter containing block, broke the background-attachment:
+  fixed that the .spotlight-edge neon glow relies on, so the edge glow stopped
+  tracking the cursor. Keeping the filter off cards fixes both.
 
   Only a handful of elements are ever filtered at once, so it stays smooth.
   Desktop + motion-allowed only.
 */
-const TARGET_SELECTOR = ".spotlight-edge";
 
 export default function LiquidFilter() {
   const turbRef = useRef(null);
@@ -42,7 +42,6 @@ export default function LiquidFilter() {
     let lastTP = performance.now();
     let lastSY = window.scrollY;
     let lastTS = performance.now();
-    let current = null; // block currently receiving the localized ripple
 
     // Gentle, organic water: small floor, modest cap, builds and settles
     // slowly so it never snaps in.
@@ -66,15 +65,6 @@ export default function LiquidFilter() {
       px = e.clientX;
       py = e.clientY;
       lastTP = now;
-
-      // Localize: ripple the block the cursor is actually over.
-      const el = document.elementFromPoint(e.clientX, e.clientY);
-      const block = el ? el.closest(TARGET_SELECTOR) : null;
-      if (block !== current) {
-        if (current) current.classList.remove("hf-rippling");
-        current = block;
-        if (current) current.classList.add("hf-rippling");
-      }
     };
 
     const onScroll = () => {
@@ -107,10 +97,6 @@ export default function LiquidFilter() {
         scale = 0;
         dispRef.current?.setAttribute("scale", "0");
         root.classList.remove("hf-liquid-on");
-        if (current) {
-          current.classList.remove("hf-rippling");
-          current = null;
-        }
         raf = 0;
         return;
       }
@@ -124,7 +110,6 @@ export default function LiquidFilter() {
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(raf);
       root.classList.remove("hf-liquid-on");
-      if (current) current.classList.remove("hf-rippling");
     };
   }, []);
 
