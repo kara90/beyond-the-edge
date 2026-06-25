@@ -367,8 +367,8 @@
   */
   .spotlight-edge {
     --spot-size: 320px;
-    --spot-base: 212; /* space blue */
-    --spot-spread: 120; /* drifts toward cyan to the right */
+    --spot-base: 210; /* space blue */
+    --spot-spread: -28; /* drifts toward cyan (not magenta) to the right */
     --spot-bd: 1.5px; /* glow rim thickness */
     --spot-hue: calc(var(--spot-base) + (var(--spot-xp, 0.5) * var(--spot-spread)));
     position: relative;

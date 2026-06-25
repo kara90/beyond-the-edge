@@ -37,7 +37,7 @@ export default function Process() {
       <ol className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         {STEPS.map((s, i) => (
           <Reveal key={s.title} delay={i * 0.08}>
-            <li className="spotlight-edge group relative h-full rounded-2xl border border-white/8 bg-white/[0.02] p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-edge/25">
+            <li className="spotlight-edge group relative h-full rounded-2xl border border-white/8 bg-white/[0.02] p-7 transition-all duration-500 hover:-top-1.5 hover:border-edge/25">
               {/* connecting line to the next step (desktop) */}
               {i < STEPS.length - 1 && (
                 <span
