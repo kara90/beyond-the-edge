@@ -139,9 +139,10 @@ const plans = [
     cadence: "per month",
     features: [
       "Everything in Care",
-      "One produced video a month",
+      "One short social video each month for your channels",
       "One content update and light optimization",
     ],
+    note: "Short social videos are quick branded clips for social. Full filmed or produced commercials are a separate add-on.",
   },
   {
     name: "Growth",
@@ -506,6 +507,12 @@ export default function Pricing() {
                       </li>
                     ))}
                   </ul>
+
+                  {p.note && (
+                    <p className="mt-3 text-[0.72rem] leading-snug text-muted-foreground/70">
+                      {p.note}
+                    </p>
+                  )}
 
                   <a
                     href="#contact"

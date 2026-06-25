@@ -16,6 +16,10 @@ const FAQS = [
     a: "Design, build, and launch, all custom to your brand. Each tier lists exactly what is included, and add-ons are priced openly so there are no surprises.",
   },
   {
+    q: "Do you use AI?",
+    a: "Yes, and we are upfront about it. We blend real production, real cameras, real editing, and hand-built funnels, with the best of AI. The AI lets us move faster and keep your cost far below a traditional agency. A real director and DP stand behind every project, so the result looks premium and converts, whether a piece is filmed or produced with AI. When a project calls for a real shoot, we shoot it. When a fast social piece makes more sense, we produce it efficiently. You always get a human directing the outcome, and major-brand quality for less.",
+  },
+  {
     q: "Do you work with businesses outside your area?",
     a: "Yes. We work with clients anywhere. Everything runs over calls and shared previews, so location is never a barrier.",
   },

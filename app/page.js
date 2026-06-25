@@ -6,6 +6,7 @@ import Work from "@/components/site/work";
 import Why from "@/components/site/why";
 import Process from "@/components/site/process";
 import Founder from "@/components/site/founder";
+import CraftAi from "@/components/site/craft-ai";
 import Pricing from "@/components/site/pricing";
 import Faq from "@/components/site/faq";
 import Contact from "@/components/site/contact";
@@ -25,6 +26,7 @@ export default function Home() {
         <Why />
         <Process />
         <Founder />
+        <CraftAi />
         <Pricing />
         <Contact />
         <Faq />
