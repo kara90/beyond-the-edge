@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
+import { isLite, onLite } from "@/components/site/perf";
 
 /*
   BeamsBackground — animated, blurred diagonal light beams on a transparent
@@ -40,6 +41,7 @@ export function BeamsBackground({ className, intensity = "medium" }) {
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    if (isLite()) return; // blurred canvas loop is too heavy on weak devices
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const MINIMUM_BEAMS = 20;
@@ -124,10 +126,19 @@ export function BeamsBackground({ className, intensity = "medium" }) {
     io.observe(canvas);
     draw();
 
-    return () => {
+    let torn = false;
+    const cleanup = () => {
+      if (torn) return;
+      torn = true;
       window.removeEventListener("resize", updateSize);
       io.disconnect();
       cancelAnimationFrame(rafRef.current);
+      ctx.clearRect(0, 0, cssW, cssH);
+    };
+    const unsubLite = onLite(cleanup);
+    return () => {
+      cleanup();
+      unsubLite();
     };
   }, [intensity]);
 

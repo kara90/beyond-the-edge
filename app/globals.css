@@ -4,6 +4,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Lite performance mode (set by PerfGuard on weak/janking devices): drop the
+   compositing-heavy decorative layers so scrolling stays smooth. */
+html.lite .grid-bg,
+html.lite .cine-grain,
+html.lite .fluid-canvas,
+html.lite .beams-layer {
+  display: none !important;
+}
+
 /*
   Beyond the Edge Studio — design tokens
   --------------------------------------

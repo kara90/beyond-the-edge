@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { isLite, onLite } from "@/components/site/perf";
 
 /*
   Site-wide grid. The grid is invisible by default and only appears in a soft
@@ -27,6 +28,7 @@ export default function GridBackground({ className = "" }) {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (isLite()) return;
     let raf = 0;
     let off = 0;
     const loop = () => {
@@ -36,13 +38,18 @@ export default function GridBackground({ className = "" }) {
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
+    const stop = () => cancelAnimationFrame(raf);
+    const unsub = onLite(stop);
+    return () => {
+      stop();
+      unsub();
+    };
   }, []);
 
   // No always-on base grid: the grid only exists inside the cursor reveal,
   // so it shows up wherever you move over the page and nowhere else.
   return (
-    <div aria-hidden="true" className={`hf-liquid ${className}`}>
+    <div aria-hidden="true" className={`grid-bg hf-liquid ${className}`}>
       <div
         ref={revealRef}
         className="absolute inset-0"

@@ -9,6 +9,7 @@ import GridBackground from "@/components/site/grid-background";
 import FluidCursor from "@/components/site/fluid-cursor";
 import LiquidFilter from "@/components/site/liquid-filter";
 import SoundLayer from "@/components/site/sound-layer";
+import PerfGuard from "@/components/site/perf-guard";
 import JsonLd from "@/components/site/json-ld";
 
 // Body: clean, highly readable.
@@ -97,9 +98,10 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col overflow-x-hidden">
         <JsonLd />
+        <PerfGuard />
         <LiquidFilter />
         <SoundLayer />
-        <FluidCursor className="fixed inset-0 z-[2] mix-blend-screen" />
+        <FluidCursor className="fluid-canvas fixed inset-0 z-[2] mix-blend-screen" />
         <GridBackground className="pointer-events-none fixed inset-0 -z-10" />
         <SmoothScroll />
         <Intro />

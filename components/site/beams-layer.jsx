@@ -16,7 +16,7 @@ export default function BeamsLayer({
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none absolute inset-0 mix-blend-screen ${className}`}
+      className={`beams-layer pointer-events-none absolute inset-0 mix-blend-screen ${className}`}
       style={{
         opacity,
         maskImage: FEATHER,

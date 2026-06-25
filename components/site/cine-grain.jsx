@@ -10,7 +10,7 @@ export default function CineGrain({ className = "", opacity = 0.28 }) {
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none absolute inset-0 motion-reduce:hidden ${className}`}
+      className={`cine-grain pointer-events-none absolute inset-0 motion-reduce:hidden ${className}`}
       style={{
         opacity,
         mixBlendMode: "overlay",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { isLite, onLite } from "@/components/site/perf";
 
 /*
   FluidCursor — a real-time GPU fluid simulation (Navier-Stokes, Jacobi
@@ -32,6 +33,7 @@ export default function FluidCursor({ className = "" }) {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     if (reduce || !fine) return;
+    if (isLite()) return; // skip the heaviest effect on weak devices
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -375,7 +377,10 @@ export default function FluidCursor({ className = "" }) {
     window.addEventListener("scroll", onScrollFade, { passive: true });
     window.addEventListener("resize", onScrollFade);
 
-    return () => {
+    let torn = false;
+    const cleanup = () => {
+      if (torn) return;
+      torn = true;
       cancelAnimationFrame(raf);
       cancelAnimationFrame(fadeRaf);
       window.removeEventListener("pointermove", onMove);
@@ -383,8 +388,14 @@ export default function FluidCursor({ className = "" }) {
       window.removeEventListener("scroll", onScrollFade);
       window.removeEventListener("resize", onScrollFade);
       document.removeEventListener("visibilitychange", onVisibility);
+      canvas.style.opacity = "0";
       const lose = gl.getExtension("WEBGL_lose_context");
       if (lose) lose.loseContext();
+    };
+    const unsubLite = onLite(cleanup); // tear down if the page is janking
+    return () => {
+      cleanup();
+      unsubLite();
     };
   }, []);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useScroll,
@@ -11,6 +11,7 @@ import { ArrowRight } from "lucide-react";
 import ButtonLink from "@/components/site/button-link";
 import CineGrain from "@/components/site/cine-grain";
 import BeamsLayer from "@/components/site/beams-layer";
+import { isLite, onLite } from "@/components/site/perf";
 
 /*
   HERO — a scroll-scrubbed cinematic.
@@ -30,6 +31,11 @@ import BeamsLayer from "@/components/site/beams-layer";
 // keyframe) so the scroll scrub can seek to any frame instantly and stays
 // smooth instead of snapping between sparse keyframes.
 const HERO_VIDEO = "/media/hero.mp4";
+// Normal-encoded source used for the lite/reduced paths: it just plays
+// (cheap, hardware-decoded P-frames) rather than being seeked frame by frame,
+// which all-intra makes expensive to play back.
+const HERO_VIDEO_PLAIN =
+  "https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3d62cedb2129be183684ed.mp4";
 const FALLBACK_DURATION = 15;
 // The clip fades in from black; open on the flower scene and end just shy of
 // the final frame so the hero never shows a black edge.
@@ -40,6 +46,9 @@ export default function Hero() {
   const reduce = useReducedMotion();
   const trackRef = useRef(null);
   const videoRef = useRef(null);
+  // On weak/janking devices, drop the pinned scroll-scrub for a simple
+  // autoplaying hero so scrolling stays smooth.
+  const [lite, setLite] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: trackRef,
@@ -69,7 +78,7 @@ export default function Hero() {
     if (v.readyState >= 1) paintFirst();
     else v.addEventListener("loadedmetadata", paintFirst, { once: true });
 
-    if (reduce) return;
+    if (reduce || lite) return;
 
     let raf = 0;
     let target = 0;
@@ -98,7 +107,16 @@ export default function Hero() {
       cancelAnimationFrame(raf);
       unsub();
     };
-  }, [reduce, scrollYProgress]);
+  }, [reduce, lite, scrollYProgress]);
+
+  // Detect a weak/janking device and switch the hero to the lite path.
+  useEffect(() => {
+    if (isLite()) {
+      setLite(true);
+      return;
+    }
+    return onLite(() => setLite(true));
+  }, []);
 
   // Reduced motion: a calm, static opening frame with the copy.
   if (reduce) {
@@ -106,7 +124,7 @@ export default function Hero() {
       <section data-fluid-off className="relative isolate flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 text-center">
         <video
           ref={videoRef}
-          src={HERO_VIDEO}
+          src={HERO_VIDEO_PLAIN}
           muted
           playsInline
           preload="auto"
@@ -119,6 +137,36 @@ export default function Hero() {
           style={{
             background:
               "radial-gradient(120% 80% at 50% 30%, transparent 40%, oklch(0.1 0.02 268 / 0.45) 100%)",
+          }}
+        />
+        <div className="relative z-10">
+          <HeroCopy />
+        </div>
+      </section>
+    );
+  }
+
+  // Lite path: a single-screen hero that simply autoplays the clip (no pinned
+  // scroll-scrub, no WebGL), so weak devices scroll smoothly.
+  if (lite) {
+    return (
+      <section data-fluid-off className="relative isolate flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 text-center">
+        <video
+          src={HERO_VIDEO_PLAIN}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(120% 80% at 50% 30%, transparent 40%, oklch(0.1 0.02 268 / 0.55) 100%)",
           }}
         />
         <div className="relative z-10">

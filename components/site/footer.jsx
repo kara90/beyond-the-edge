@@ -17,7 +17,7 @@ export default function Footer() {
       {/* Subtle background video (~50% transparent, top edge feathered).
           Lazy-loaded + paused when off-screen via BgVideo. */}
       <BgVideo
-        src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b7947967e20d627d6e338.mp4"
+        src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3d62ce257ee1fdf51b9869.mp4"
         aria-hidden="true"
         className="hf-liquid pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-[0.65] motion-reduce:hidden"
       />

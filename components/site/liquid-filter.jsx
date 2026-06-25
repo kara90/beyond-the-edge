@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { isLite, onLite } from "@/components/site/perf";
 
 /*
   Liquid water distortion that reacts to the cursor like a finger on water.
@@ -29,6 +30,7 @@ export default function LiquidFilter() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     if (reduce || !fine) return;
+    if (isLite()) return;
 
     const root = document.documentElement;
     let raf = 0;
@@ -105,11 +107,19 @@ export default function LiquidFilter() {
 
     window.addEventListener("pointermove", onPointer, { passive: true });
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
+    let torn = false;
+    const cleanup = () => {
+      if (torn) return;
+      torn = true;
       window.removeEventListener("pointermove", onPointer);
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(raf);
       root.classList.remove("hf-liquid-on");
+    };
+    const unsubLite = onLite(cleanup);
+    return () => {
+      cleanup();
+      unsubLite();
     };
   }, []);
 
