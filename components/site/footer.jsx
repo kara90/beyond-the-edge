@@ -1,4 +1,5 @@
 import { BrandMark } from "@/components/site/nav";
+import BgVideo from "@/components/site/bg-video";
 import CineGrain from "@/components/site/cine-grain";
 import BeamsLayer from "@/components/site/beams-layer";
 import VideoEdges from "@/components/site/video-edges";
@@ -12,21 +13,14 @@ const NAV = [
 
 export default function Footer() {
   return (
-    <footer data-fluid-off className="relative isolate overflow-hidden border-t border-white/8 bg-background px-6 pt-16">
-      {/* Subtle background video (~50% transparent, top edge feathered) */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
+    <footer data-fluid-off className="relative isolate overflow-hidden border-t border-white/8 bg-background px-6 pt-16 pb-10">
+      {/* Subtle background video (~50% transparent, top edge feathered).
+          Lazy-loaded + paused when off-screen via BgVideo. */}
+      <BgVideo
+        src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b7947967e20d627d6e338.mp4"
         aria-hidden="true"
         className="hf-liquid pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-[0.65] motion-reduce:hidden"
-      >
-        <source
-          src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b7947967e20d627d6e338.mp4"
-          type="video/mp4"
-        />
-      </video>
+      />
       {/* Ambient light-beam aura above the footage */}
       <BeamsLayer className="-z-10" opacity={0.45} />
       {/* Cinematic grain over the footage */}
@@ -97,22 +91,23 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-12 flex max-w-6xl flex-col items-center justify-between gap-3 border-t border-white/8 pt-6 text-xs text-muted-foreground sm:flex-row">
+      {/* Oversized wordmark watermark — fades up into the void */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none mt-12 select-none text-center"
+      >
+        <span className="block whitespace-nowrap bg-gradient-to-b from-white/[0.07] to-transparent bg-clip-text text-[19vw] font-bold leading-[0.85] tracking-tight text-transparent">
+          Beyond the Edge
+        </span>
+      </div>
+
+      {/* Bottom bar — copyright + tagline, at the very bottom of the page */}
+      <div className="mx-auto mt-6 flex max-w-6xl flex-col items-center justify-between gap-3 border-t border-white/8 pt-6 text-xs text-muted-foreground sm:flex-row">
         <p>
           © {new Date().getFullYear()} Beyond the Edge Studio. All rights
           reserved.
         </p>
         <p className="font-mono tracking-wider">Beyond the edge of expected.</p>
-      </div>
-
-      {/* Oversized wordmark watermark — fades up into the void */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none mt-8 select-none text-center"
-      >
-        <span className="block whitespace-nowrap bg-gradient-to-b from-white/[0.07] to-transparent bg-clip-text text-[19vw] font-bold leading-[0.85] tracking-tight text-transparent">
-          Beyond the Edge
-        </span>
       </div>
     </footer>
   );

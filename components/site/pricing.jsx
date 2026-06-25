@@ -2,6 +2,7 @@ import { Check, ArrowRight, Plus } from "lucide-react";
 import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
 import ButtonLink from "@/components/site/button-link";
+import BgVideo from "@/components/site/bg-video";
 import CineGrain from "@/components/site/cine-grain";
 import BeamsLayer from "@/components/site/beams-layer";
 import { BOOKING_URL } from "@/components/site/config";
@@ -224,19 +225,11 @@ export default function Pricing() {
           aria-hidden="true"
           className="media-feather-xy pointer-events-none absolute left-1/2 top-0 -z-10 h-full w-screen max-w-none -translate-x-1/2 overflow-hidden"
         >
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
+          <BgVideo
+            src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b85a06a414441905c9c6b.mp4"
             aria-hidden="true"
             className="hf-liquid h-full w-full object-cover opacity-50 motion-reduce:hidden"
-          >
-            <source
-              src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b85a06a414441905c9c6b.mp4"
-              type="video/mp4"
-            />
-          </video>
+          />
           {/* Ambient light-beam aura above the footage */}
           <BeamsLayer opacity={0.4} />
           {/* Cinematic grain over the footage */}

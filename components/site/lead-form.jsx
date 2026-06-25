@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
+import BgVideo from "@/components/site/bg-video";
 import { FORM_ENDPOINT } from "@/components/site/config";
 
 /*
@@ -148,18 +149,10 @@ export default function LeadForm() {
             "radial-gradient(120% 120% at 50% 45%, #000 40%, transparent 100%)",
         }}
       >
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
+        <BgVideo
+          src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b950e817563b473c5f5e6.mp4"
           className="h-full w-full object-cover opacity-[0.18] mix-blend-screen motion-reduce:hidden"
-        >
-          <source
-            src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3b950e817563b473c5f5e6.mp4"
-            type="video/mp4"
-          />
-        </video>
+        />
         {/* Black layer to darken the video further */}
         <div className="absolute inset-0 bg-black/40" />
       </div>
