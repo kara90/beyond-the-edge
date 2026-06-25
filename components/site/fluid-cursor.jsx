@@ -16,13 +16,13 @@ import { useEffect, useRef } from "react";
 const CONFIG = {
   SIM_RESOLUTION: 128,
   DYE_RESOLUTION: 512,
-  DENSITY_DISSIPATION: 1.5,
+  DENSITY_DISSIPATION: 1.7,
   VELOCITY_DISSIPATION: 0.4,
   PRESSURE: 0.8,
   PRESSURE_ITERATIONS: 12,
   CURL: 18,
-  SPLAT_RADIUS: 0.15,
-  SPLAT_FORCE: 5200,
+  SPLAT_RADIUS: 0.1,
+  SPLAT_FORCE: 4600,
 };
 
 export default function FluidCursor({ className = "" }) {
@@ -189,10 +189,11 @@ export default function FluidCursor({ className = "" }) {
     // pointer
     const pointers = [{ x: 0, y: 0, dx: 0, dy: 0, down: false, moved: false, color: [0, 0, 0] }];
     const brandColor = () => {
-      // hue between cyan (190) and blue (245), low value so it stays subtle
-      const hue = (190 + Math.random() * 55) / 360;
+      // deeper blue (210-245, less cyan), and 15% darker so it stays a quiet
+      // accent that does not pull the eye
+      const hue = (210 + Math.random() * 35) / 360;
       const c = hslToRgb(hue, 0.85, 0.55);
-      return [c[0] * 0.55, c[1] * 0.55, c[2] * 0.55];
+      return [c[0] * 0.47, c[1] * 0.47, c[2] * 0.47];
     };
     function hslToRgb(h, s, l) {
       let r, g, b;
