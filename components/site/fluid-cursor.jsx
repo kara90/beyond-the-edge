@@ -19,7 +19,7 @@ const CONFIG = {
   DENSITY_DISSIPATION: 1.5,
   VELOCITY_DISSIPATION: 0.4,
   PRESSURE: 0.8,
-  PRESSURE_ITERATIONS: 20,
+  PRESSURE_ITERATIONS: 12,
   CURL: 18,
   SPLAT_RADIUS: 0.15,
   SPLAT_FORCE: 5200,
@@ -174,7 +174,7 @@ export default function FluidCursor({ className = "" }) {
     }
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1);
       const w = Math.round(window.innerWidth * dpr);
       const h = Math.round(window.innerHeight * dpr);
       if (canvas.width !== w || canvas.height !== h) {
@@ -215,7 +215,11 @@ export default function FluidCursor({ className = "" }) {
       p.x = x; p.y = y;
       p.moved = Math.abs(p.dx) > 0 || Math.abs(p.dy) > 0;
       if (!p._init) { p._init = true; p.moved = false; }
-      if (p.moved) p.color = brandColor();
+      if (p.moved) {
+        p.color = brandColor();
+        lastActive = performance.now();
+        if (!raf && visible) { lastTime = lastActive; raf = requestAnimationFrame(update); }
+      }
     };
     window.addEventListener("pointermove", onMove);
 
@@ -239,6 +243,11 @@ export default function FluidCursor({ className = "" }) {
     let lastTime = performance.now();
     let visible = true;
     let raf = 0;
+    // Idle auto-pause: stop simulating a few seconds after the cursor stops
+    // (by then the dye has fully dissipated) so the GPU does nothing while the
+    // user reads. Movement restarts it instantly. Starts idle until first move.
+    const IDLE_MS = 3000;
+    let lastActive = performance.now() - 100000;
 
     const step = (dt) => {
       gl.disable(gl.BLEND);
@@ -321,7 +330,7 @@ export default function FluidCursor({ className = "" }) {
       applyInputs();
       step(dt);
       render();
-      raf = visible ? requestAnimationFrame(update) : 0;
+      raf = visible && now - lastActive < IDLE_MS ? requestAnimationFrame(update) : 0;
     };
 
     resize();

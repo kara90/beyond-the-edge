@@ -49,7 +49,7 @@ export default function Contact() {
       </Reveal>
 
       {/* Low-friction lead form */}
-      <Reveal delay={0.1} className="mx-auto mt-14 max-w-2xl">
+      <Reveal delay={0.1} className="mx-auto mt-14 max-w-4xl">
         <p className="mb-5 text-center text-sm text-muted-foreground">
           Prefer to send the details now? Tell us what you need.
         </p>

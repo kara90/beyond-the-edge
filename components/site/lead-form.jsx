@@ -165,7 +165,7 @@ export default function LeadForm() {
       </div>
 
       {/* Contact details */}
-      <div className="relative z-10 grid gap-5 sm:grid-cols-2">
+      <div className="relative z-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <label htmlFor="lf-name" className="mb-2 block text-sm font-medium">
             Name
@@ -217,12 +217,16 @@ export default function LeadForm() {
             name="phone"
             type="tel"
             autoComplete="tel"
-            placeholder="Best number to reach you"
+            placeholder="Best number"
             className={FIELD}
           />
         </div>
       </div>
 
+      {/* Project scoping laid out as a wide block instead of one tall stack:
+          relationship spans the top, the two core questions sit side by side,
+          and growth runs full width below. Collapses to a logical single
+          column on mobile. */}
       {/* Relationship */}
       <Group label="Are you already working with us?">
         {RELATIONSHIP.map((o, i) => (
@@ -236,36 +240,38 @@ export default function LeadForm() {
         ))}
       </Group>
 
-      {/* Starting point */}
-      <Group label="Where are you starting from?">
-        {SITUATION.map((o, i) => (
-          <ChipRadio
-            key={o.value}
-            name="situation"
-            value={o.value}
-            label={o.label}
-            defaultChecked={i === 0}
-          />
-        ))}
-      </Group>
+      {/* Starting point + what to build, side by side */}
+      <div className="md:grid md:grid-cols-2 md:gap-x-8">
+        <Group label="Where are you starting from?" cols="grid-cols-1">
+          {SITUATION.map((o, i) => (
+            <ChipRadio
+              key={o.value}
+              name="situation"
+              value={o.value}
+              label={o.label}
+              defaultChecked={i === 0}
+            />
+          ))}
+        </Group>
 
-      {/* What to build */}
-      <Group label="What do you want built?" cols="sm:grid-cols-3">
-        {PROJECT.map((o, i) => (
-          <ChipRadio
-            key={o.value}
-            name="project"
-            value={o.value}
-            label={o.label}
-            defaultChecked={i === 1}
-          />
-        ))}
-      </Group>
+        <Group label="What do you want built?" cols="grid-cols-1">
+          {PROJECT.map((o, i) => (
+            <ChipRadio
+              key={o.value}
+              name="project"
+              value={o.value}
+              label={o.label}
+              defaultChecked={i === 1}
+            />
+          ))}
+        </Group>
+      </div>
 
-      {/* Growth firepower */}
+      {/* Growth firepower — full width */}
       <Group
         label="Add growth firepower"
         hint="Optional. Pick anything you want us to wire in. We will scope it with you."
+        cols="sm:grid-cols-2"
       >
         {MARKETING.map((m) => (
           <ChipCheck key={m} name="marketing" value={m} />
