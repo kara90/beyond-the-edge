@@ -8,6 +8,7 @@ import Spotlight from "@/components/site/spotlight";
 import GridBackground from "@/components/site/grid-background";
 import FluidCursor from "@/components/site/fluid-cursor";
 import LiquidFilter from "@/components/site/liquid-filter";
+import SoundLayer from "@/components/site/sound-layer";
 import JsonLd from "@/components/site/json-ld";
 
 // Body: clean, highly readable.
@@ -97,6 +98,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col overflow-x-hidden">
         <JsonLd />
         <LiquidFilter />
+        <SoundLayer />
         <FluidCursor className="fixed inset-0 z-[2] mix-blend-screen" />
         <GridBackground className="pointer-events-none fixed inset-0 -z-10" />
         <SmoothScroll />
