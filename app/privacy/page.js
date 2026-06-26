@@ -93,25 +93,39 @@ export default function PrivacyPage() {
               </li>
               <li>Comply with legal obligations</li>
             </ul>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold">
+              3. Communications, calls, and texts
+            </h2>
             <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">
-              We do not sell your personal information.
+              If you provide your phone number through the Site or to us, you
+              agree that we may contact you about your inquiry and our services,
+              including by phone call, text message, and email. Message and data
+              rates may apply, and message frequency varies. You can opt out of
+              marketing calls or texts at any time by replying STOP to a text or
+              by telling us, and we will still be able to contact you as needed
+              about active work. We do not sell your phone number.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold">3. How information is shared</h2>
+            <h2 className="text-xl font-semibold">4. How information is shared</h2>
             <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">
               We share information only as needed to run our business, including
               with trusted service providers who act on our behalf, such as
               hosting, analytics, scheduling, payment processing, and marketing
-              platforms. These providers may process your information under
-              their own terms. We may also disclose information if required by
-              law or to protect our rights.
+              and communication platforms. These providers may process your
+              information under their own terms. We may also disclose information
+              if required by law, to enforce our agreements, or to protect our
+              rights. We do not sell your personal information, and we do not
+              share it for cross-context behavioral advertising.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold">4. Cookies and analytics</h2>
+            <h2 className="text-xl font-semibold">5. Cookies and analytics</h2>
             <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">
               The Site may use cookies and analytics tools to understand traffic
               and improve performance. You can control cookies through your
@@ -121,7 +135,17 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold">5. Data retention</h2>
+            <h2 className="text-xl font-semibold">6. Data location</h2>
+            <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">
+              We operate in the United States, and your information may be
+              processed and stored in the United States, which may have
+              different data protection rules than your location. By using the
+              Site, you understand your information may be handled there.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold">7. Data retention</h2>
             <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">
               We keep personal information only as long as needed for the
               purposes described here, to provide our services, and to meet
@@ -131,19 +155,21 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold">6. Your choices and rights</h2>
+            <h2 className="text-xl font-semibold">8. Your choices and rights</h2>
             <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">
               You may request to access, correct, or delete the personal
               information we hold about you, and you may opt out of non-essential
               communications at any time. Depending on where you live, you may
-              have additional rights under applicable privacy laws. To make a
-              request, contact us using the details below. We will respond as
-              required by law.
+              have additional rights under applicable privacy laws, including the
+              right to know what we collect, to request deletion, to opt out of
+              any sale or sharing, and not to be discriminated against for
+              exercising those rights. To make a request, contact us using the
+              details below. We will respond as required by law.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold">7. Security</h2>
+            <h2 className="text-xl font-semibold">9. Security</h2>
             <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">
               We use reasonable technical and organizational measures to protect
               your information. No method of transmission or storage is fully
@@ -152,7 +178,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold">8. Children</h2>
+            <h2 className="text-xl font-semibold">10. Children</h2>
             <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">
               The Site and our services are not directed to children under 18,
               and we do not knowingly collect personal information from them.
@@ -160,7 +186,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold">9. Third-party links</h2>
+            <h2 className="text-xl font-semibold">11. Third-party links</h2>
             <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">
               The Site may link to third-party sites we do not control. We are
               not responsible for their content or privacy practices, and we
@@ -169,7 +195,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold">10. Changes to this policy</h2>
+            <h2 className="text-xl font-semibold">12. Changes to this policy</h2>
             <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">
               We may update this Privacy Policy from time to time. The revised
               version takes effect when posted, with the updated date shown
@@ -178,7 +204,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold">11. Contact</h2>
+            <h2 className="text-xl font-semibold">13. Contact</h2>
             <address className="mt-3 not-italic text-[0.95rem] leading-relaxed text-muted-foreground">
               Sebastien Vautier d/b/a Beyond the Edge Studio
               <br />
