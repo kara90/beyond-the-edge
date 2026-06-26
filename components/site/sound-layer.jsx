@@ -3,10 +3,10 @@
 import { useEffect } from "react";
 
 /*
-  SoundLayer — a soft, synthesized "tick" the moment the cursor passes onto a
-  framed block (.spotlight-edge: cards, photos, videos, the form). No audio
-  files: a short, low sine blip via Web Audio, with a slightly randomized pitch
-  so repeated passes never grate, a gentle attack (no click), and a quick decay.
+  SoundLayer — a soft, airy "whoosh" the moment the cursor passes onto a framed
+  block (.spotlight-edge: cards, photos, videos, the form). No audio files: a
+  short burst of filtered noise that swells and fades, with a band that drifts
+  up so it reads as a breath of air rather than a tone. Very low volume, subtle.
 
   Browser autoplay rules block audio until the user interacts, so the audio
   context is created/resumed on the first gesture. Desktop pointers only,
@@ -19,43 +19,54 @@ export default function SoundLayer() {
     if (!AC) return;
 
     let ctx = null;
+    let noise = null; // reusable white-noise buffer
     let lastBlock = null;
     let lastAt = 0;
 
     const ensure = () => {
-      if (!ctx) ctx = new AC();
+      if (!ctx) {
+        ctx = new AC();
+        const len = Math.floor(ctx.sampleRate * 0.5);
+        noise = ctx.createBuffer(1, len, ctx.sampleRate);
+        const d = noise.getChannelData(0);
+        for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+      }
       if (ctx.state === "suspended") ctx.resume();
     };
 
-    const blip = () => {
-      if (!ctx || ctx.state !== "running" || document.hidden) return;
+    const whoosh = () => {
+      if (!ctx || ctx.state !== "running" || document.hidden || !noise) return;
       const t = ctx.currentTime;
-      const osc = ctx.createOscillator();
-      const sub = ctx.createOscillator();
-      const gain = ctx.createGain();
+      const dur = 0.26;
+
+      const src = ctx.createBufferSource();
+      src.buffer = noise;
+      src.playbackRate.value = 0.9 + Math.random() * 0.25;
+
+      // A broad band that drifts upward = an airy swoosh, not a tone.
+      const bp = ctx.createBiquadFilter();
+      bp.type = "bandpass";
+      bp.Q.value = 0.6;
+      const f0 = 320 + Math.random() * 160;
+      bp.frequency.setValueAtTime(f0, t);
+      bp.frequency.exponentialRampToValueAtTime(f0 * 3.2, t + dur);
+
+      // Keep it soft: roll off the harsh highs.
       const lp = ctx.createBiquadFilter();
       lp.type = "lowpass";
-      lp.frequency.value = 2200;
+      lp.frequency.value = 2600;
 
-      const f = 540 + Math.random() * 170; // small pitch variation
-      osc.type = "sine";
-      sub.type = "sine";
-      osc.frequency.setValueAtTime(f, t);
-      osc.frequency.exponentialRampToValueAtTime(f * 0.72, t + 0.13);
-      sub.frequency.setValueAtTime(f / 2, t); // soft body an octave down
-
+      const gain = ctx.createGain();
       gain.gain.setValueAtTime(0, t);
-      gain.gain.linearRampToValueAtTime(0.045, t + 0.006); // soft attack, low volume
-      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.15);
+      gain.gain.linearRampToValueAtTime(0.018, t + 0.07); // gentle swell, very quiet
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
 
-      osc.connect(lp);
-      sub.connect(lp);
+      src.connect(bp);
+      bp.connect(lp);
       lp.connect(gain);
       gain.connect(ctx.destination);
-      osc.start(t);
-      sub.start(t);
-      osc.stop(t + 0.17);
-      sub.stop(t + 0.17);
+      src.start(t);
+      src.stop(t + dur + 0.02);
     };
 
     const onOver = (e) => {
@@ -63,8 +74,8 @@ export default function SoundLayer() {
       const block = tgt && tgt.closest ? tgt.closest(".spotlight-edge") : null;
       if (block && block !== lastBlock) {
         const now = performance.now();
-        if (now - lastAt > 80) {
-          blip();
+        if (now - lastAt > 110) {
+          whoosh();
           lastAt = now;
         }
       }
