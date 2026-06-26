@@ -3,9 +3,10 @@ import { BrandMark } from "@/components/site/nav";
 import Footer from "@/components/site/footer";
 
 export const metadata = {
-  title: "Privacy Policy — Beyond the Edge Studio",
+  title: "Privacy Policy",
   description:
     "How Beyond the Edge Studio collects, uses, and protects information when you visit beyondtheedgestudio.com or contact us.",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {

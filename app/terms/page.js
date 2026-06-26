@@ -3,9 +3,10 @@ import { BrandMark } from "@/components/site/nav";
 import Footer from "@/components/site/footer";
 
 export const metadata = {
-  title: "Terms of Service — Beyond the Edge Studio",
+  title: "Terms of Service",
   description:
     "The terms governing use of beyondtheedgestudio.com and the services provided by Beyond the Edge Studio.",
+  alternates: { canonical: "/terms" },
 };
 
 const SECTIONS = [
