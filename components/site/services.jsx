@@ -13,7 +13,7 @@ const SERVICES = [
     icon: Clapperboard,
     title: "Cinematic video",
     meta: "Brand films · Social",
-    body: "Brand films and social cuts that stop the scroll and make people remember you. The kind of footage your competitors cannot match.",
+    body: "Brand films and social cuts shot and crafted with real direction and a real eye, the kind of production big brands pay a premium for, brought to your business. Footage your competitors cannot match.",
   },
   {
     icon: LineChart,

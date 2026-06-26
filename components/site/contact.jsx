@@ -20,6 +20,11 @@ export default function Contact() {
           Tell us where the brand is now and where it should be. We will show you
           what is possible, then build it.
         </p>
+        <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-foreground/85">
+          No software to learn. No equipment to buy. No team to hire. You stay
+          focused on running your business, while we make it look like the best
+          in the market.
+        </p>
         <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <ButtonLink
             href={BOOKING_URL}
