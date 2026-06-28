@@ -274,11 +274,13 @@ export default function CheckoutClient({ initialTier }) {
       {step === "build" && (
         <div className="mt-10 grid gap-8 lg:grid-cols-[1.6fr_1fr]">
           <div>
-            <h2 className="text-lg font-semibold">Choose your build</h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Pick a website, an app, or both. Add-ons appear below.
-            </p>
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            <SectionHead
+              first
+              eyebrow="01 · Build"
+              title="Choose your build"
+              sub="Pick a website, an app, or both."
+            />
+            <div className="mt-5 grid gap-3 sm:grid-cols-3">
               {TIERS.map((t) => {
                 const on = !!picked[t.id];
                 return (
@@ -315,14 +317,13 @@ export default function CheckoutClient({ initialTier }) {
               </p>
             )}
 
-            {availableGroups.length > 0 && (
-              <>
-                <h2 className="mt-10 text-lg font-semibold">Make it work harder</h2>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Optional upgrades, added to this same order. Each is a quick win
-                  for your offer.
-                </p>
-                <div className="mt-5 space-y-7">
+            <SectionHead
+              eyebrow="02 · Add-ons"
+              title="Make it work harder"
+              sub="Optional upgrades, added to this same order. Each is a quick win for your offer."
+            />
+            {availableGroups.length > 0 ? (
+              <div className="mt-5 space-y-7">
                   {availableGroups.map((g) => (
                     <div key={g.title}>
                       <p className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-edge/70">
@@ -395,20 +396,20 @@ export default function CheckoutClient({ initialTier }) {
                     </div>
                   ))}
                 </div>
-              </>
+            ) : (
+              <p className="mt-4 text-sm text-muted-foreground/70">
+                Select a website or app above to see add-ons.
+              </p>
             )}
 
             {/* Recurring care plans */}
-            <div className="mt-10 flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <h2 className="text-lg font-semibold">Keep growing</h2>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Optional care plan, handled every month. Cancel anytime.
-                </p>
-              </div>
-              <BillingToggle billing={billing} setBilling={setBilling} />
-            </div>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <SectionHead
+              eyebrow="03 · Care plan"
+              title="Keep growing"
+              sub="Optional, handled every month. Cancel anytime."
+              action={<BillingToggle billing={billing} setBilling={setBilling} />}
+            />
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
               {PLANS.map((p) => {
                 const on = !!picked[p.id];
                 const amount =
@@ -444,12 +445,12 @@ export default function CheckoutClient({ initialTier }) {
             </div>
 
             {/* Bespoke / email tiers */}
-            <h2 className="mt-10 text-lg font-semibold">Going bigger?</h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Flagship and custom-scope offers. Because the price scales with what
-              you need, we scope and quote these over email.
-            </p>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <SectionHead
+              eyebrow="04 · Going bigger"
+              title="Going bigger?"
+              sub="Flagship and custom-scope offers. Because the price scales with what you need, we scope and quote these over email."
+            />
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
               {BESPOKE.map((b) => (
                 <div
                   key={b.name}
@@ -578,6 +579,25 @@ function withPick(picked, item, on) {
   }
   next[item.id] = on;
   return next;
+}
+
+function SectionHead({ eyebrow, title, sub, action, first }) {
+  return (
+    <div
+      className={`flex flex-wrap items-start justify-between gap-4 ${
+        first ? "" : "mt-12 border-t border-white/8 pt-9"
+      }`}
+    >
+      <div className="max-w-md">
+        <p className="font-mono text-[0.6rem] uppercase tracking-[0.22em] text-edge/70">
+          {eyebrow}
+        </p>
+        <h2 className="mt-2 text-lg font-semibold leading-tight">{title}</h2>
+        {sub && <p className="mt-1 text-sm text-muted-foreground">{sub}</p>}
+      </div>
+      {action ? <div className="shrink-0">{action}</div> : null}
+    </div>
+  );
 }
 
 function SelectBadge({ on }) {
