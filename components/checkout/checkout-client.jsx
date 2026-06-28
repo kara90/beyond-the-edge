@@ -64,6 +64,41 @@ const PLANS = [
 
 const ANNUAL_MONTHS = 10; // annual = 10 months (two months free)
 
+// Bespoke / "From …" offers. Price scales with scope, so these are shown for
+// upsell + anchoring but booked on a call rather than charged a fixed amount.
+const BESPOKE = [
+  {
+    name: "Beyond",
+    tag: "Website",
+    price: "From $7,497",
+    desc: "Flagship bespoke site — advanced 3D, cinematic hero video, full conversion system.",
+  },
+  {
+    name: "Apex",
+    tag: "Website",
+    price: "From $15,000",
+    desc: "The ceiling: the full signature experience, bespoke 3D, and a cinematic brand film.",
+  },
+  {
+    name: "Pro App",
+    tag: "App",
+    price: "From $9,500",
+    desc: "Customer accounts, payments, memberships, loyalty, and multiple modules.",
+  },
+  {
+    name: "Growth",
+    tag: "Care plan",
+    price: "From $1,800/mo",
+    desc: "Full content, SEO, Google Business, and ads management — handled for you.",
+  },
+  {
+    name: "App Care",
+    tag: "Care plan",
+    price: "From $200/mo",
+    desc: "Hosting, updates, security, and push-notification management for your app.",
+  },
+];
+
 // Cross-sell / upsell add-ons, grouped for scannability. Each carries a short
 // "why it helps" line. `kinds` controls which selected products surface a group.
 const ADDON_GROUPS = [
@@ -408,14 +443,38 @@ export default function CheckoutClient({ initialTier }) {
               })}
             </div>
 
-            <p className="mt-6 text-xs text-muted-foreground/70">
-              Growth, App Care, and the flagship tiers (Beyond, Apex, Pro App) are
-              tailored to scope.{" "}
-              <a href="/#contact" className="text-edge hover:text-edge-bright">
-                Talk to us
-              </a>
-              .
+            {/* Bespoke / book-a-call tiers */}
+            <h2 className="mt-10 text-lg font-semibold">Going bigger?</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Flagship and custom-scope offers. Because the price scales with what
+              you need, we scope and quote these on a quick call.
             </p>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {BESPOKE.map((b) => (
+                <div
+                  key={b.name}
+                  className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.02] p-5"
+                >
+                  <div className="flex items-baseline justify-between gap-3">
+                    <p className="font-display text-base font-semibold">{b.name}</p>
+                    <p className="font-mono text-[0.58rem] uppercase tracking-widest text-edge/70">
+                      {b.tag}
+                    </p>
+                  </div>
+                  <p className="mt-1 text-metallic">{b.price}</p>
+                  <p className="mt-2 flex-1 text-xs leading-relaxed text-muted-foreground">
+                    {b.desc}
+                  </p>
+                  <a
+                    href="/#contact"
+                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-edge transition-colors hover:text-edge-bright"
+                  >
+                    Book a call
+                    <ArrowRight className="size-3.5" />
+                  </a>
+                </div>
+              ))}
+            </div>
           </div>
 
           <Summary
