@@ -5,10 +5,14 @@ import { loadStripe } from "@stripe/stripe-js";
 import { ArrowRight, ArrowLeft, Check, Minus, Plus } from "lucide-react";
 
 /*
-  On-site checkout (Stage 1, one-time). Three steps inside one page: pick a
-  build tier and relevant upsells with a live total, fill the required intake,
+  On-site checkout (Stage 1, one-time). Three steps inside one page: pick one or
+  more products and relevant add-ons with a live total, fill the required intake,
   then pay via Stripe Embedded Checkout mounted right here (no redirect). The
   browser only sends item ids; the server prices everything from its catalog.
+
+  Products are multi-select: a website tier AND an app can be bought together.
+  The two website tiers (Liftoff / Orbit) are mutually exclusive — you pick one
+  website, not both. Apps add independently.
 */
 
 // Display catalog. The SERVER is the source of truth for amounts; these labels
@@ -19,6 +23,8 @@ const TIERS = [
   { id: "standard_app", name: "Standard App", tag: "App", price: 4997, kind: "app" },
 ];
 
+// Add-ons available per product kind. Shared ids (logo, brand_video) are
+// de-duplicated when both a website and an app are selected.
 const ADDONS = {
   website: [
     { id: "extra_page", name: "Extra page", price: 200, qtyable: true },
@@ -30,6 +36,9 @@ const ADDONS = {
     { id: "brand_video", name: "Produced brand video", price: 1500 },
   ],
 };
+
+// Kinds where only one product can be chosen at a time (tiers of one thing).
+const SINGLE_SELECT_KINDS = new Set(["website"]);
 
 const FIELD =
   "w-full rounded-lg border border-white/20 bg-white/[0.06] px-4 py-3 text-sm text-foreground placeholder:text-foreground/45 outline-none transition-colors focus:border-edge/50 focus:ring-2 focus:ring-edge/20";
@@ -43,9 +52,10 @@ const stripePromise =
 
 export default function CheckoutClient({ initialTier }) {
   const [step, setStep] = useState("build"); // build | details | pay
-  const [tierId, setTierId] = useState(
-    TIERS.find((t) => t.id === initialTier)?.id || "orbit"
-  );
+  const [picked, setPicked] = useState(() => {
+    const start = TIERS.find((t) => t.id === initialTier)?.id || "orbit";
+    return { [start]: true };
+  });
   const [qty, setQty] = useState({}); // addonId -> quantity (>=1 means selected)
   const [intake, setIntake] = useState({
     firstName: "",
@@ -59,34 +69,55 @@ export default function CheckoutClient({ initialTier }) {
   const [errors, setErrors] = useState({});
   const [payError, setPayError] = useState("");
 
-  // Prefill the tier from ?tier= (read client-side; this is a static export).
+  // Prefill the product from ?tier= (read client-side; this is a static export).
   useEffect(() => {
     try {
       const t = new URLSearchParams(window.location.search).get("tier");
-      if (t && TIERS.some((x) => x.id === t)) setTierId(t);
+      const def = TIERS.find((x) => x.id === t);
+      if (def) setPicked((p) => withProduct(p, def, true));
     } catch {}
   }, []);
 
-  const tier = TIERS.find((t) => t.id === tierId);
-  const addons = ADDONS[tier.kind] || [];
+  const selectedProducts = TIERS.filter((t) => picked[t.id]);
+  const selectedKinds = useMemo(
+    () => [...new Set(selectedProducts.map((t) => t.kind))],
+    [selectedProducts]
+  );
 
-  const selectedAddons = addons.filter((a) => (qty[a.id] || 0) > 0);
+  // Union of add-ons for the selected kinds, de-duplicated by id.
+  const availableAddons = useMemo(() => {
+    const seen = new Set();
+    const out = [];
+    for (const k of selectedKinds) {
+      for (const a of ADDONS[k] || []) {
+        if (!seen.has(a.id)) {
+          seen.add(a.id);
+          out.push(a);
+        }
+      }
+    }
+    return out;
+  }, [selectedKinds]);
+
+  const selectedAddons = availableAddons.filter((a) => (qty[a.id] || 0) > 0);
+
+  const productsTotal = selectedProducts.reduce((s, t) => s + t.price, 0);
   const total = useMemo(
     () =>
-      tier.price +
+      productsTotal +
       selectedAddons.reduce((sum, a) => sum + a.price * (qty[a.id] || 1), 0),
-    [tier, selectedAddons, qty]
+    [productsTotal, selectedAddons, qty]
   );
 
   // Item payload sent to the server (ids + quantities only).
   const items = useMemo(() => {
-    const out = [{ id: tier.id, qty: 1 }];
+    const out = selectedProducts.map((t) => ({ id: t.id, qty: 1 }));
     for (const a of selectedAddons) out.push({ id: a.id, qty: qty[a.id] || 1 });
     return out;
-  }, [tier, selectedAddons, qty]);
+  }, [selectedProducts, selectedAddons, qty]);
 
-  const toggleAddon = (a) =>
-    setQty((q) => ({ ...q, [a.id]: q[a.id] ? 0 : 1 }));
+  const toggleProduct = (t) => setPicked((p) => withProduct(p, t, !p[t.id]));
+  const toggleAddon = (a) => setQty((q) => ({ ...q, [a.id]: q[a.id] ? 0 : 1 }));
   const bump = (a, d) =>
     setQty((q) => ({ ...q, [a.id]: Math.max(0, (q[a.id] || 0) + d) }));
 
@@ -101,6 +132,8 @@ export default function CheckoutClient({ initialTier }) {
     return Object.keys(e).length === 0;
   }
 
+  const canContinue = selectedProducts.length > 0;
+
   return (
     <div className="mx-auto max-w-5xl">
       <Steps step={step} />
@@ -108,93 +141,112 @@ export default function CheckoutClient({ initialTier }) {
       {step === "build" && (
         <div className="mt-10 grid gap-8 lg:grid-cols-[1.6fr_1fr]">
           <div>
-            <h2 className="text-lg font-semibold">Choose where to start</h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              {TIERS.map((t) => (
-                <button
-                  key={t.id}
-                  type="button"
-                  onClick={() => {
-                    setTierId(t.id);
-                    setQty({});
-                  }}
-                  className={`spotlight-edge rounded-2xl border p-5 text-left transition-all ${
-                    t.id === tierId
-                      ? "border-edge/50 bg-edge/[0.06]"
-                      : "border-white/10 bg-white/[0.02] hover:border-white/25"
-                  }`}
-                >
-                  <p className="font-mono text-[0.62rem] uppercase tracking-widest text-edge/70">
-                    {t.tag}
-                  </p>
-                  <p className="mt-1 font-display text-lg font-semibold">{t.name}</p>
-                  <p className="mt-1 text-metallic">{usd(t.price)}</p>
-                </button>
-              ))}
-            </div>
-
-            <h2 className="mt-10 text-lg font-semibold">Add what you need</h2>
+            <h2 className="text-lg font-semibold">Choose your build</h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              Optional. The total updates as you go.
+              Pick a website, an app, or both. Add-ons appear below.
             </p>
-            <div className="mt-4 space-y-3">
-              {addons.map((a) => {
-                const on = (qty[a.id] || 0) > 0;
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+              {TIERS.map((t) => {
+                const on = !!picked[t.id];
                 return (
-                  <div
-                    key={a.id}
-                    className={`flex items-center justify-between gap-4 rounded-xl border p-4 transition-colors ${
+                  <button
+                    key={t.id}
+                    type="button"
+                    onClick={() => toggleProduct(t)}
+                    aria-pressed={on}
+                    className={`spotlight-edge relative rounded-2xl border p-5 text-left transition-all ${
                       on
-                        ? "border-edge/40 bg-edge/[0.05]"
-                        : "border-white/10 bg-white/[0.02]"
+                        ? "border-edge/50 bg-edge/[0.06]"
+                        : "border-white/10 bg-white/[0.02] hover:border-white/25"
                     }`}
                   >
-                    <button
-                      type="button"
-                      onClick={() => toggleAddon(a)}
-                      className="flex flex-1 items-center gap-3 text-left"
+                    <span
+                      className={`absolute right-3 top-3 grid size-5 place-items-center rounded-full border transition-colors ${
+                        on
+                          ? "border-edge bg-edge/15 text-edge"
+                          : "border-white/20 text-transparent"
+                      }`}
                     >
-                      <span
-                        className={`grid size-5 shrink-0 place-items-center rounded-[5px] border ${
-                          on ? "border-edge bg-edge/15" : "border-white/25"
-                        }`}
-                      >
-                        {on && <Check className="size-3.5 text-edge" />}
-                      </span>
-                      <span>
-                        <span className="block text-sm font-medium text-foreground">
-                          {a.name}
-                        </span>
-                        <span className="block text-xs text-muted-foreground">
-                          {usd(a.price)}
-                          {a.qtyable ? " each" : ""}
-                        </span>
-                      </span>
-                    </button>
-                    {a.qtyable && on && (
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={() => bump(a, -1)}
-                          className="grid size-7 place-items-center rounded-md border border-white/15 text-foreground hover:border-white/30"
-                        >
-                          <Minus className="size-3.5" />
-                        </button>
-                        <span className="w-5 text-center text-sm">{qty[a.id]}</span>
-                        <button
-                          type="button"
-                          onClick={() => bump(a, 1)}
-                          className="grid size-7 place-items-center rounded-md border border-white/15 text-foreground hover:border-white/30"
-                        >
-                          <Plus className="size-3.5" />
-                        </button>
-                      </div>
-                    )}
-                  </div>
+                      <Check className="size-3" />
+                    </span>
+                    <p className="font-mono text-[0.62rem] uppercase tracking-widest text-edge/70">
+                      {t.tag}
+                    </p>
+                    <p className="mt-1 font-display text-lg font-semibold">{t.name}</p>
+                    <p className="mt-1 text-metallic">{usd(t.price)}</p>
+                  </button>
                 );
               })}
             </div>
-            <p className="mt-4 text-xs text-muted-foreground/70">
+
+            {availableAddons.length > 0 && (
+              <>
+                <h2 className="mt-10 text-lg font-semibold">Add what you need</h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Optional. The total updates as you go.
+                </p>
+                <div className="mt-4 space-y-3">
+                  {availableAddons.map((a) => {
+                    const on = (qty[a.id] || 0) > 0;
+                    return (
+                      <div
+                        key={a.id}
+                        className={`flex items-center justify-between gap-4 rounded-xl border p-4 transition-colors ${
+                          on
+                            ? "border-edge/40 bg-edge/[0.05]"
+                            : "border-white/10 bg-white/[0.02]"
+                        }`}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => toggleAddon(a)}
+                          className="flex flex-1 items-center gap-3 text-left"
+                        >
+                          <span
+                            className={`grid size-5 shrink-0 place-items-center rounded-[5px] border ${
+                              on ? "border-edge bg-edge/15" : "border-white/25"
+                            }`}
+                          >
+                            {on && <Check className="size-3.5 text-edge" />}
+                          </span>
+                          <span>
+                            <span className="block text-sm font-medium text-foreground">
+                              {a.name}
+                            </span>
+                            <span className="block text-xs text-muted-foreground">
+                              {usd(a.price)}
+                              {a.qtyable ? " each" : ""}
+                            </span>
+                          </span>
+                        </button>
+                        {a.qtyable && on && (
+                          <div className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => bump(a, -1)}
+                              className="grid size-7 place-items-center rounded-md border border-white/15 text-foreground hover:border-white/30"
+                            >
+                              <Minus className="size-3.5" />
+                            </button>
+                            <span className="w-5 text-center text-sm">
+                              {qty[a.id]}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => bump(a, 1)}
+                              className="grid size-7 place-items-center rounded-md border border-white/15 text-foreground hover:border-white/30"
+                            >
+                              <Plus className="size-3.5" />
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+            <p className="mt-6 text-xs text-muted-foreground/70">
               Custom and flagship tiers (Beyond, Apex, Pro App) and the monthly
               care plans are arranged on a quick call.{" "}
               <a href="/#contact" className="text-edge hover:text-edge-bright">
@@ -204,15 +256,26 @@ export default function CheckoutClient({ initialTier }) {
             </p>
           </div>
 
-          <Summary tier={tier} selectedAddons={selectedAddons} qty={qty} total={total}>
+          <Summary
+            products={selectedProducts}
+            selectedAddons={selectedAddons}
+            qty={qty}
+            total={total}
+          >
             <button
               type="button"
-              onClick={() => setStep("details")}
-              className="sheen group mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary px-7 text-[0.95rem] font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90"
+              disabled={!canContinue}
+              onClick={() => canContinue && setStep("details")}
+              className="sheen group mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary px-7 text-[0.95rem] font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-40"
             >
               Continue
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
             </button>
+            {!canContinue && (
+              <p className="mt-3 text-center text-xs text-muted-foreground/70">
+                Select at least one product to continue.
+              </p>
+            )}
           </Summary>
         </div>
       )}
@@ -256,13 +319,17 @@ export default function CheckoutClient({ initialTier }) {
               </button>
             </div>
           </div>
-          <Summary tier={tier} selectedAddons={selectedAddons} qty={qty} total={total} />
+          <Summary
+            products={selectedProducts}
+            selectedAddons={selectedAddons}
+            qty={qty}
+            total={total}
+          />
         </div>
       )}
 
       {step === "pay" && (
         <PayStep
-          tierId={tierId}
           items={items}
           intake={intake}
           total={total}
@@ -275,7 +342,17 @@ export default function CheckoutClient({ initialTier }) {
   );
 }
 
-function PayStep({ tierId, items, intake, total, payError, setPayError, onBack }) {
+// Toggle a product on/off, enforcing single-select within tier kinds.
+function withProduct(picked, t, on) {
+  const next = { ...picked };
+  if (on && SINGLE_SELECT_KINDS.has(t.kind)) {
+    for (const x of TIERS) if (x.kind === t.kind) next[x.id] = false;
+  }
+  next[t.id] = on;
+  return next;
+}
+
+function PayStep({ items, intake, total, payError, setPayError, onBack }) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -293,7 +370,7 @@ function PayStep({ tierId, items, intake, total, payError, setPayError, onBack }
             const res = await fetch("/api/checkout", {
               method: "POST",
               headers: { "content-type": "application/json" },
-              body: JSON.stringify({ tier: tierId, items, intake }),
+              body: JSON.stringify({ items, intake }),
             });
             const d = await res.json();
             if (!res.ok) throw new Error(d.error || "Could not start checkout.");
@@ -384,17 +461,22 @@ function Steps({ step }) {
   );
 }
 
-function Summary({ tier, selectedAddons, qty, total, children }) {
+function Summary({ products, selectedAddons, qty, total, children }) {
   return (
     <aside className="h-fit rounded-2xl border border-white/10 bg-white/[0.02] p-6 lg:sticky lg:top-24">
       <p className="font-mono text-[0.62rem] uppercase tracking-widest text-edge/70">
         Your order
       </p>
       <ul className="mt-4 space-y-2.5 text-sm">
-        <li className="flex justify-between gap-3">
-          <span className="text-foreground">{tier.name}</span>
-          <span className="text-muted-foreground">{usd(tier.price)}</span>
-        </li>
+        {products.length === 0 && (
+          <li className="text-muted-foreground/70">No products selected yet.</li>
+        )}
+        {products.map((t) => (
+          <li key={t.id} className="flex justify-between gap-3">
+            <span className="text-foreground">{t.name}</span>
+            <span className="text-muted-foreground">{usd(t.price)}</span>
+          </li>
+        ))}
         {selectedAddons.map((a) => (
           <li key={a.id} className="flex justify-between gap-3">
             <span className="text-foreground">
