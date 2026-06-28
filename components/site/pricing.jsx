@@ -5,6 +5,7 @@ import ButtonLink from "@/components/site/button-link";
 import BgVideo from "@/components/site/bg-video";
 import CineGrain from "@/components/site/cine-grain";
 import BeamsLayer from "@/components/site/beams-layer";
+import CarePlans from "@/components/site/care-plans";
 import { BOOKING_URL } from "@/components/site/config";
 
 /*
@@ -20,6 +21,7 @@ import { BOOKING_URL } from "@/components/site/config";
 const tiers = [
   {
     name: "Liftoff",
+    checkoutId: "liftoff",
     tag: "The essential",
     anchor: "Typical agency build: $5,000+",
     price: "$2,497",
@@ -39,6 +41,7 @@ const tiers = [
   },
   {
     name: "Orbit",
+    checkoutId: "orbit",
     tag: "The standout",
     anchor: "Typical agency build: $10,000+",
     price: "$3,497",
@@ -122,47 +125,11 @@ const addons = [
   { item: "Rush delivery", price: "plus 25 percent" },
 ];
 
-const plans = [
-  {
-    name: "Care",
-    anchor: "A part-time marketer: $2,000+ per month",
-    price: "$300",
-    cadence: "per month",
-    features: [
-      "We keep your site live and fix any technical issue, so you never have to think about it",
-      "One fresh social content piece a month for your channels",
-      "Up to 4 small updates a month (text and image changes)",
-      "Hosting, security, SSL, and backups",
-    ],
-  },
-  {
-    name: "Presence",
-    price: "$600",
-    cadence: "per month",
-    features: [
-      "Everything in Care",
-      "One short social video each month for your channels",
-      "One content update and light optimization",
-    ],
-    note: "Short social videos are quick branded clips for social. Full filmed or produced commercials are a separate add-on.",
-  },
-  {
-    name: "Growth",
-    price: "From $1,800",
-    cadence: "per month",
-    features: [
-      "Everything in Presence",
-      "Ongoing content and campaign management",
-      "Ongoing SEO and Google Business management",
-      "Ads creative and performance optimization",
-    ],
-  },
-];
-
 // Apps — a distinct product line. Installable web apps on iPhone and Android.
 const appTiers = [
   {
     name: "Standard App",
+    checkoutId: "standard_app",
     tag: "The essential app",
     anchor: "Comparable native development: $20,000+",
     price: "$4,997",
@@ -360,7 +327,7 @@ export default function Pricing() {
               </ul>
 
               <ButtonLink
-                href="#contact"
+                href={t.checkoutId ? `/checkout?tier=${t.checkoutId}` : "#contact"}
                 size="lg"
                 variant={t.featured ? "default" : "outline"}
                 className={`mt-8 h-11 rounded-full font-semibold ${
@@ -529,7 +496,7 @@ export default function Pricing() {
                   ))}
                 </ul>
                 <ButtonLink
-                  href="#contact"
+                  href={t.checkoutId ? `/checkout?tier=${t.checkoutId}` : "#contact"}
                   size="lg"
                   variant={t.featured ? "default" : "outline"}
                   className={`mt-8 h-11 rounded-full font-semibold ${
@@ -637,61 +604,7 @@ export default function Pricing() {
               We handle your whole presence from $300.
             </p>
 
-            <div className="mt-6 grid gap-4 sm:grid-cols-3">
-              {plans.map((p) => (
-                <div
-                  key={p.name}
-                  className="spotlight-edge glass-clear flex flex-col rounded-2xl p-5 transition-all duration-500 hover:-top-1.5"
-                >
-                  <h4 className="font-display text-base font-semibold tracking-tight">
-                    {p.name}
-                  </h4>
-                  {p.anchor && (
-                    <p className="mt-2 text-[0.72rem] leading-snug text-muted-foreground/55">
-                      {p.anchor}
-                    </p>
-                  )}
-                  <p
-                    className={`flex flex-wrap items-baseline gap-x-1.5 ${
-                      p.anchor ? "mt-1" : "mt-2"
-                    }`}
-                  >
-                    <span className="font-display text-xl font-semibold tracking-tight text-metallic">
-                      {p.price}
-                    </span>
-                    <span className="whitespace-nowrap text-xs text-muted-foreground">
-                      {p.cadence}
-                    </span>
-                  </p>
-
-                  <ul className="mt-4 flex-1 divide-y divide-white/[0.08] border-t border-white/[0.08]">
-                    {p.features.map((f) => (
-                      <li
-                        key={f}
-                        className="flex items-start gap-2 py-2.5 text-[0.82rem] leading-snug text-muted-foreground"
-                      >
-                        <Check className="mt-0.5 size-3.5 shrink-0 text-edge" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {p.note && (
-                    <p className="mt-3 text-[0.72rem] leading-snug text-muted-foreground/70">
-                      {p.note}
-                    </p>
-                  )}
-
-                  <a
-                    href="#contact"
-                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-edge transition-colors hover:text-edge-bright"
-                  >
-                    Add {p.name}
-                    <ArrowRight className="size-3.5" />
-                  </a>
-                </div>
-              ))}
-            </div>
+            <CarePlans />
 
             <p className="mt-6 text-center text-xs leading-relaxed text-muted-foreground/70">
               Plans are month to month, cancel anytime. We keep you because the

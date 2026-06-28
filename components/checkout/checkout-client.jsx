@@ -92,9 +92,11 @@ export default function CheckoutClient({ initialTier }) {
   // Prefill the product from ?tier= (read client-side; this is a static export).
   useEffect(() => {
     try {
-      const t = new URLSearchParams(window.location.search).get("tier");
-      const def = ALL_SELECTABLE.find((x) => x.id === t);
+      const params = new URLSearchParams(window.location.search);
+      const def = ALL_SELECTABLE.find((x) => x.id === params.get("tier"));
       if (def) setPicked((p) => withPick(p, def, true));
+      const b = params.get("billing");
+      if (b === "annual" || b === "monthly") setBilling(b);
     } catch {}
   }, []);
 
