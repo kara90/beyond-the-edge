@@ -40,6 +40,7 @@ const plans = [
     name: "Growth",
     from: true,
     monthly: 1800,
+    annualMonths: 11, // heavier plan: one month free on annual, not two
     features: [
       "Everything in Presence",
       "Ongoing content and campaign management",
@@ -73,7 +74,7 @@ export default function CarePlans() {
               {b === "monthly" ? "Monthly" : "Annual"}
               {b === "annual" && (
                 <span className="ml-1.5 text-[0.7rem] text-edge/80">
-                  2 months free
+                  up to 2 months free
                 </span>
               )}
             </button>
@@ -83,9 +84,11 @@ export default function CarePlans() {
 
       <div className="mt-6 grid gap-4 sm:grid-cols-3">
         {plans.map((p) => {
-          const amount = annual ? p.monthly * ANNUAL_MONTHS : p.monthly;
+          const months = p.annualMonths || ANNUAL_MONTHS;
+          const amount = annual ? p.monthly * months : p.monthly;
           const cadence = annual ? "per year" : "per month";
           const priceLabel = `${p.from ? "From " : ""}${usd(amount)}`;
+          const freeMonths = 12 - months;
           const href = p.checkoutId
             ? `/checkout?tier=${p.checkoutId}&billing=${billing}`
             : "#contact";
@@ -114,6 +117,11 @@ export default function CarePlans() {
                   {cadence}
                 </span>
               </p>
+              {annual && freeMonths > 0 && (
+                <p className="mt-1 text-[0.7rem] font-medium text-edge/80">
+                  {freeMonths} {freeMonths === 1 ? "month" : "months"} free
+                </p>
+              )}
 
               <ul className="mt-4 flex-1 divide-y divide-white/[0.08] border-t border-white/[0.08]">
                 {p.features.map((f) => (
