@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import ButtonLink from "@/components/site/button-link";
-import { BOOKING_URL } from "@/components/site/config";
 
 const LINKS = [
   { href: "#services", label: "What we do" },
@@ -55,13 +54,11 @@ export default function Nav() {
         </ul>
 
         <ButtonLink
-          href={BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/#contact"
           size="sm"
           className="sheen h-9 rounded-full bg-primary px-5 font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_24px_-4px_var(--primary)]"
         >
-          Book a call
+          Contact us
         </ButtonLink>
       </nav>
     </header>

@@ -7,7 +7,7 @@ const SERVICES = [
     icon: Globe,
     title: "Websites",
     meta: "Design · Build · Launch",
-    body: "A site that makes a local business look national. Fast, cinematic, and built to turn visitors into booked calls and sales.",
+    body: "A site that makes a local business look national. Fast, cinematic, and built to turn visitors into enquiries and sales.",
   },
   {
     icon: Clapperboard,

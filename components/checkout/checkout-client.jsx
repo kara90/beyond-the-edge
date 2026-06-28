@@ -65,7 +65,7 @@ const PLANS = [
 const ANNUAL_MONTHS = 10; // annual = 10 months (two months free)
 
 // Bespoke / "From …" offers. Price scales with scope, so these are shown for
-// upsell + anchoring but booked on a call rather than charged a fixed amount.
+// upsell + anchoring but handled over email rather than charged a fixed amount.
 const BESPOKE = [
   {
     name: "Beyond",
@@ -443,11 +443,11 @@ export default function CheckoutClient({ initialTier }) {
               })}
             </div>
 
-            {/* Bespoke / book-a-call tiers */}
+            {/* Bespoke / email tiers */}
             <h2 className="mt-10 text-lg font-semibold">Going bigger?</h2>
             <p className="mt-1 text-sm text-muted-foreground">
               Flagship and custom-scope offers. Because the price scales with what
-              you need, we scope and quote these on a quick call.
+              you need, we scope and quote these over email.
             </p>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {BESPOKE.map((b) => (
@@ -469,7 +469,7 @@ export default function CheckoutClient({ initialTier }) {
                     href="/#contact"
                     className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-edge transition-colors hover:text-edge-bright"
                   >
-                    Book a call
+                    Email us
                     <ArrowRight className="size-3.5" />
                   </a>
                 </div>

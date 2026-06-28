@@ -21,7 +21,7 @@ const FAQS = [
   },
   {
     q: "Do you work with businesses outside your area?",
-    a: "Yes. We work with clients anywhere. Everything runs over calls and shared previews, so location is never a barrier.",
+    a: "Yes. We work with clients anywhere. Everything runs over email and shared previews, so location is never a barrier.",
   },
   {
     q: "How do payments work?",

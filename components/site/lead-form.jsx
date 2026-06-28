@@ -127,7 +127,7 @@ export default function LeadForm() {
         <h3 className="mt-5 text-xl font-semibold">Your project brief is in.</h3>
         <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted-foreground">
           We reply within one business day with a clear next step. If it is
-          urgent, book a call and we will talk sooner.
+          urgent, say so in your message and we will get back to you sooner.
         </p>
       </div>
     );

@@ -6,7 +6,6 @@ import BgVideo from "@/components/site/bg-video";
 import CineGrain from "@/components/site/cine-grain";
 import BeamsLayer from "@/components/site/beams-layer";
 import CarePlans from "@/components/site/care-plans";
-import { BOOKING_URL } from "@/components/site/config";
 
 /*
   PRICING
@@ -418,12 +417,10 @@ export default function Pricing() {
         <p className="mx-auto mt-12 max-w-xl text-center text-[0.95rem] leading-relaxed text-muted-foreground">
           Not sure which fits?{" "}
           <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/#contact"
             className="link-underline font-medium text-edge hover:text-edge-bright"
           >
-            Book a quick call
+            Email us
           </a>{" "}
           and we will point you to the right one, honestly.
         </p>
@@ -640,7 +637,7 @@ export default function Pricing() {
       {/* Closing line */}
       <Reveal delay={0.1}>
         <p className="mt-12 text-center text-sm text-muted-foreground/65">
-          Final scope and pricing are confirmed on a quick call.
+          Final scope and pricing are confirmed by email before we start.
         </p>
       </Reveal>
       </div>

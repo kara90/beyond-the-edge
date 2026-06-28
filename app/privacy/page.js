@@ -57,7 +57,7 @@ export default function PrivacyPage() {
             </p>
             <p className="mt-3 text-[0.95rem] leading-relaxed text-foreground/90">
               Information you give us, for example when you submit a form or
-              book a call:
+              contact us:
             </p>
             <ul className="mt-2 space-y-1.5 text-[0.95rem] leading-relaxed text-muted-foreground">
               <li>Name and business name</li>
@@ -86,7 +86,7 @@ export default function PrivacyPage() {
             </p>
             <ul className="mt-2 space-y-1.5 text-[0.95rem] leading-relaxed text-muted-foreground">
               <li>Respond to your inquiries and provide quotes and services</li>
-              <li>Schedule and conduct calls and manage projects</li>
+              <li>Respond to you by email and manage projects</li>
               <li>Operate, secure, and improve the Site</li>
               <li>
                 Send service-related communications, and, where permitted,
