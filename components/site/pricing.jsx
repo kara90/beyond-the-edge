@@ -125,12 +125,14 @@ const addons = [
 const plans = [
   {
     name: "Care",
+    anchor: "A part-time marketer: $2,000+ per month",
     price: "$300",
     cadence: "per month",
     features: [
+      "We keep your site live and fix any technical issue, so you never have to think about it",
+      "One fresh social content piece a month for your channels",
+      "Up to 4 small updates a month (text and image changes)",
       "Hosting, security, SSL, and backups",
-      "Up to 4 small updates a month",
-      "One content or photo swap a month",
     ],
   },
   {
@@ -623,10 +625,16 @@ export default function Pricing() {
         <Reveal delay={0.08} className="lg:col-span-3">
           <div className="spotlight-edge glass-clear h-full rounded-3xl p-8 transition-all duration-500 hover:-top-1.5">
             <h3 className="font-display text-lg font-semibold tracking-tight">
-              Keep it running
+              Keep growing.
             </h3>
             <p className="mt-1 text-sm text-muted-foreground">
-              After your build, we keep it live, secure, and fresh.
+              Your whole brand, handled every month, for a fraction of the cost
+              of hiring. We keep it live, fresh, and working while you focus on
+              the business.
+            </p>
+            <p className="mt-2 text-xs leading-relaxed text-muted-foreground/70">
+              A part-time marketer or in-house designer costs thousands a month.
+              We handle your whole presence from $300.
             </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-3">
@@ -638,7 +646,16 @@ export default function Pricing() {
                   <h4 className="font-display text-base font-semibold tracking-tight">
                     {p.name}
                   </h4>
-                  <p className="mt-2 flex flex-wrap items-baseline gap-x-1.5">
+                  {p.anchor && (
+                    <p className="mt-2 text-[0.72rem] leading-snug text-muted-foreground/55">
+                      {p.anchor}
+                    </p>
+                  )}
+                  <p
+                    className={`flex flex-wrap items-baseline gap-x-1.5 ${
+                      p.anchor ? "mt-1" : "mt-2"
+                    }`}
+                  >
                     <span className="font-display text-xl font-semibold tracking-tight text-metallic">
                       {p.price}
                     </span>
@@ -675,6 +692,11 @@ export default function Pricing() {
                 </div>
               ))}
             </div>
+
+            <p className="mt-6 text-center text-xs leading-relaxed text-muted-foreground/70">
+              Plans are month to month, cancel anytime. We keep you because the
+              work is worth it, not because you are locked in.
+            </p>
           </div>
         </Reveal>
         </div>
