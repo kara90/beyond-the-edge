@@ -18,7 +18,7 @@ const graph = {
       slogan: "We go beyond the edge.",
       description:
         "Premium websites and cinematic video for businesses ready to look like the leader in their market.",
-      email: "hello@beyondtheedgestudio.com",
+      email: "sebastien@beyondtheedgestudio.com",
       areaServed: "Worldwide",
       knowsAbout: [
         "Web design",
@@ -29,7 +29,7 @@ const graph = {
       ],
       contactPoint: {
         "@type": "ContactPoint",
-        email: "hello@beyondtheedgestudio.com",
+        email: "sebastien@beyondtheedgestudio.com",
         contactType: "sales",
         availableLanguage: "English",
       },

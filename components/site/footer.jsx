@@ -81,10 +81,10 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li>
                 <a
-                  href="mailto:hello@beyondtheedgestudio.com"
+                  href="mailto:sebastien@beyondtheedgestudio.com"
                   className="link-underline text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  hello@beyondtheedgestudio.com
+                  sebastien@beyondtheedgestudio.com
                 </a>
               </li>
               <li className="text-muted-foreground">By appointment</li>

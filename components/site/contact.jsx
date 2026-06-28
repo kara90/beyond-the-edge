@@ -25,7 +25,7 @@ export default function Contact() {
         </p>
         <div className="mt-10 flex justify-center">
           <ButtonLink
-            href="mailto:hello@beyondtheedgestudio.com"
+            href="mailto:sebastien@beyondtheedgestudio.com"
             size="lg"
             className="sheen h-12 rounded-full bg-primary px-7 text-[0.95rem] font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_34px_-6px_var(--primary)]"
           >

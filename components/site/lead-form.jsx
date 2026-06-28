@@ -302,7 +302,7 @@ export default function LeadForm() {
         </button>
         {status === "error" ? (
           <p className="text-sm text-destructive">
-            Something went wrong. Email us at hello@beyondtheedgestudio.com.
+            Something went wrong. Email us at sebastien@beyondtheedgestudio.com.
           </p>
         ) : (
           <p className="text-xs text-foreground/60">

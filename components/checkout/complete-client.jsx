@@ -65,7 +65,7 @@ export default function CompleteClient() {
       <p className="mx-auto mt-4 max-w-md text-[0.95rem] leading-relaxed text-muted-foreground">
         {s.payment_status === "processing"
           ? "This can take a moment. You will get a confirmation email as soon as it clears."
-          : "If you were charged, you will still receive a confirmation email. If anything looks off, reach us at hello@beyondtheedgestudio.com."}
+          : "If you were charged, you will still receive a confirmation email. If anything looks off, reach us at sebastien@beyondtheedgestudio.com."}
       </p>
       <Link
         href="/#pricing"

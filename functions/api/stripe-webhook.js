@@ -131,7 +131,7 @@ function customerEmailHtml({ name, itemsHtml, total, isSub }) {
     <p style="margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#5cc4e6">What happens next</p>
     <p style="margin:0;color:#b9c2d0;font-size:14px;line-height:1.6">We reach out within one business day to kick things off and gather anything we still need. If anything is urgent, just reply to this email.</p>
     ${recurringNote}
-    <p style="margin:22px 0 0;color:#7d8597;font-size:13px">Reach us anytime at hello@beyondtheedgestudio.com</p>
+    <p style="margin:22px 0 0;color:#7d8597;font-size:13px">Reach us anytime at sebastien@beyondtheedgestudio.com</p>
   `);
 }
 
