@@ -288,7 +288,7 @@ function PayStep({ tierId, items, intake, total, payError, setPayError, onBack }
           setPayError("Payments are not configured yet.");
           return;
         }
-        checkout = await stripe.initEmbeddedCheckout({
+        checkout = await stripe.createEmbeddedCheckoutPage({
           fetchClientSecret: async () => {
             const res = await fetch("/api/checkout", {
               method: "POST",

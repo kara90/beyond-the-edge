@@ -43,7 +43,7 @@ export async function onRequestPost(context) {
     };
 
     const session = await stripe.checkout.sessions.create({
-      ui_mode: "embedded",
+      ui_mode: "embedded_page",
       mode: "payment",
       line_items,
       customer_email: String(intake.email).trim(),
@@ -54,22 +54,7 @@ export async function onRequestPost(context) {
 
     return json({ clientSecret: session.client_secret });
   } catch (err) {
-    // TEMP DEBUG: surface the real reason so we can diagnose, then revert.
-    return json(
-      {
-        error: "Could not start checkout. Please try again.",
-        debug: {
-          message: String((err && err.message) || err),
-          type: (err && err.type) || null,
-          code: (err && err.code) || null,
-          hasSecret: Boolean(env.STRIPE_SECRET_KEY),
-          secretPrefix: env.STRIPE_SECRET_KEY
-            ? String(env.STRIPE_SECRET_KEY).slice(0, 8)
-            : null,
-        },
-      },
-      500
-    );
+    return json({ error: "Could not start checkout. Please try again." }, 500);
   }
 }
 
