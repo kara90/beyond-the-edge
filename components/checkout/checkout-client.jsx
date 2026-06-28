@@ -18,9 +18,30 @@ import { ArrowRight, ArrowLeft, Check, Minus, Plus } from "lucide-react";
 // Display catalog. The SERVER is the source of truth for amounts; these labels
 // and display prices are for the UI only.
 const TIERS = [
-  { id: "liftoff", name: "Liftoff", tag: "Website", price: 2497, kind: "website" },
-  { id: "orbit", name: "Orbit", tag: "Website", price: 3497, kind: "website" },
-  { id: "standard_app", name: "Standard App", tag: "App", price: 4997, kind: "app" },
+  {
+    id: "liftoff",
+    name: "Liftoff",
+    tag: "Website",
+    price: 2497,
+    kind: "website",
+    blurb: "A clean, professional presence, done right.",
+  },
+  {
+    id: "orbit",
+    name: "Orbit",
+    tag: "Website",
+    price: 3497,
+    kind: "website",
+    blurb: "Custom design with motion that sets you apart.",
+  },
+  {
+    id: "standard_app",
+    name: "Standard App",
+    tag: "App",
+    price: 4997,
+    kind: "app",
+    blurb: "Turn customers into members who pay every month.",
+  },
 ];
 
 // Recurring care plans (monthly price; annual = price x ANNUAL_MONTHS).
@@ -43,17 +64,73 @@ const PLANS = [
 
 const ANNUAL_MONTHS = 10; // annual = 10 months (two months free)
 
-const ADDONS = {
-  website: [
-    { id: "extra_page", name: "Extra page", price: 150, qtyable: true },
-    { id: "brand_video", name: "Produced brand video", price: 1500 },
-    { id: "logo", name: "Logo and brand identity", price: 750 },
-  ],
-  app: [
-    { id: "logo", name: "Logo and brand identity", price: 750 },
-    { id: "brand_video", name: "Produced brand video", price: 1500 },
-  ],
-};
+// Cross-sell / upsell add-ons, grouped for scannability. Each carries a short
+// "why it helps" line. `kinds` controls which selected products surface a group.
+const ADDON_GROUPS = [
+  {
+    title: "Pages & design",
+    kinds: ["website"],
+    items: [
+      {
+        id: "extra_page",
+        name: "Extra page — standard design",
+        price: 150,
+        qtyable: true,
+        benefit: "A clean, professional page for another service, location, or offer — more pages, more searches you can show up for.",
+      },
+      {
+        id: "extra_page_3d",
+        name: "Extra page — advanced 3D",
+        price: 250,
+        qtyable: true,
+        benefit: "A premium animated page that makes a key product or offer unforgettable.",
+      },
+      {
+        id: "anim_module",
+        name: "Advanced 3D / animation module",
+        price: 800,
+        benefit: "Signature motion that makes the whole site feel high-end and memorable.",
+      },
+    ],
+  },
+  {
+    title: "Brand & content",
+    kinds: ["website", "app"],
+    items: [
+      {
+        id: "logo",
+        name: "Logo & brand identity",
+        price: 750,
+        benefit: "A cohesive, professional identity so you look as good as the work you do.",
+      },
+      {
+        id: "copywriting",
+        name: "Professional copywriting",
+        price: 150,
+        qtyable: true,
+        benefit: "Words written to sell, not just describe — turns visitors into customers (per page).",
+      },
+      {
+        id: "brand_video",
+        name: "Produced brand video",
+        price: 1500,
+        benefit: "A scroll-stopping hero video that builds instant trust and lifts conversions.",
+      },
+    ],
+  },
+  {
+    title: "Sell & grow",
+    kinds: ["website", "app"],
+    items: [
+      {
+        id: "store_setup",
+        name: "Online store or booking setup",
+        price: 600,
+        benefit: "Take orders or bookings directly on your site, so it earns while you sleep.",
+      },
+    ],
+  },
+];
 
 // Kinds where only one item can be chosen at a time (tiers of one thing).
 const SINGLE_SELECT_KINDS = new Set(["website", "plan"]);
@@ -107,20 +184,15 @@ export default function CheckoutClient({ initialTier }) {
     [selectedProducts]
   );
 
-  // Union of add-ons for the selected one-time kinds, de-duplicated by id.
-  const availableAddons = useMemo(() => {
-    const seen = new Set();
-    const out = [];
-    for (const k of selectedKinds) {
-      for (const a of ADDONS[k] || []) {
-        if (!seen.has(a.id)) {
-          seen.add(a.id);
-          out.push(a);
-        }
-      }
-    }
-    return out;
-  }, [selectedKinds]);
+  // Add-on groups whose kinds match the selected products; flattened for totals.
+  const availableGroups = useMemo(
+    () => ADDON_GROUPS.filter((g) => g.kinds.some((k) => selectedKinds.includes(k))),
+    [selectedKinds]
+  );
+  const availableAddons = useMemo(
+    () => availableGroups.flatMap((g) => g.items),
+    [availableGroups]
+  );
 
   const selectedAddons = availableAddons.filter((a) => (qty[a.id] || 0) > 0);
 
@@ -192,75 +264,101 @@ export default function CheckoutClient({ initialTier }) {
                     </p>
                     <p className="mt-1 font-display text-lg font-semibold">{t.name}</p>
                     <p className="mt-1 text-metallic">{usd(t.price)}</p>
+                    {t.blurb && (
+                      <p className="mt-2 text-xs leading-snug text-muted-foreground">
+                        {t.blurb}
+                      </p>
+                    )}
                   </button>
                 );
               })}
             </div>
+            {selectedProducts.length > 0 && (
+              <p className="mt-3 text-xs text-muted-foreground/70">
+                Tip: pair a website with the app to add a recurring revenue
+                stream, or stack add-ons below. It all goes on one order.
+              </p>
+            )}
 
-            {availableAddons.length > 0 && (
+            {availableGroups.length > 0 && (
               <>
-                <h2 className="mt-10 text-lg font-semibold">Add what you need</h2>
+                <h2 className="mt-10 text-lg font-semibold">Make it work harder</h2>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Optional. The total updates as you go.
+                  Optional upgrades, added to this same order. Each is a quick win
+                  for your offer.
                 </p>
-                <div className="mt-4 space-y-3">
-                  {availableAddons.map((a) => {
-                    const on = (qty[a.id] || 0) > 0;
-                    return (
-                      <div
-                        key={a.id}
-                        className={`flex items-center justify-between gap-4 rounded-xl border p-4 transition-colors ${
-                          on
-                            ? "border-edge/40 bg-edge/[0.05]"
-                            : "border-white/10 bg-white/[0.02]"
-                        }`}
-                      >
-                        <button
-                          type="button"
-                          onClick={() => toggleAddon(a)}
-                          className="flex flex-1 items-center gap-3 text-left"
-                        >
-                          <span
-                            className={`grid size-5 shrink-0 place-items-center rounded-[5px] border ${
-                              on ? "border-edge bg-edge/15" : "border-white/25"
-                            }`}
-                          >
-                            {on && <Check className="size-3.5 text-edge" />}
-                          </span>
-                          <span>
-                            <span className="block text-sm font-medium text-foreground">
-                              {a.name}
-                            </span>
-                            <span className="block text-xs text-muted-foreground">
-                              {usd(a.price)}
-                              {a.qtyable ? " each" : ""}
-                            </span>
-                          </span>
-                        </button>
-                        {a.qtyable && on && (
-                          <div className="flex items-center gap-2">
-                            <button
-                              type="button"
-                              onClick={() => bump(a, -1)}
-                              className="grid size-7 place-items-center rounded-md border border-white/15 text-foreground hover:border-white/30"
+                <div className="mt-5 space-y-7">
+                  {availableGroups.map((g) => (
+                    <div key={g.title}>
+                      <p className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-edge/70">
+                        {g.title}
+                      </p>
+                      <div className="mt-3 space-y-3">
+                        {g.items.map((a) => {
+                          const on = (qty[a.id] || 0) > 0;
+                          return (
+                            <div
+                              key={a.id}
+                              className={`flex items-start justify-between gap-4 rounded-xl border p-4 transition-colors ${
+                                on
+                                  ? "border-edge/40 bg-edge/[0.05]"
+                                  : "border-white/10 bg-white/[0.02]"
+                              }`}
                             >
-                              <Minus className="size-3.5" />
-                            </button>
-                            <span className="w-5 text-center text-sm">
-                              {qty[a.id]}
-                            </span>
-                            <button
-                              type="button"
-                              onClick={() => bump(a, 1)}
-                              className="grid size-7 place-items-center rounded-md border border-white/15 text-foreground hover:border-white/30"
-                            >
-                              <Plus className="size-3.5" />
-                            </button>
-                          </div>
-                        )}
+                              <button
+                                type="button"
+                                onClick={() => toggleAddon(a)}
+                                className="flex flex-1 items-start gap-3 text-left"
+                              >
+                                <span
+                                  className={`mt-0.5 grid size-5 shrink-0 place-items-center rounded-[5px] border ${
+                                    on ? "border-edge bg-edge/15" : "border-white/25"
+                                  }`}
+                                >
+                                  {on && <Check className="size-3.5 text-edge" />}
+                                </span>
+                                <span>
+                                  <span className="flex flex-wrap items-baseline gap-x-2">
+                                    <span className="text-sm font-medium text-foreground">
+                                      {a.name}
+                                    </span>
+                                    <span className="text-xs text-metallic">
+                                      {usd(a.price)}
+                                      {a.qtyable ? " each" : ""}
+                                    </span>
+                                  </span>
+                                  <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
+                                    {a.benefit}
+                                  </span>
+                                </span>
+                              </button>
+                              {a.qtyable && on && (
+                                <div className="flex shrink-0 items-center gap-2">
+                                  <button
+                                    type="button"
+                                    onClick={() => bump(a, -1)}
+                                    className="grid size-7 place-items-center rounded-md border border-white/15 text-foreground hover:border-white/30"
+                                  >
+                                    <Minus className="size-3.5" />
+                                  </button>
+                                  <span className="w-5 text-center text-sm">
+                                    {qty[a.id]}
+                                  </span>
+                                  <button
+                                    type="button"
+                                    onClick={() => bump(a, 1)}
+                                    className="grid size-7 place-items-center rounded-md border border-white/15 text-foreground hover:border-white/30"
+                                  >
+                                    <Plus className="size-3.5" />
+                                  </button>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
                       </div>
-                    );
-                  })}
+                    </div>
+                  ))}
                 </div>
               </>
             )}

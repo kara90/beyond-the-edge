@@ -19,8 +19,12 @@ export const CATALOG = {
   orbit: { name: "Orbit website", amount: 349700, kind: "tier" },
   standard_app: { name: "Standard App", amount: 499700, kind: "tier" },
 
-  // One-time add-ons
-  extra_page: { name: "Extra page", amount: 15000, kind: "addon", max: 20 },
+  // One-time add-ons (upsell / cross-sell)
+  extra_page: { name: "Extra page (standard design)", amount: 15000, kind: "addon", max: 20 },
+  extra_page_3d: { name: "Extra page (advanced 3D)", amount: 25000, kind: "addon", max: 20 },
+  anim_module: { name: "Advanced 3D / animation module", amount: 80000, kind: "addon" },
+  copywriting: { name: "Professional copywriting (per page)", amount: 15000, kind: "addon", max: 30 },
+  store_setup: { name: "Online store or booking setup", amount: 60000, kind: "addon" },
   brand_video: { name: "Produced brand video", amount: 150000, kind: "addon" },
   logo: { name: "Logo and brand identity", amount: 75000, kind: "addon" },
 

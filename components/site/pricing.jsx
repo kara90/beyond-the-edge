@@ -115,7 +115,8 @@ const included = [
 ];
 
 const addons = [
-  { item: "Extra page", price: "$150 to $250 each" },
+  { item: "Extra page — standard design", price: "$150 each" },
+  { item: "Extra page — advanced 3D", price: "$250 each" },
   { item: "Produced brand video", price: "from $1,500" },
   { item: "Advanced 3D or custom animation module", price: "from $800" },
   { item: "Professional copywriting", price: "from $150 per page" },
