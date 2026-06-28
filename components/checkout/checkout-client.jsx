@@ -5,14 +5,14 @@ import { loadStripe } from "@stripe/stripe-js";
 import { ArrowRight, ArrowLeft, Check, Minus, Plus } from "lucide-react";
 
 /*
-  On-site checkout (Stage 1, one-time). Three steps inside one page: pick one or
-  more products and relevant add-ons with a live total, fill the required intake,
+  On-site checkout. Three steps inside one page: pick one or more products (and
+  optionally a recurring care plan) with a live total, fill the required intake,
   then pay via Stripe Embedded Checkout mounted right here (no redirect). The
-  browser only sends item ids; the server prices everything from its catalog.
+  browser only sends item ids + billing; the server prices everything.
 
   Products are multi-select: a website tier AND an app can be bought together.
-  The two website tiers (Liftoff / Orbit) are mutually exclusive — you pick one
-  website, not both. Apps add independently.
+  The two website tiers (Liftoff / Orbit) are mutually exclusive, as are the
+  care plans. A care plan turns the order into a monthly or annual subscription.
 */
 
 // Display catalog. The SERVER is the source of truth for amounts; these labels
@@ -23,11 +23,29 @@ const TIERS = [
   { id: "standard_app", name: "Standard App", tag: "App", price: 4997, kind: "app" },
 ];
 
-// Add-ons available per product kind. Shared ids (logo, brand_video) are
-// de-duplicated when both a website and an app are selected.
+// Recurring care plans (monthly price; annual = price x ANNUAL_MONTHS).
+const PLANS = [
+  {
+    id: "care",
+    name: "Care",
+    kind: "plan",
+    price: 300,
+    blurb: "Site kept live, one social post + small updates each month.",
+  },
+  {
+    id: "presence",
+    name: "Presence",
+    kind: "plan",
+    price: 600,
+    blurb: "Everything in Care, plus a monthly social video and optimization.",
+  },
+];
+
+const ANNUAL_MONTHS = 10; // annual = 10 months (two months free)
+
 const ADDONS = {
   website: [
-    { id: "extra_page", name: "Extra page", price: 200, qtyable: true },
+    { id: "extra_page", name: "Extra page", price: 150, qtyable: true },
     { id: "brand_video", name: "Produced brand video", price: 1500 },
     { id: "logo", name: "Logo and brand identity", price: 750 },
   ],
@@ -37,8 +55,9 @@ const ADDONS = {
   ],
 };
 
-// Kinds where only one product can be chosen at a time (tiers of one thing).
-const SINGLE_SELECT_KINDS = new Set(["website"]);
+// Kinds where only one item can be chosen at a time (tiers of one thing).
+const SINGLE_SELECT_KINDS = new Set(["website", "plan"]);
+const ALL_SELECTABLE = [...TIERS, ...PLANS];
 
 const FIELD =
   "w-full rounded-lg border border-white/20 bg-white/[0.06] px-4 py-3 text-sm text-foreground placeholder:text-foreground/45 outline-none transition-colors focus:border-edge/50 focus:ring-2 focus:ring-edge/20";
@@ -56,6 +75,7 @@ export default function CheckoutClient({ initialTier }) {
     const start = TIERS.find((t) => t.id === initialTier)?.id || "orbit";
     return { [start]: true };
   });
+  const [billing, setBilling] = useState("monthly"); // monthly | annual
   const [qty, setQty] = useState({}); // addonId -> quantity (>=1 means selected)
   const [intake, setIntake] = useState({
     firstName: "",
@@ -73,18 +93,19 @@ export default function CheckoutClient({ initialTier }) {
   useEffect(() => {
     try {
       const t = new URLSearchParams(window.location.search).get("tier");
-      const def = TIERS.find((x) => x.id === t);
-      if (def) setPicked((p) => withProduct(p, def, true));
+      const def = ALL_SELECTABLE.find((x) => x.id === t);
+      if (def) setPicked((p) => withPick(p, def, true));
     } catch {}
   }, []);
 
   const selectedProducts = TIERS.filter((t) => picked[t.id]);
+  const selectedPlan = PLANS.find((p) => picked[p.id]) || null;
   const selectedKinds = useMemo(
     () => [...new Set(selectedProducts.map((t) => t.kind))],
     [selectedProducts]
   );
 
-  // Union of add-ons for the selected kinds, de-duplicated by id.
+  // Union of add-ons for the selected one-time kinds, de-duplicated by id.
   const availableAddons = useMemo(() => {
     const seen = new Set();
     const out = [];
@@ -101,22 +122,25 @@ export default function CheckoutClient({ initialTier }) {
 
   const selectedAddons = availableAddons.filter((a) => (qty[a.id] || 0) > 0);
 
-  const productsTotal = selectedProducts.reduce((s, t) => s + t.price, 0);
-  const total = useMemo(
-    () =>
-      productsTotal +
-      selectedAddons.reduce((sum, a) => sum + a.price * (qty[a.id] || 1), 0),
-    [productsTotal, selectedAddons, qty]
-  );
+  const oneTimeTotal =
+    selectedProducts.reduce((s, t) => s + t.price, 0) +
+    selectedAddons.reduce((s, a) => s + a.price * (qty[a.id] || 1), 0);
+  const planToday = selectedPlan
+    ? billing === "annual"
+      ? selectedPlan.price * ANNUAL_MONTHS
+      : selectedPlan.price
+    : 0;
+  const total = oneTimeTotal + planToday;
 
   // Item payload sent to the server (ids + quantities only).
   const items = useMemo(() => {
     const out = selectedProducts.map((t) => ({ id: t.id, qty: 1 }));
+    if (selectedPlan) out.push({ id: selectedPlan.id, qty: 1 });
     for (const a of selectedAddons) out.push({ id: a.id, qty: qty[a.id] || 1 });
     return out;
-  }, [selectedProducts, selectedAddons, qty]);
+  }, [selectedProducts, selectedPlan, selectedAddons, qty]);
 
-  const toggleProduct = (t) => setPicked((p) => withProduct(p, t, !p[t.id]));
+  const togglePick = (item) => setPicked((p) => withPick(p, item, !p[item.id]));
   const toggleAddon = (a) => setQty((q) => ({ ...q, [a.id]: q[a.id] ? 0 : 1 }));
   const bump = (a, d) =>
     setQty((q) => ({ ...q, [a.id]: Math.max(0, (q[a.id] || 0) + d) }));
@@ -132,7 +156,7 @@ export default function CheckoutClient({ initialTier }) {
     return Object.keys(e).length === 0;
   }
 
-  const canContinue = selectedProducts.length > 0;
+  const canContinue = selectedProducts.length > 0 || !!selectedPlan;
 
   return (
     <div className="mx-auto max-w-5xl">
@@ -152,7 +176,7 @@ export default function CheckoutClient({ initialTier }) {
                   <button
                     key={t.id}
                     type="button"
-                    onClick={() => toggleProduct(t)}
+                    onClick={() => togglePick(t)}
                     aria-pressed={on}
                     className={`spotlight-edge relative rounded-2xl border p-5 text-left transition-all ${
                       on
@@ -160,15 +184,7 @@ export default function CheckoutClient({ initialTier }) {
                         : "border-white/10 bg-white/[0.02] hover:border-white/25"
                     }`}
                   >
-                    <span
-                      className={`absolute right-3 top-3 grid size-5 place-items-center rounded-full border transition-colors ${
-                        on
-                          ? "border-edge bg-edge/15 text-edge"
-                          : "border-white/20 text-transparent"
-                      }`}
-                    >
-                      <Check className="size-3" />
-                    </span>
+                    <SelectBadge on={on} />
                     <p className="font-mono text-[0.62rem] uppercase tracking-widest text-edge/70">
                       {t.tag}
                     </p>
@@ -246,9 +262,55 @@ export default function CheckoutClient({ initialTier }) {
                 </div>
               </>
             )}
+
+            {/* Recurring care plans */}
+            <div className="mt-10 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h2 className="text-lg font-semibold">Keep growing</h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Optional care plan, handled every month. Cancel anytime.
+                </p>
+              </div>
+              <BillingToggle billing={billing} setBilling={setBilling} />
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {PLANS.map((p) => {
+                const on = !!picked[p.id];
+                const amount =
+                  billing === "annual" ? p.price * ANNUAL_MONTHS : p.price;
+                const per = billing === "annual" ? "/year" : "/month";
+                return (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => togglePick(p)}
+                    aria-pressed={on}
+                    className={`spotlight-edge relative rounded-2xl border p-5 text-left transition-all ${
+                      on
+                        ? "border-edge/50 bg-edge/[0.06]"
+                        : "border-white/10 bg-white/[0.02] hover:border-white/25"
+                    }`}
+                  >
+                    <SelectBadge on={on} />
+                    <p className="font-mono text-[0.62rem] uppercase tracking-widest text-edge/70">
+                      Care plan
+                    </p>
+                    <p className="mt-1 font-display text-lg font-semibold">{p.name}</p>
+                    <p className="mt-1 text-metallic">
+                      {usd(amount)}
+                      <span className="text-sm text-muted-foreground">{per}</span>
+                    </p>
+                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                      {p.blurb}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+
             <p className="mt-6 text-xs text-muted-foreground/70">
-              Custom and flagship tiers (Beyond, Apex, Pro App) and the monthly
-              care plans are arranged on a quick call.{" "}
+              Growth, App Care, and the flagship tiers (Beyond, Apex, Pro App) are
+              tailored to scope.{" "}
               <a href="/#contact" className="text-edge hover:text-edge-bright">
                 Talk to us
               </a>
@@ -260,6 +322,9 @@ export default function CheckoutClient({ initialTier }) {
             products={selectedProducts}
             selectedAddons={selectedAddons}
             qty={qty}
+            plan={selectedPlan}
+            billing={billing}
+            planToday={planToday}
             total={total}
           >
             <button
@@ -273,7 +338,7 @@ export default function CheckoutClient({ initialTier }) {
             </button>
             {!canContinue && (
               <p className="mt-3 text-center text-xs text-muted-foreground/70">
-                Select at least one product to continue.
+                Select at least one product or plan to continue.
               </p>
             )}
           </Summary>
@@ -323,6 +388,9 @@ export default function CheckoutClient({ initialTier }) {
             products={selectedProducts}
             selectedAddons={selectedAddons}
             qty={qty}
+            plan={selectedPlan}
+            billing={billing}
+            planToday={planToday}
             total={total}
           />
         </div>
@@ -331,6 +399,7 @@ export default function CheckoutClient({ initialTier }) {
       {step === "pay" && (
         <PayStep
           items={items}
+          billing={billing}
           intake={intake}
           total={total}
           payError={payError}
@@ -342,17 +411,53 @@ export default function CheckoutClient({ initialTier }) {
   );
 }
 
-// Toggle a product on/off, enforcing single-select within tier kinds.
-function withProduct(picked, t, on) {
+// Toggle an item on/off, enforcing single-select within its kind.
+function withPick(picked, item, on) {
   const next = { ...picked };
-  if (on && SINGLE_SELECT_KINDS.has(t.kind)) {
-    for (const x of TIERS) if (x.kind === t.kind) next[x.id] = false;
+  if (on && SINGLE_SELECT_KINDS.has(item.kind)) {
+    for (const x of ALL_SELECTABLE) if (x.kind === item.kind) next[x.id] = false;
   }
-  next[t.id] = on;
+  next[item.id] = on;
   return next;
 }
 
-function PayStep({ items, intake, total, payError, setPayError, onBack }) {
+function SelectBadge({ on }) {
+  return (
+    <span
+      className={`absolute right-3 top-3 grid size-5 place-items-center rounded-full border transition-colors ${
+        on ? "border-edge bg-edge/15 text-edge" : "border-white/20 text-transparent"
+      }`}
+    >
+      <Check className="size-3" />
+    </span>
+  );
+}
+
+function BillingToggle({ billing, setBilling }) {
+  return (
+    <div className="inline-flex rounded-full border border-white/15 bg-white/[0.02] p-1 text-sm">
+      {["monthly", "annual"].map((b) => (
+        <button
+          key={b}
+          type="button"
+          onClick={() => setBilling(b)}
+          className={`rounded-full px-4 py-1.5 transition-colors ${
+            billing === b
+              ? "bg-edge/15 text-edge"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          {b === "monthly" ? "Monthly" : "Annual"}
+          {b === "annual" && (
+            <span className="ml-1.5 text-[0.7rem] text-edge/80">2 months free</span>
+          )}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function PayStep({ items, billing, intake, total, payError, setPayError, onBack }) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -370,7 +475,7 @@ function PayStep({ items, intake, total, payError, setPayError, onBack }) {
             const res = await fetch("/api/checkout", {
               method: "POST",
               headers: { "content-type": "application/json" },
-              body: JSON.stringify({ items, intake }),
+              body: JSON.stringify({ items, billing, intake }),
             });
             const d = await res.json();
             if (!res.ok) throw new Error(d.error || "Could not start checkout.");
@@ -461,15 +566,21 @@ function Steps({ step }) {
   );
 }
 
-function Summary({ products, selectedAddons, qty, total, children }) {
+function Summary({ products, selectedAddons, qty, plan, billing, planToday, total, children }) {
+  const recurring =
+    plan &&
+    (billing === "annual"
+      ? `Renews at ${usd(plan.price * ANNUAL_MONTHS)}/year`
+      : `Then ${usd(plan.price)}/month`);
+  const empty = products.length === 0 && !plan && selectedAddons.length === 0;
   return (
     <aside className="h-fit rounded-2xl border border-white/10 bg-white/[0.02] p-6 lg:sticky lg:top-24">
       <p className="font-mono text-[0.62rem] uppercase tracking-widest text-edge/70">
         Your order
       </p>
       <ul className="mt-4 space-y-2.5 text-sm">
-        {products.length === 0 && (
-          <li className="text-muted-foreground/70">No products selected yet.</li>
+        {empty && (
+          <li className="text-muted-foreground/70">Nothing selected yet.</li>
         )}
         {products.map((t) => (
           <li key={t.id} className="flex justify-between gap-3">
@@ -488,13 +599,27 @@ function Summary({ products, selectedAddons, qty, total, children }) {
             </span>
           </li>
         ))}
+        {plan && (
+          <li className="flex justify-between gap-3">
+            <span className="text-foreground">
+              {plan.name} plan{" "}
+              <span className="text-xs text-muted-foreground">
+                ({billing === "annual" ? "annual" : "monthly"})
+              </span>
+            </span>
+            <span className="text-muted-foreground">{usd(planToday)}</span>
+          </li>
+        )}
       </ul>
       <div className="mt-4 flex justify-between border-t border-white/10 pt-4">
-        <span className="text-sm font-medium">Total</span>
+        <span className="text-sm font-medium">Total due today</span>
         <span className="font-display text-xl font-semibold text-metallic">
           {usd(total)}
         </span>
       </div>
+      {recurring && (
+        <p className="mt-2 text-right text-xs text-muted-foreground">{recurring}</p>
+      )}
       {children}
     </aside>
   );

@@ -1,13 +1,16 @@
 import Stripe from "stripe";
-import { lineItemsFor, orderSummary } from "../_lib/catalog.js";
+import { buildOrder, orderSummary } from "../_lib/catalog.js";
 
 /*
   POST /api/checkout
   Cloudflare Pages Function (server-side, Workers runtime). Creates a Stripe
-  embedded Checkout Session for the selected fixed-price offers and returns its
+  embedded Checkout Session for the selected offers and returns its
   client_secret. The secret key is read from the server env and never reaches
   the browser. The order and intake answers ride along as metadata, so the full
   order is recorded with the payment.
+
+  If the order contains a recurring care plan the session is created in
+  subscription mode (monthly or annual); otherwise it is a one-time payment.
 */
 export async function onRequestPost(context) {
   const { request, env } = context;
@@ -22,7 +25,8 @@ export async function onRequestPost(context) {
       }
     }
 
-    const line_items = lineItemsFor(data.items);
+    const billing = data.billing === "annual" ? "annual" : "monthly";
+    const { line_items, hasPlan } = buildOrder(data.items, billing);
     if (line_items.length === 0) {
       return json({ error: "No valid items selected." }, 400);
     }
@@ -39,22 +43,34 @@ export async function onRequestPost(context) {
       company: clip(intake.company, 200),
       website: clip(intake.website, 300),
       hosting: clip(intake.hosting, 200),
-      order: clip(orderSummary(data.items), 480),
+      billing: hasPlan ? billing : "one-time",
+      order: clip(orderSummary(data.items, billing), 480),
     };
 
-    const session = await stripe.checkout.sessions.create({
+    const params = {
       ui_mode: "embedded_page",
-      mode: "payment",
+      mode: hasPlan ? "subscription" : "payment",
       line_items,
       customer_email: String(intake.email).trim(),
       metadata,
-      payment_intent_data: { metadata },
       return_url: `${origin}/checkout/complete?session_id={CHECKOUT_SESSION_ID}`,
-    });
+    };
+    // Metadata lives on the underlying object too, so the webhook can read it.
+    if (hasPlan) params.subscription_data = { metadata };
+    else params.payment_intent_data = { metadata };
+
+    const session = await stripe.checkout.sessions.create(params);
 
     return json({ clientSecret: session.client_secret });
   } catch (err) {
-    return json({ error: "Could not start checkout. Please try again." }, 500);
+    // TEMP: surface the reason while verifying subscription mode; remove after.
+    return json(
+      {
+        error: "Could not start checkout. Please try again.",
+        detail: String((err && err.message) || err),
+      },
+      500
+    );
   }
 }
 
