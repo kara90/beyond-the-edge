@@ -157,6 +157,56 @@ const plans = [
   },
 ];
 
+// Apps — a distinct product line. Installable web apps on iPhone and Android.
+const appTiers = [
+  {
+    name: "Standard App",
+    tag: "The essential app",
+    anchor: "Comparable native development: $20,000+",
+    price: "$4,997",
+    cadence: "one-time",
+    note: "Your business as an app on iPhone and Android.",
+    features: [
+      "Installable on iPhone and Android, works offline",
+      "App-style design matched to your brand",
+      "Push notifications that bring customers back",
+      "Your core feature: booking, ordering, menu, or content",
+      "Secure customer login",
+    ],
+    cta: "Start your app",
+    featured: false,
+  },
+  {
+    name: "Pro App",
+    tag: "The growth engine",
+    anchor: "Comparable native development: $30,000+",
+    price: "From $9,500",
+    cadence: "one-time",
+    note: "Final price scales with features and scope.",
+    features: [
+      "Everything in Standard",
+      "Customer accounts and private portals",
+      "Payments, subscriptions, and recurring billing",
+      "Ordering, reservations, or memberships",
+      "Loyalty and rewards that drive repeat business",
+      "Integrations and multiple modules",
+    ],
+    cta: "Request a Pro app",
+    featured: true,
+  },
+];
+
+const appCare = {
+  name: "App Care",
+  price: "From $200",
+  cadence: "per month",
+  features: [
+    "Hosting, updates, and security",
+    "Push notification management",
+    "We keep it running and fix any technical issue",
+  ],
+};
+
 const pricingFaqs = [
   {
     q: "Do I own my website?",
@@ -420,6 +470,106 @@ export default function Pricing() {
           </p>
         </div>
       </Reveal>
+
+      {/* Apps — a distinct product line, priced as an investment */}
+      <div className="mt-24">
+        <Reveal className="text-center">
+          <div className="flex justify-center">
+            <Eyebrow centered>Apps</Eyebrow>
+          </div>
+          <h3 className="mx-auto mt-5 max-w-xl text-2xl font-semibold leading-[1.1] sm:text-3xl">
+            Your business as an app, built smarter.
+          </h3>
+          <p className="mx-auto mt-4 max-w-lg text-[0.95rem] leading-relaxed text-muted-foreground">
+            Works on every phone, installs like an app, and costs a fraction of
+            traditional development. An investment that pays for itself.
+          </p>
+        </Reveal>
+
+        <div className="mx-auto mt-12 grid max-w-4xl items-stretch gap-5 sm:grid-cols-2">
+          {appTiers.map((t, i) => (
+            <Reveal key={t.name} delay={i * 0.08} className="h-full">
+              <article
+                className={`spotlight-edge relative flex h-full flex-col rounded-3xl p-8 transition-all duration-500 hover:-top-1.5 ${
+                  t.featured ? "glass-featured-clear" : "glass-clear"
+                }`}
+              >
+                {t.featured && (
+                  <span className="absolute -top-3 left-8 rounded-full bg-primary px-3 py-1 font-mono text-[0.65rem] uppercase tracking-widest text-primary-foreground">
+                    Recommended
+                  </span>
+                )}
+                <h4 className="font-display text-xl font-semibold tracking-tight">
+                  {t.name}
+                </h4>
+                <p className="mt-1.5 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-edge/70">
+                  {t.tag}
+                </p>
+                <p className="mt-6 text-xs text-muted-foreground/55">{t.anchor}</p>
+                <p className="mt-1 flex flex-wrap items-baseline gap-2">
+                  <span className="font-display text-3xl font-semibold tracking-tight text-metallic">
+                    {t.price}
+                  </span>
+                  <span className="text-sm text-muted-foreground">{t.cadence}</span>
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {t.note}
+                </p>
+                <ul className="mt-7 flex-1 divide-y divide-white/[0.08] border-t border-white/[0.08]">
+                  {t.features.map((f) => (
+                    <li
+                      key={f}
+                      className="flex items-start gap-3 py-3 text-sm text-foreground/90"
+                    >
+                      <Check className="mt-0.5 size-4 shrink-0 text-edge" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <ButtonLink
+                  href="#contact"
+                  size="lg"
+                  variant={t.featured ? "default" : "outline"}
+                  className={`mt-8 h-11 rounded-full font-semibold ${
+                    t.featured
+                      ? "bg-primary text-primary-foreground hover:bg-primary/85"
+                      : "border-white/15 bg-white/[0.02] text-foreground hover:bg-white/[0.06]"
+                  }`}
+                >
+                  {t.cta}
+                </ButtonLink>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* App Care */}
+        <Reveal delay={0.1} className="mx-auto mt-5 max-w-4xl">
+          <div className="spotlight-edge glass-clear flex flex-col gap-5 rounded-2xl p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+            <div className="shrink-0">
+              <h4 className="font-display text-base font-semibold">
+                {appCare.name}
+              </h4>
+              <p className="mt-1 flex items-baseline gap-1.5">
+                <span className="font-display text-xl font-semibold text-metallic">
+                  {appCare.price}
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  {appCare.cadence}
+                </span>
+              </p>
+            </div>
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
+              {appCare.features.map((f) => (
+                <li key={f} className="inline-flex items-center gap-2">
+                  <Check className="size-3.5 shrink-0 text-edge" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+      </div>
 
       {/* Supporting blocks: Add-ons + Care plans — a discreet breathing aura
           (deep space + soft underwater light) sits behind them, no hard shape */}
