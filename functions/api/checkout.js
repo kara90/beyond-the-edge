@@ -63,14 +63,7 @@ export async function onRequestPost(context) {
 
     return json({ clientSecret: session.client_secret });
   } catch (err) {
-    // TEMP: surface the reason while verifying subscription mode; remove after.
-    return json(
-      {
-        error: "Could not start checkout. Please try again.",
-        detail: String((err && err.message) || err),
-      },
-      500
-    );
+    return json({ error: "Could not start checkout. Please try again." }, 500);
   }
 }
 
