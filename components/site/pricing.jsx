@@ -441,6 +441,81 @@ export default function Pricing() {
         </div>
       </Reveal>
 
+      {/* Website extras: Add-ons + Care plans — grouped under the website tiers.
+          A discreet breathing aura sits behind them, no hard shape. */}
+      <div className="relative isolate mt-16">
+        <div
+          aria-hidden="true"
+          className="aura-breathe pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[150%] w-[92%] max-w-none -translate-x-1/2 -translate-y-1/2"
+          style={{
+            background:
+              "radial-gradient(42% 50% at 50% 46%, oklch(0.55 0.14 245 / 0.16), oklch(0.48 0.12 232 / 0.06) 40%, transparent 72%)",
+            filter: "blur(48px)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="aura-breathe-slow pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[95%] w-[52%] max-w-none -translate-x-1/2 -translate-y-1/2"
+          style={{
+            background:
+              "radial-gradient(50% 50% at 50% 54%, oklch(0.82 0.12 220 / 0.1), transparent 70%)",
+            filter: "blur(56px)",
+          }}
+        />
+        <div className="grid gap-5 lg:grid-cols-5">
+        {/* Add-ons */}
+        <Reveal className="lg:col-span-2">
+          <div className="spotlight-edge glass-clear h-full rounded-3xl p-8 transition-all duration-500 hover:-top-1.5">
+            <h3 className="font-display text-lg font-semibold tracking-tight">
+              Website add-ons
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Extra work, priced clearly.
+            </p>
+
+            <ul className="mt-6 divide-y divide-white/[0.08] border-t border-white/[0.08]">
+              {addons.map((a) => (
+                <li
+                  key={a.item}
+                  className="flex items-baseline justify-between gap-6 py-3.5 text-sm"
+                >
+                  <span className="text-foreground/90">{a.item}</span>
+                  <span className="shrink-0 text-right font-mono text-[0.8rem] text-edge/80">
+                    {a.price}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+
+        {/* Keep it running */}
+        <Reveal delay={0.08} className="lg:col-span-3">
+          <div className="spotlight-edge glass-clear h-full rounded-3xl p-8 transition-all duration-500 hover:-top-1.5">
+            <h3 className="font-display text-lg font-semibold tracking-tight">
+              Keep growing.
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Your whole brand, handled every month, for a fraction of the cost
+              of hiring. We keep it live, fresh, and working while you focus on
+              the business.
+            </p>
+            <p className="mt-2 text-xs leading-relaxed text-muted-foreground/70">
+              A part-time marketer or in-house designer costs thousands a month.
+              We handle your whole presence from $300.
+            </p>
+
+            <CarePlans />
+
+            <p className="mt-6 text-center text-xs leading-relaxed text-muted-foreground/70">
+              Plans are month to month, cancel anytime. We keep you because the
+              work is worth it, not because you are locked in.
+            </p>
+          </div>
+        </Reveal>
+        </div>
+      </div>
+
       {/* Apps — a distinct product line, priced as an investment */}
       <div className="mt-24">
         <Reveal className="text-center">
@@ -541,80 +616,6 @@ export default function Pricing() {
         </Reveal>
       </div>
 
-      {/* Supporting blocks: Add-ons + Care plans — a discreet breathing aura
-          (deep space + soft underwater light) sits behind them, no hard shape */}
-      <div className="relative isolate mt-20">
-        <div
-          aria-hidden="true"
-          className="aura-breathe pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[150%] w-[92%] max-w-none -translate-x-1/2 -translate-y-1/2"
-          style={{
-            background:
-              "radial-gradient(42% 50% at 50% 46%, oklch(0.55 0.14 245 / 0.16), oklch(0.48 0.12 232 / 0.06) 40%, transparent 72%)",
-            filter: "blur(48px)",
-          }}
-        />
-        <div
-          aria-hidden="true"
-          className="aura-breathe-slow pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[95%] w-[52%] max-w-none -translate-x-1/2 -translate-y-1/2"
-          style={{
-            background:
-              "radial-gradient(50% 50% at 50% 54%, oklch(0.82 0.12 220 / 0.1), transparent 70%)",
-            filter: "blur(56px)",
-          }}
-        />
-        <div className="grid gap-5 lg:grid-cols-5">
-        {/* Add-ons */}
-        <Reveal className="lg:col-span-2">
-          <div className="spotlight-edge glass-clear h-full rounded-3xl p-8 transition-all duration-500 hover:-top-1.5">
-            <h3 className="font-display text-lg font-semibold tracking-tight">
-              Add-ons
-            </h3>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Extra work, priced clearly.
-            </p>
-
-            <ul className="mt-6 divide-y divide-white/[0.08] border-t border-white/[0.08]">
-              {addons.map((a) => (
-                <li
-                  key={a.item}
-                  className="flex items-baseline justify-between gap-6 py-3.5 text-sm"
-                >
-                  <span className="text-foreground/90">{a.item}</span>
-                  <span className="shrink-0 text-right font-mono text-[0.8rem] text-edge/80">
-                    {a.price}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
-
-        {/* Keep it running */}
-        <Reveal delay={0.08} className="lg:col-span-3">
-          <div className="spotlight-edge glass-clear h-full rounded-3xl p-8 transition-all duration-500 hover:-top-1.5">
-            <h3 className="font-display text-lg font-semibold tracking-tight">
-              Keep growing.
-            </h3>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Your whole brand, handled every month, for a fraction of the cost
-              of hiring. We keep it live, fresh, and working while you focus on
-              the business.
-            </p>
-            <p className="mt-2 text-xs leading-relaxed text-muted-foreground/70">
-              A part-time marketer or in-house designer costs thousands a month.
-              We handle your whole presence from $300.
-            </p>
-
-            <CarePlans />
-
-            <p className="mt-6 text-center text-xs leading-relaxed text-muted-foreground/70">
-              Plans are month to month, cancel anytime. We keep you because the
-              work is worth it, not because you are locked in.
-            </p>
-          </div>
-        </Reveal>
-        </div>
-      </div>
 
       {/* Objection-handling FAQ (pricing-specific) */}
       <Reveal delay={0.05} className="mx-auto mt-20 max-w-3xl">
