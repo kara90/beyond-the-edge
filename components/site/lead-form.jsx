@@ -303,6 +303,10 @@ export default function LeadForm() {
             placeholder="Best number"
             className={FIELD}
           />
+          <p className="mt-1.5 text-[0.68rem] leading-snug text-foreground/50">
+            Only used to talk about your project. No marketing texts without
+            your separate consent.
+          </p>
         </div>
       </div>
 
@@ -395,6 +399,23 @@ export default function LeadForm() {
           </p>
         )}
       </div>
+      <p className="mt-3 text-center text-[0.68rem] leading-snug text-foreground/50 sm:text-left">
+        By sending this, you agree to our{" "}
+        <a
+          href="/terms"
+          className="link-underline text-edge/80 hover:text-edge-bright"
+        >
+          Terms of Service
+        </a>{" "}
+        and{" "}
+        <a
+          href="/privacy"
+          className="link-underline text-edge/80 hover:text-edge-bright"
+        >
+          Privacy Policy
+        </a>
+        .
+      </p>
     </form>
   );
 }
