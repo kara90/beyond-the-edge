@@ -24,23 +24,33 @@ const plans = [
       "Up to 4 small updates a month (text and image changes)",
       "Hosting, security, SSL, and backups",
     ],
+    stopDoing:
+      "Stop thinking about: hosting, security, broken pages, small text changes.",
   },
   {
     name: "Presence",
     checkoutId: "presence",
     monthly: 600,
+    anchor: "A freelance content manager: $1,500+ per month",
+    featured: true,
     features: [
       "Everything in Care",
-      "One short social video each month for your channels",
+      "Four social content pieces a month, including one short branded video",
+      "Automated review requests",
+      "Missed-call text back",
       "One content update and light optimization",
+      "A one-page monthly summary",
     ],
     note: "Short social videos are quick branded clips for social. Full filmed or produced commercials are a separate add-on.",
+    stopDoing:
+      "Stop thinking about: what to post, when to post, asking for reviews, missed calls, staying visible.",
   },
   {
     name: "Growth",
     from: true,
     monthly: 1800,
     annualMonths: 11, // heavier plan: one month free on annual, not two
+    anchor: "A junior in-house marketer: $4,000+ per month",
     features: [
       "Everything in Presence",
       "Ongoing content and campaign management",
@@ -48,6 +58,8 @@ const plans = [
       "Ads creative and performance optimization",
     ],
     note: "Growth is scoped to your business, so it starts with a conversation.",
+    stopDoing:
+      "Stop thinking about: marketing. All of it. Campaigns, content, SEO, ads creative: handled and reported.",
   },
 ];
 
@@ -96,8 +108,15 @@ export default function CarePlans() {
           return (
             <div
               key={p.name}
-              className="spotlight-edge glass-clear flex flex-col rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1.5"
+              className={`spotlight-edge relative flex flex-col rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1.5 ${
+                p.featured ? "glass-featured-clear" : "glass-clear"
+              }`}
             >
+              {p.featured && (
+                <span className="absolute -top-3 left-5 rounded-full bg-primary px-3 py-1 font-mono text-[0.65rem] uppercase tracking-widest text-primary-foreground">
+                  Recommended
+                </span>
+              )}
               <h4 className="font-display text-base font-semibold tracking-tight">
                 {p.name}
               </h4>
@@ -141,6 +160,11 @@ export default function CarePlans() {
                 ))}
               </ul>
 
+              {p.stopDoing && (
+                <p className="mt-3 text-[0.72rem] leading-snug text-muted-foreground/60">
+                  {p.stopDoing}
+                </p>
+              )}
               {p.note && (
                 <p className="mt-3 text-[0.72rem] leading-snug text-muted-foreground/70">
                   {p.note}
