@@ -89,24 +89,26 @@ export default function Hero() {
 
     if (reduce || lite) return;
 
-    // The scrub clip mounts with preload="metadata" so it never competes with
-    // the first paint. On the first sign of intent (scroll or pointerdown),
-    // or after a short idle fallback, upgrade to a full buffer so the clip is
-    // ready before the viewer reaches the scrub.
-    let upgraded = false;
-    const upgrade = () => {
-      if (upgraded) return;
-      upgraded = true;
+    // Feed the scrub clip from memory: fetch -> blob -> objectURL. This
+    // guarantees a full buffer and instant frame-accurate seeks, and it is
+    // immune to the media-stack stall where the element reports "loading"
+    // forever without ever issuing a network request (seen live on Chrome).
+    // The poster covers the stage until the clip lands.
+    let cancelled = false;
+    let blobUrl = null;
+    (async () => {
       try {
-        v.preload = "auto";
+        const res = await fetch(HERO_VIDEO);
+        if (!res.ok || cancelled) return;
+        const blob = await res.blob();
+        if (cancelled) return;
+        blobUrl = URL.createObjectURL(blob);
+        v.src = blobUrl;
         v.load();
-        // load() rewinds the element; repaint the opening frame.
+        // Loading the blob rewinds the element; repaint the opening frame.
         v.addEventListener("loadedmetadata", paintFirst, { once: true });
       } catch {}
-    };
-    window.addEventListener("scroll", upgrade, { once: true, passive: true });
-    window.addEventListener("pointerdown", upgrade, { once: true });
-    const upgradeTimer = setTimeout(upgrade, 2500);
+    })();
 
     let raf = 0;
     let running = false;
@@ -117,9 +119,10 @@ export default function Hero() {
     });
 
     const loop = () => {
-      // Skip seeking while the tab is hidden; keep the loop alive so it
-      // resumes seamlessly when the tab returns.
-      if (!document.hidden) {
+      // Skip seeking while the tab is hidden or before the clip has metadata
+      // (hammering currentTime on an unready element can wedge its loader);
+      // keep the loop alive so it resumes seamlessly.
+      if (!document.hidden && v.readyState >= 1) {
         const dur = v.duration && Number.isFinite(v.duration) ? v.duration : FALLBACK_DURATION;
         const end = dur - HERO_END_TRIM;
         // Ease the playhead toward the scroll target for a smooth, premium scrub,
@@ -164,9 +167,8 @@ export default function Hero() {
       stop();
       unsub();
       if (io) io.disconnect();
-      clearTimeout(upgradeTimer);
-      window.removeEventListener("scroll", upgrade);
-      window.removeEventListener("pointerdown", upgrade);
+      cancelled = true;
+      if (blobUrl) URL.revokeObjectURL(blobUrl);
     };
   }, [reduce, lite, scrollYProgress]);
 
@@ -190,6 +192,10 @@ export default function Hero() {
           fetchPriority="high"
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-black/50"
         />
         <div
           aria-hidden="true"
@@ -221,6 +227,10 @@ export default function Hero() {
         />
         <div
           aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-black/50"
+        />
+        <div
+          aria-hidden="true"
           className="absolute inset-0"
           style={{
             background:
@@ -249,14 +259,21 @@ export default function Hero() {
           poster={HERO_POSTER}
           muted
           playsInline
-          preload="metadata"
+          preload="none"
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover"
           style={{ scale }}
         />
 
+        {/* Constant cinematic darkening (about half black) so the copy stays
+            readable over bright frames and the poster */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-black/50"
+        />
+
         {/* Cinematic grain over the footage */}
-        <CineGrain opacity={0.13} />
+        <CineGrain opacity={0.18} />
 
         {/* Ambient light-beam aura over the footage */}
         <BeamsLayer className="z-[2]" opacity={0.7} intensity="medium" />
@@ -340,12 +357,12 @@ function HeroCopy() {
           We build the kind that wins them.
         </span>
       </h1>
-      <p className="mt-7 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
+      <p className="mx-auto mt-7 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
         Studio-grade websites and cinematic video for business owners done with
         template looks and $15,000 agency quotes. Real craft, accelerated by
         AI, so it ships in weeks and costs a fraction of the big-agency price.
       </p>
-      <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">
+      <div className="mx-auto mt-9 flex w-full flex-col items-center justify-center gap-3 sm:flex-row">
         <ButtonLink
           href="#contact"
           size="lg"
