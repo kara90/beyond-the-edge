@@ -110,6 +110,14 @@ export default function Hero() {
       } catch {}
     })();
 
+    // Graceful exit: if the clip still has no metadata after a beat (slow
+    // connection, or a browser whose media decoders are exhausted by other
+    // tabs), swap the pinned scrub for the still single-screen hero instead
+    // of leaving a frozen 360vh track.
+    const fallbackTimer = setTimeout(() => {
+      if (v.readyState < 1) setLite(true);
+    }, 7000);
+
     let raf = 0;
     let running = false;
     let target = 0;
@@ -168,6 +176,7 @@ export default function Hero() {
       unsub();
       if (io) io.disconnect();
       cancelled = true;
+      clearTimeout(fallbackTimer);
       if (blobUrl) URL.revokeObjectURL(blobUrl);
     };
   }, [reduce, lite, scrollYProgress]);
