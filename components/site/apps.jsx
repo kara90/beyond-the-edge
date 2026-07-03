@@ -280,6 +280,9 @@ export default function Apps() {
                   {appCare.cadence}
                 </span>
               </p>
+              <p className="mt-1 text-[0.68rem] leading-snug text-muted-foreground/60">
+                Renews monthly until cancelled. Cancel anytime by email.
+              </p>
             </div>
             <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
               {appCare.features.map((f) => (

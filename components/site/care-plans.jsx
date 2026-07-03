@@ -123,6 +123,11 @@ export default function CarePlans() {
                   {freeMonths} {freeMonths === 1 ? "month" : "months"} free
                 </p>
               )}
+              <p className="mt-1 text-[0.68rem] leading-snug text-muted-foreground/60">
+                {annual
+                  ? "Renews annually until cancelled. Cancel anytime by email."
+                  : "Renews monthly until cancelled. Cancel anytime by email."}
+              </p>
 
               <ul className="mt-4 flex-1 divide-y divide-white/[0.08] border-t border-white/[0.08]">
                 {p.features.map((f) => (

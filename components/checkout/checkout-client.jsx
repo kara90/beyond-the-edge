@@ -442,6 +442,11 @@ export default function CheckoutClient() {
                     <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
                       {p.blurb}
                     </p>
+                    <p className="mt-2 text-[0.68rem] leading-snug text-muted-foreground/60">
+                      {billing === "annual"
+                        ? "Renews annually until cancelled. Cancel anytime by email."
+                        : "Renews monthly until cancelled. Cancel anytime by email."}
+                    </p>
                   </button>
                 );
               })}
@@ -662,8 +667,12 @@ function BillingToggle({ billing, setBilling }) {
 
 function PayStep({ items, billing, intake, total, payError, setPayError, onBack }) {
   const ref = useRef(null);
+  // The Stripe form only mounts after the client agrees to the terms, so
+  // payment is genuinely blocked until consent is given.
+  const [consented, setConsented] = useState(false);
 
   useEffect(() => {
+    if (!consented) return;
     let checkout;
     let destroyed = false;
     (async () => {
@@ -678,7 +687,13 @@ function PayStep({ items, billing, intake, total, payError, setPayError, onBack 
             const res = await fetch("/api/checkout", {
               method: "POST",
               headers: { "content-type": "application/json" },
-              body: JSON.stringify({ items, billing, intake }),
+              body: JSON.stringify({
+                items,
+                billing,
+                intake,
+                // Consent record: rides the order into Stripe metadata.
+                consent: { agreed: true, ts: new Date().toISOString() },
+              }),
             });
             const d = await res.json();
             if (!res.ok) throw new Error(d.error || "Could not start checkout.");
@@ -701,7 +716,7 @@ function PayStep({ items, billing, intake, total, payError, setPayError, onBack 
       } catch {}
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [consented]);
 
   return (
     <div className="mt-10">
@@ -723,9 +738,48 @@ function PayStep({ items, billing, intake, total, payError, setPayError, onBack 
           {payError}
         </p>
       )}
-      <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-2 sm:p-4">
-        <div ref={ref} id="embedded-checkout" />
-      </div>
+
+      {/* Required consent: unchecked by default, gates the payment form */}
+      <label className="mt-6 flex cursor-pointer items-start gap-3 rounded-xl border border-white/15 bg-white/[0.03] p-4">
+        <input
+          type="checkbox"
+          checked={consented}
+          onChange={(e) => setConsented(e.target.checked)}
+          className="mt-0.5 size-4 shrink-0 accent-[var(--edge)]"
+        />
+        <span className="text-xs leading-relaxed text-muted-foreground">
+          I agree to the{" "}
+          <a
+            href="/terms"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline text-edge hover:text-edge-bright"
+          >
+            Client Services Agreement
+          </a>{" "}
+          and, for monthly plans, the{" "}
+          <a
+            href="/terms"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline text-edge hover:text-edge-bright"
+          >
+            Care Plan and Retainer Agreement
+          </a>
+          , including automatic renewal: my plan renews each billing period at
+          the listed price until I cancel, and I can cancel anytime by email.
+        </span>
+      </label>
+
+      {consented ? (
+        <div className="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-2 sm:p-4">
+          <div ref={ref} id="embedded-checkout" />
+        </div>
+      ) : (
+        <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.02] p-8 text-center text-sm text-muted-foreground/70">
+          Check the box above to continue to secure payment.
+        </div>
+      )}
       <p className="mt-4 text-center text-xs text-muted-foreground/70">
         Payments are processed securely by Stripe. Your card details never touch
         our servers.

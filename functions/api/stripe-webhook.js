@@ -84,6 +84,7 @@ async function fulfill(stripe, env, session) {
       itemsHtml,
       total,
       isSub,
+      billing: m.billing || "",
     }),
   });
 
@@ -114,9 +115,10 @@ async function sendEmail(env, { to, subject, html }) {
   });
 }
 
-function customerEmailHtml({ name, itemsHtml, total, isSub }) {
+function customerEmailHtml({ name, itemsHtml, total, isSub, billing }) {
+  const freq = billing === "annual" ? "annually" : "monthly";
   const recurringNote = isSub
-    ? `<p style="margin:16px 0 0;color:#b9c2d0;font-size:14px;line-height:1.6">This is a recurring plan. We bill your card automatically each cycle until you cancel. Annual plans are prepaid and non-refundable except where we fail to deliver. You can cancel anytime by replying to this email.</p>`
+    ? `<p style="margin:16px 0 0;color:#b9c2d0;font-size:14px;line-height:1.6">Your plan (listed above at the price shown) renews ${freq} until cancelled. We bill your card automatically each cycle. Annual plans are prepaid and non-refundable except where we fail to deliver. Cancel anytime by emailing sebastien@beyondtheedgestudio.com.</p>`
     : "";
   return shell(`
     <h1 style="margin:0 0 8px;font-size:22px;color:#f4f6fa">You are in. Welcome aboard.</h1>

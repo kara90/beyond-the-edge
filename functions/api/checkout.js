@@ -45,6 +45,9 @@ export async function onRequestPost(context) {
       hosting: clip(intake.hosting, 200),
       billing: hasPlan ? billing : "one-time",
       order: clip(orderSummary(data.items, billing), 480),
+      // Consent record for auto-renewal disclosure (timestamp + agreement).
+      consent: data.consent && data.consent.agreed ? "agreed" : "",
+      consent_ts: clip(data.consent && data.consent.ts, 40),
     };
 
     const params = {
