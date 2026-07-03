@@ -1,38 +1,18 @@
 import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
-import { BrandMark } from "@/components/site/nav";
+import FounderVideo from "@/components/site/founder-video";
 
 /*
   FOUNDER: the trust multiplier. Puts a face to "direct line to the founder."
+  The card is a 16:9 intro-video slot (see founder-video.jsx for the asset
+  TODO); it lazy-loads and never autoplays.
 */
 export default function Founder() {
   return (
     <section className="relative mx-auto max-w-6xl px-6 py-28 sm:py-36">
-      <div className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-        {/* Brand lockup frame. A real founder portrait can replace this whole
-            block: keep the frame, swap the inner content for an <img>. */}
+      <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
         <Reveal>
-          <div className="spotlight-edge relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl border border-white/8 transition-all duration-500 hover:-translate-y-1.5">
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(120% 100% at 30% 20%, oklch(0.28 0.04 250) 0%, oklch(0.18 0.025 264) 60%, oklch(0.13 0.02 268) 100%)",
-              }}
-            />
-            <div
-              aria-hidden="true"
-              className="absolute -left-12 -top-12 size-48 rounded-full border border-edge/15"
-            />
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-5">
-              <BrandMark className="size-16" />
-              <p className="text-center font-mono text-[0.62rem] uppercase tracking-[0.25em] text-muted-foreground/70">
-                Directed by
-                <br />
-                Sebastien Ricci
-              </p>
-            </div>
-          </div>
+          <FounderVideo />
         </Reveal>
 
         <Reveal delay={0.1}>
@@ -42,7 +22,12 @@ export default function Founder() {
             led by the founder, and you work directly with the person
             responsible for the result, start to finish.
           </blockquote>
-          <p className="mt-7 max-w-xl text-[0.95rem] leading-relaxed text-muted-foreground">
+          <p className="mt-5 max-w-xl text-[0.95rem] leading-relaxed text-foreground/90">
+            Behind every project: a working director of photography with 21
+            years of commercial credits, including an Absolut Vodka commercial
+            and an Amazon Prime series.
+          </p>
+          <p className="mt-4 max-w-xl text-[0.95rem] leading-relaxed text-muted-foreground">
             That is how the work stays sharp and the standard stays high. When
             you email, the person building your site is the one who replies.
           </p>
