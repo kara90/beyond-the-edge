@@ -6,10 +6,11 @@ import BeamsLayer from "@/components/site/beams-layer";
 import VideoEdges from "@/components/site/video-edges";
 
 const NAV = [
-  { href: "#services", label: "What we do" },
-  { href: "#work", label: "Work" },
-  { href: "#why", label: "Why us" },
-  { href: "#pricing", label: "Pricing" },
+  { href: "/#services", label: "What we do" },
+  { href: "/#work", label: "Work" },
+  { href: "/#why", label: "Why us" },
+  { href: "/#apps", label: "Apps" },
+  { href: "/#pricing", label: "Pricing" },
 ];
 
 export default function Footer() {
@@ -21,7 +22,7 @@ export default function Footer() {
         src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3d62ce257ee1fdf51b9869.mp4"
         poster="/media/footer-poster.webp"
         aria-hidden="true"
-        className="hf-liquid pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-[0.65] motion-reduce:hidden"
+        className="hf-liquid media-feather-y pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-[0.65] motion-reduce:hidden"
       />
       {/* Ambient light-beam aura above the footage */}
       <BeamsLayer className="-z-10" opacity={0.45} />
@@ -38,7 +39,7 @@ export default function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-10 md:flex-row">
         <div className="max-w-xs">
           <a
-            href="#top"
+            href="/"
             className="flex items-center gap-2.5 text-base font-semibold"
           >
             <BrandMark />
@@ -51,7 +52,7 @@ export default function Footer() {
             average.
           </p>
           <a
-            href="#contact"
+            href="/#contact"
             className="mt-5 inline-flex items-center gap-2 text-sm text-edge transition-colors hover:text-edge-bright"
           >
             <span className="size-1.5 rounded-full bg-edge shadow-[0_0_8px_var(--edge)]" />
@@ -93,7 +94,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Oversized wordmark watermark — fades up into the void */}
+      {/* Oversized wordmark watermark, fades up into the void */}
       <div
         aria-hidden="true"
         className="pointer-events-none mt-12 select-none text-center"
@@ -103,7 +104,7 @@ export default function Footer() {
         </span>
       </div>
 
-      {/* Bottom bar — copyright + tagline, at the very bottom of the page */}
+      {/* Bottom bar: copyright + tagline, at the very bottom of the page */}
       <div className="mx-auto mt-6 flex max-w-6xl flex-col items-center justify-between gap-3 border-t border-white/8 pt-6 text-xs text-muted-foreground sm:flex-row">
         <p>
           © {new Date().getFullYear()} Beyond the Edge Studio. All rights

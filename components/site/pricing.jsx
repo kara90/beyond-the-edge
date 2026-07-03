@@ -8,13 +8,13 @@ import BeamsLayer from "@/components/site/beams-layer";
 import CarePlans from "@/components/site/care-plans";
 
 /*
-  PRICING
-  Four one-time build tiers with agency-rate value anchoring. Orbit is the
+  PRICING (websites only)
+  Three one-time build tiers with agency-rate value anchoring. Orbit is the
   recommended pick; Apex (the ultimate tier) renders as a wide flagship band
-  below the other three so four options never crowd the row. Beneath: a shared
-  "included in every project" strip, payment + risk-reversal lines, the a la
-  carte Add-ons, the monthly care Plans, and a short objection-handling FAQ.
-  No new styles: reuses the site tokens.
+  below the other three. Beneath: a three-column guarantee band, the shared
+  "included in every project" strip, an add-ons disclosure, the monthly care
+  plans, and a short objection-handling FAQ. App tiers live in the Apps
+  section. No new styles: reuses the site tokens.
 */
 
 const tiers = [
@@ -70,7 +70,7 @@ const tiers = [
       "Everything in Orbit, fully bespoke",
       "Complete advanced SEO setup, tuned for speed and local visibility across every page",
       "Flagship design: advanced 3D and custom animation",
-      "The look of a $20,000 plus experience",
+      "A signature scroll experience custom to your brand",
       "Cinematic hero video",
       "Complete conversion and lead system",
       "Priority build and direct creative direction",
@@ -104,6 +104,21 @@ const tiers = [
 const buildTiers = tiers.filter((t) => !t.ultimate);
 const apex = tiers.find((t) => t.ultimate);
 
+const guarantees = [
+  {
+    title: "You approve before we build.",
+    body: "See and sign off on the design first.",
+  },
+  {
+    title: "Founder-led, start to finish.",
+    body: "No juniors, no ghosting.",
+  },
+  {
+    title: "Care plans are month to month.",
+    body: "Cancel anytime.",
+  },
+];
+
 const included = [
   "Mobile responsive build",
   "Speed and security",
@@ -114,8 +129,8 @@ const included = [
 ];
 
 const addons = [
-  { item: "Extra page — standard design", price: "$150 each" },
-  { item: "Extra page — advanced 3D", price: "$250 each" },
+  { item: "Extra page, standard design", price: "$150 each" },
+  { item: "Extra page, advanced 3D", price: "$250 each" },
   { item: "Produced brand video", price: "from $1,500" },
   { item: "Advanced 3D or custom animation module", price: "from $800" },
   { item: "Professional copywriting", price: "from $150 per page" },
@@ -124,57 +139,6 @@ const addons = [
   { item: "Ongoing SEO program", price: "from $500 per month" },
   { item: "Rush delivery", price: "plus 25 percent" },
 ];
-
-// Apps — a distinct product line. Installable web apps on iPhone and Android.
-const appTiers = [
-  {
-    name: "Standard App",
-    checkoutId: "standard_app",
-    tag: "The essential app",
-    anchor: "Comparable native development: $20,000+",
-    price: "$4,997",
-    cadence: "one-time",
-    note: "Your business as an app on iPhone and Android.",
-    features: [
-      "Installable on iPhone and Android, works offline",
-      "App-style design matched to your brand",
-      "Push notifications that bring customers back",
-      "Your core feature: booking, ordering, menu, or content",
-      "Secure customer login",
-    ],
-    cta: "Start your app",
-    featured: false,
-  },
-  {
-    name: "Pro App",
-    tag: "The growth engine",
-    anchor: "Comparable native development: $30,000+",
-    price: "From $9,500",
-    cadence: "one-time",
-    note: "Final price scales with features and scope.",
-    features: [
-      "Everything in Standard",
-      "Customer accounts and private portals",
-      "Payments, subscriptions, and recurring billing",
-      "Ordering, reservations, or memberships",
-      "Loyalty and rewards that drive repeat business",
-      "Integrations and multiple modules",
-    ],
-    cta: "Request a Pro app",
-    featured: true,
-  },
-];
-
-const appCare = {
-  name: "App Care",
-  price: "From $200",
-  cadence: "per month",
-  features: [
-    "Hosting, updates, and security",
-    "Push notification management",
-    "We keep it running and fix any technical issue",
-  ],
-};
 
 const pricingFaqs = [
   {
@@ -190,12 +154,12 @@ const pricingFaqs = [
     a: "You could. Most business owners do not, because the value is not the building. It is having it done at a level you cannot match, and never having to touch it again.",
   },
   {
-    q: "How long does it take?",
-    a: "Most builds ship in two to four weeks, depending on the tier and scope.",
+    q: "How can you charge a fraction of what agencies quote?",
+    a: "Because we changed how the work gets made, not the standard it is made to. A real director designs and directs every project, and AI accelerates the slow production work agencies bill months for. You get the same craft with far less overhead, and we pass that difference to you. No offshore handoffs, no juniors, no catch.",
   },
   {
-    q: "What if I need changes after launch?",
-    a: "Small changes are covered by your monthly plan. Anything bigger is a quick, clear quote.",
+    q: "Why do you limit builds each month?",
+    a: "Every project is founder-led, and that only works if we keep the roster small. A limited number of build slots open each month, first come, first served. When they fill, new projects start the following month. If your timing matters, reach out before you are ready to start.",
   },
   {
     q: "Will my site rank on Google?",
@@ -230,12 +194,13 @@ export default function Pricing() {
         <div className="flex justify-center">
           <Eyebrow centered>Pricing</Eyebrow>
         </div>
-        <h2 className="mx-auto mt-6 max-w-2xl text-3xl font-semibold leading-[1.05] sm:text-5xl">
-          Built to go beyond the ordinary.
+        <h2 className="mx-auto mt-6 max-w-2xl text-3xl font-semibold leading-[1.08] sm:text-5xl">
+          Agency-level work. A fraction of the invoice.
         </h2>
         <p className="mx-auto mt-5 max-w-lg text-[0.95rem] leading-relaxed text-muted-foreground">
-          Custom design and build for your brand, at a fraction of agency rates.
-          Choose where you want to start.
+          Every tier is custom designed and built, never a template. Clear flat
+          pricing, and a design you approve before we build. Choose where you
+          want to start.
         </p>
       </Reveal>
 
@@ -259,35 +224,15 @@ export default function Pricing() {
           <div className="absolute inset-0 bg-background/45" />
         </div>
 
-      {/* Included in every project */}
-      <Reveal delay={0.05}>
-        <div className="spotlight-edge glass-clear rounded-3xl px-6 py-5">
-          <div className="flex flex-col items-center gap-x-6 gap-y-3 sm:flex-row sm:flex-wrap sm:justify-center">
-            <span className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-edge/80">
-              Included in every project
-            </span>
-            {included.map((item) => (
-              <span
-                key={item}
-                className="inline-flex items-center gap-2 text-sm text-muted-foreground"
-              >
-                <Check className="size-3.5 shrink-0 text-edge" />
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-      </Reveal>
-
       {/* Three one-time build tiers */}
-      <div className="mt-16 grid items-stretch gap-5 lg:grid-cols-3">
+      <div className="grid items-stretch gap-5 lg:grid-cols-3">
         {buildTiers.map((t, i) => (
           <Reveal key={t.name} delay={i * 0.08} className="h-full">
             <article
               className={`spotlight-edge relative flex h-full flex-col rounded-3xl p-8 transition-all duration-500 ${
                 t.featured
-                  ? "glass-featured-clear hover:-top-1.5 lg:-my-3 lg:py-11"
-                  : "glass-clear hover:-top-1.5"
+                  ? "glass-featured-clear hover:-translate-y-1.5 lg:-my-3 lg:py-11"
+                  : "glass-clear hover:-translate-y-1.5"
               }`}
             >
               {t.featured && (
@@ -303,7 +248,7 @@ export default function Pricing() {
                 {t.tag}
               </p>
 
-              <p className="mt-6 text-xs text-muted-foreground/55">{t.anchor}</p>
+              <p className="mt-6 text-xs text-muted-foreground/80">{t.anchor}</p>
               <p className="mt-1 flex flex-wrap items-baseline gap-2">
                 <span className="font-display text-3xl font-semibold tracking-tight text-metallic">
                   {t.price}
@@ -343,9 +288,9 @@ export default function Pricing() {
         ))}
       </div>
 
-      {/* Apex — the ceiling, as a wide flagship band */}
+      {/* Apex, the ceiling, as a wide flagship band */}
       <Reveal delay={0.12}>
-        <div className="spotlight-edge mt-5 overflow-hidden rounded-3xl bg-gradient-to-br from-primary/40 via-edge/20 to-primary/40 p-px shadow-[0_0_110px_-40px_var(--primary)] transition-all duration-500 hover:-top-1.5">
+        <div className="spotlight-edge mt-5 overflow-hidden rounded-3xl bg-gradient-to-br from-primary/40 via-edge/20 to-primary/40 p-px shadow-[0_0_110px_-40px_var(--primary)] transition-all duration-500 hover:-translate-y-1.5">
           <article className="glass-clear sheen relative overflow-hidden rounded-[calc(var(--radius)*2.2-1px)] p-8 sm:p-10">
             <div
               aria-hidden="true"
@@ -368,7 +313,7 @@ export default function Pricing() {
                 <p className="mt-1.5 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-metallic">
                   {apex.tag}
                 </p>
-                <p className="mt-6 text-xs text-muted-foreground/55">
+                <p className="mt-6 text-xs text-muted-foreground/80">
                   {apex.anchor}
                 </p>
                 <p className="mt-1 flex flex-wrap items-baseline gap-2">
@@ -410,9 +355,46 @@ export default function Pricing() {
           </article>
         </div>
       </Reveal>
+
+      {/* Guarantee band: how the risk stays on our side */}
+      <Reveal delay={0.08}>
+        <div className="spotlight-edge glass-clear mt-5 rounded-3xl px-6 py-6 sm:px-8">
+          <div className="grid gap-5 sm:grid-cols-3">
+            {guarantees.map((g) => (
+              <div key={g.title} className="flex items-start gap-3">
+                <Check className="mt-0.5 size-4 shrink-0 text-edge" />
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  <span className="font-medium text-foreground">{g.title}</span>{" "}
+                  {g.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+
+      {/* Included in every project */}
+      <Reveal delay={0.05}>
+        <div className="spotlight-edge glass-clear mt-5 rounded-3xl px-6 py-5">
+          <div className="flex flex-col items-center gap-x-6 gap-y-3 sm:flex-row sm:flex-wrap sm:justify-center">
+            <span className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-edge/80">
+              Included in every project
+            </span>
+            {included.map((item) => (
+              <span
+                key={item}
+                className="inline-flex items-center gap-2 text-sm text-muted-foreground"
+              >
+                <Check className="size-3.5 shrink-0 text-edge" />
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      </Reveal>
       </div>
 
-      {/* Decision helper + payment + risk reversal */}
+      {/* Decision helper */}
       <Reveal delay={0.1}>
         <p className="mx-auto mt-12 max-w-xl text-center text-[0.95rem] leading-relaxed text-muted-foreground">
           Not sure which fits?{" "}
@@ -424,22 +406,33 @@ export default function Pricing() {
           </a>{" "}
           and we will point you to the right one, honestly.
         </p>
-        <div className="mx-auto mt-6 flex max-w-2xl flex-col items-center gap-2 text-center text-sm text-muted-foreground/75">
-          <p>
-            Every site we build is SEO-optimized at the code level. Ongoing
-            Google ranking work is a separate service, because real rankings
-            build over time.
-          </p>
-          <p>Builds can be split into two payments: half to start, half at launch.</p>
-          <p>
-            You approve the design before we build. If the direction is not
-            right, we refine it until it is.
-          </p>
-        </div>
       </Reveal>
 
-      {/* Website extras: Add-ons + Care plans — grouped under the website tiers.
-          A discreet breathing aura sits behind them, no hard shape. */}
+      {/* Add-ons, collapsed into one open-pricing disclosure */}
+      <Reveal delay={0.05} className="mx-auto mt-10 max-w-3xl">
+        <details className="group spotlight-edge glass-clear rounded-3xl px-6 py-5 sm:px-8">
+          <summary className="flex cursor-pointer items-center justify-between gap-6 text-base font-medium">
+            Website add-ons, priced openly
+            <Plus className="size-5 shrink-0 text-edge transition-transform duration-300 group-open:rotate-45" />
+          </summary>
+          <ul className="mt-4 divide-y divide-white/[0.08] border-t border-white/[0.08]">
+            {addons.map((a) => (
+              <li
+                key={a.item}
+                className="flex items-baseline justify-between gap-6 py-3.5 text-sm"
+              >
+                <span className="text-foreground/90">{a.item}</span>
+                <span className="shrink-0 text-right font-mono text-[0.8rem] text-edge/80">
+                  {a.price}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </details>
+      </Reveal>
+
+      {/* Keep growing: the monthly care plans. A discreet breathing aura sits
+          behind them, no hard shape. */}
       <div className="relative isolate mt-16">
         <div
           aria-hidden="true"
@@ -459,36 +452,8 @@ export default function Pricing() {
             filter: "blur(56px)",
           }}
         />
-        <div className="grid gap-5 lg:grid-cols-5">
-        {/* Add-ons */}
-        <Reveal className="lg:col-span-2">
-          <div className="spotlight-edge glass-clear h-full rounded-3xl p-8 transition-all duration-500 hover:-top-1.5">
-            <h3 className="font-display text-lg font-semibold tracking-tight">
-              Website add-ons
-            </h3>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Extra work, priced clearly.
-            </p>
-
-            <ul className="mt-6 divide-y divide-white/[0.08] border-t border-white/[0.08]">
-              {addons.map((a) => (
-                <li
-                  key={a.item}
-                  className="flex items-baseline justify-between gap-6 py-3.5 text-sm"
-                >
-                  <span className="text-foreground/90">{a.item}</span>
-                  <span className="shrink-0 text-right font-mono text-[0.8rem] text-edge/80">
-                    {a.price}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
-
-        {/* Keep it running */}
-        <Reveal delay={0.08} className="lg:col-span-3">
-          <div className="spotlight-edge glass-clear h-full rounded-3xl p-8 transition-all duration-500 hover:-top-1.5">
+        <Reveal delay={0.08}>
+          <div className="spotlight-edge glass-clear h-full rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1.5">
             <h3 className="font-display text-lg font-semibold tracking-tight">
               Keep growing.
             </h3>
@@ -510,109 +475,7 @@ export default function Pricing() {
             </p>
           </div>
         </Reveal>
-        </div>
       </div>
-
-      {/* Apps — a distinct product line, priced as an investment */}
-      <div className="mt-24">
-        <Reveal className="text-center">
-          <div className="flex justify-center">
-            <Eyebrow centered>Apps</Eyebrow>
-          </div>
-          <h3 className="mx-auto mt-5 max-w-xl text-2xl font-semibold leading-[1.1] sm:text-3xl">
-            Your business as an app, built smarter.
-          </h3>
-          <p className="mx-auto mt-4 max-w-lg text-[0.95rem] leading-relaxed text-muted-foreground">
-            Works on every phone, installs like an app, and costs a fraction of
-            traditional development. An investment that pays for itself.
-          </p>
-        </Reveal>
-
-        <div className="mx-auto mt-12 grid max-w-4xl items-stretch gap-5 sm:grid-cols-2">
-          {appTiers.map((t, i) => (
-            <Reveal key={t.name} delay={i * 0.08} className="h-full">
-              <article
-                className={`spotlight-edge relative flex h-full flex-col rounded-3xl p-8 transition-all duration-500 hover:-top-1.5 ${
-                  t.featured ? "glass-featured-clear" : "glass-clear"
-                }`}
-              >
-                {t.featured && (
-                  <span className="absolute -top-3 left-8 rounded-full bg-primary px-3 py-1 font-mono text-[0.65rem] uppercase tracking-widest text-primary-foreground">
-                    Recommended
-                  </span>
-                )}
-                <h4 className="font-display text-xl font-semibold tracking-tight">
-                  {t.name}
-                </h4>
-                <p className="mt-1.5 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-edge/70">
-                  {t.tag}
-                </p>
-                <p className="mt-6 text-xs text-muted-foreground/55">{t.anchor}</p>
-                <p className="mt-1 flex flex-wrap items-baseline gap-2">
-                  <span className="font-display text-3xl font-semibold tracking-tight text-metallic">
-                    {t.price}
-                  </span>
-                  <span className="text-sm text-muted-foreground">{t.cadence}</span>
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {t.note}
-                </p>
-                <ul className="mt-7 flex-1 divide-y divide-white/[0.08] border-t border-white/[0.08]">
-                  {t.features.map((f) => (
-                    <li
-                      key={f}
-                      className="flex items-start gap-3 py-3 text-sm text-foreground/90"
-                    >
-                      <Check className="mt-0.5 size-4 shrink-0 text-edge" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <ButtonLink
-                  href={t.checkoutId ? `/checkout?tier=${t.checkoutId}` : "#contact"}
-                  size="lg"
-                  variant={t.featured ? "default" : "outline"}
-                  className={`mt-8 h-11 rounded-full font-semibold ${
-                    t.featured
-                      ? "bg-primary text-primary-foreground hover:bg-primary/85"
-                      : "border-white/15 bg-white/[0.02] text-foreground hover:bg-white/[0.06]"
-                  }`}
-                >
-                  {t.cta}
-                </ButtonLink>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-
-        {/* App Care */}
-        <Reveal delay={0.1} className="mx-auto mt-5 max-w-4xl">
-          <div className="spotlight-edge glass-clear flex flex-col gap-5 rounded-2xl p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7">
-            <div className="shrink-0">
-              <h4 className="font-display text-base font-semibold">
-                {appCare.name}
-              </h4>
-              <p className="mt-1 flex items-baseline gap-1.5">
-                <span className="font-display text-xl font-semibold text-metallic">
-                  {appCare.price}
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  {appCare.cadence}
-                </span>
-              </p>
-            </div>
-            <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
-              {appCare.features.map((f) => (
-                <li key={f} className="inline-flex items-center gap-2">
-                  <Check className="size-3.5 shrink-0 text-edge" />
-                  {f}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
-      </div>
-
 
       {/* Objection-handling FAQ (pricing-specific) */}
       <Reveal delay={0.05} className="mx-auto mt-20 max-w-3xl">

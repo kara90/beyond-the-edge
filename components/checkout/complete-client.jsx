@@ -31,7 +31,9 @@ export default function CompleteClient() {
     );
   }
 
-  const paid = s.status === "complete" || s.payment_status === "paid";
+  const paid =
+    s.payment_status === "paid" || s.payment_status === "no_payment_required";
+  const pending = s.status === "complete" && s.payment_status === "unpaid";
 
   if (paid) {
     return (
@@ -58,12 +60,12 @@ export default function CompleteClient() {
   return (
     <div className="flex flex-col items-center py-12 text-center">
       <h1 className="text-2xl font-semibold sm:text-3xl">
-        {s.payment_status === "processing"
+        {pending
           ? "Your payment is processing"
           : "We could not confirm this payment"}
       </h1>
       <p className="mx-auto mt-4 max-w-md text-[0.95rem] leading-relaxed text-muted-foreground">
-        {s.payment_status === "processing"
+        {pending
           ? "This can take a moment. You will get a confirmation email as soon as it clears."
           : "If you were charged, you will still receive a confirmation email. If anything looks off, reach us at sebastien@beyondtheedgestudio.com."}
       </p>

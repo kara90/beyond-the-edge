@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, Mail } from "lucide-react";
 import BgVideo from "@/components/site/bg-video";
 import CineGrain from "@/components/site/cine-grain";
 import { FORM_ENDPOINT } from "@/components/site/config";
@@ -11,10 +11,16 @@ import { FORM_ENDPOINT } from "@/components/site/config";
   reply: who they are, where they are starting from, what they want built, and
   which growth pieces they need. Single-choice questions render as selectable
   chips (peer-checked styling, no JS state); marketing is multi-select.
+
+  Submits JSON to the shared Beyond the Edge lead worker (siteId
+  "beyond-the-edge"). If the worker is unreachable, the visitor's email app
+  opens with the brief pre-filled, so no lead ever hits a dead end.
 */
 
 const FIELD =
   "w-full rounded-lg border border-white/20 bg-white/[0.06] px-4 py-3 text-sm text-foreground placeholder:text-foreground/45 outline-none transition-colors focus:border-edge/50 focus:ring-2 focus:ring-edge/20";
+
+const FALLBACK_EMAIL = "sebastien@beyondtheedgestudio.com";
 
 // Are you already working with us?
 const RELATIONSHIP = [
@@ -37,13 +43,13 @@ const PROJECT = [
   { value: "Full website + funnel", label: "Full website with a marketing funnel" },
 ];
 
-// Optional growth firepower (AI-free wording by brand rule).
+// Optional growth pieces, in plain buyer language.
 const MARKETING = [
-  "Marketing funnel",
-  "Scalable ad campaigns",
-  "Campaign tools",
-  "Marketing and growth tools",
-  "Smart, automated marketing and funnels",
+  "Booking or online store",
+  "Cinematic brand video",
+  "Social content every month",
+  "Local SEO program",
+  "Ad campaigns",
 ];
 
 function ChipRadio({ name, value, label, defaultChecked }) {
@@ -92,27 +98,74 @@ function Group({ label, hint, children, cols = "sm:grid-cols-2" }) {
   );
 }
 
+// Build a plain-text mailto URL from the form fields, so a failed POST still
+// turns into a sendable brief. Newlines travel as %0D%0A per the mailto spec.
+function buildMailtoUrl(data) {
+  const lines = [];
+  for (const key of new Set(data.keys())) {
+    if (key === "botcheck") continue;
+    const values = data.getAll(key).map(String).filter(Boolean);
+    if (values.length === 0) continue;
+    const label = key.charAt(0).toUpperCase() + key.slice(1);
+    lines.push(`${label}: ${values.join(", ")}`);
+  }
+  const subject = encodeURIComponent("Project brief");
+  // Cap the body so long briefs never overflow practical mailto URL limits.
+  const body = encodeURIComponent(lines.join("\r\n").slice(0, 1800));
+  return `mailto:${FALLBACK_EMAIL}?subject=${subject}&body=${body}`;
+}
+
 export default function LeadForm() {
-  const [status, setStatus] = useState("idle"); // idle | submitting | success | error
+  // idle | submitting | success | fallback | error
+  const [status, setStatus] = useState("idle");
+  const [mailtoUrl, setMailtoUrl] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
     setStatus("submitting");
     const data = new FormData(e.currentTarget);
 
-    // Preview mode: no real endpoint wired yet, so just show the success state.
-    if (FORM_ENDPOINT.includes("REPLACE-ME")) {
+    // Flatten FormData into JSON; multi-value keys become arrays.
+    const payload = { siteId: "beyond-the-edge" };
+    for (const key of new Set(data.keys())) {
+      const values = data.getAll(key).map(String);
+      payload[key] = values.length > 1 ? values : values[0];
+    }
+    const marketing = data.getAll("marketing").map(String).filter(Boolean);
+    if (marketing.length > 0) payload.marketing = marketing;
+    else delete payload.marketing;
+    payload.subject = `New project brief from ${
+      String(data.get("name") || "").trim() || "website"
+    }`;
+
+    let ok = false;
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json().catch(() => ({}));
+      ok = res.ok && json.success === true;
+    } catch {
+      ok = false;
+    }
+
+    if (ok) {
       setStatus("success");
       return;
     }
 
+    // The worker failed: never fake a success. Open the visitor's email app
+    // with the brief pre-filled instead.
     try {
-      const res = await fetch(FORM_ENDPOINT, {
-        method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
-      });
-      setStatus(res.ok ? "success" : "error");
+      const url = buildMailtoUrl(data);
+      setMailtoUrl(url);
+      setStatus("fallback");
+      window.location.href = url;
     } catch {
       setStatus("error");
     }
@@ -128,6 +181,29 @@ export default function LeadForm() {
         <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted-foreground">
           We reply within one business day with a clear next step. If it is
           urgent, say so in your message and we will get back to you sooner.
+        </p>
+      </div>
+    );
+  }
+
+  if (status === "fallback") {
+    return (
+      <div className="spotlight-edge flex flex-col items-center rounded-2xl border border-edge/25 bg-edge/[0.04] p-10 text-center">
+        <span className="flex size-12 items-center justify-center rounded-full border border-edge/40 bg-edge/10 text-edge">
+          <Mail className="size-6" />
+        </span>
+        <h3 className="mt-5 text-xl font-semibold">
+          One more click and it is on its way.
+        </h3>
+        <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted-foreground">
+          Our form is having a moment, so we opened your email app with your
+          brief pre-filled. Press send and it reaches the founder directly.
+        </p>
+        <p className="mt-4 text-sm text-muted-foreground">
+          Email app did not open?{" "}
+          <a href={mailtoUrl} className="link-underline text-edge">
+            Send your brief to {FALLBACK_EMAIL}
+          </a>
         </p>
       </div>
     );
@@ -162,6 +238,16 @@ export default function LeadForm() {
         <CineGrain opacity={0.12} />
       </div>
 
+      {/* Honeypot: humans never see or fill this field */}
+      <input
+        type="text"
+        name="botcheck"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute -left-[9999px] top-0 h-px w-px opacity-0"
+      />
+
       {/* Contact details */}
       <div className="relative z-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <div>
@@ -180,13 +266,12 @@ export default function LeadForm() {
         </div>
         <div>
           <label htmlFor="lf-business" className="mb-2 block text-sm font-medium">
-            Business name
+            Business name <span className="text-foreground/55">(optional)</span>
           </label>
           <input
             id="lf-business"
             name="business"
             type="text"
-            required
             autoComplete="organization"
             placeholder="Your business"
             className={FIELD}
@@ -265,7 +350,7 @@ export default function LeadForm() {
         </Group>
       </div>
 
-      {/* Growth firepower — full width */}
+      {/* Growth firepower, full width */}
       <Group
         label="Add growth firepower"
         hint="Optional. Pick anything you want us to wire in. We will scope it with you."
@@ -302,7 +387,7 @@ export default function LeadForm() {
         </button>
         {status === "error" ? (
           <p className="text-sm text-destructive">
-            Something went wrong. Email us at sebastien@beyondtheedgestudio.com.
+            Something went wrong. Email us at {FALLBACK_EMAIL}.
           </p>
         ) : (
           <p className="text-xs text-foreground/60">

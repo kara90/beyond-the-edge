@@ -1,6 +1,7 @@
 import Nav from "@/components/site/nav";
 import Hero from "@/components/site/hero";
 import Pain from "@/components/site/pain";
+import Compare from "@/components/site/compare";
 import Marquee from "@/components/site/marquee";
 import Services from "@/components/site/services";
 import Work from "@/components/site/work";
@@ -14,6 +15,7 @@ import Pricing from "@/components/site/pricing";
 import Faq from "@/components/site/faq";
 import Contact from "@/components/site/contact";
 import Footer from "@/components/site/footer";
+import StickyCta from "@/components/site/sticky-cta";
 
 export default function Home() {
   return (
@@ -24,20 +26,22 @@ export default function Home() {
         {/* Single animated blue/gray separator right under the hero */}
         <div aria-hidden="true" className="edge-flow relative h-[2px] w-full" />
         <Pain />
+        <Compare />
         <Marquee />
         <Services />
         <Work />
-        <Apps />
         <Why />
         <Process />
         <Founder />
         <CraftAi />
         <ForYouIf />
+        <Apps />
         <Pricing />
-        <Contact />
         <Faq />
+        <Contact />
       </main>
       <Footer />
+      <StickyCta />
     </>
   );
 }

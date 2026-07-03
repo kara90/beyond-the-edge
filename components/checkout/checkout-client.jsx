@@ -71,7 +71,7 @@ const BESPOKE = [
     name: "Beyond",
     tag: "Website",
     price: "From $7,497",
-    desc: "Flagship bespoke site — advanced 3D, cinematic hero video, full conversion system.",
+    desc: "Flagship bespoke site: advanced 3D, cinematic hero video, full conversion system.",
   },
   {
     name: "Apex",
@@ -89,7 +89,7 @@ const BESPOKE = [
     name: "Growth",
     tag: "Care plan",
     price: "From $1,800/mo",
-    desc: "Full content, SEO, Google Business, and ads management — handled for you.",
+    desc: "Full content, SEO, Google Business, and ads management, handled for you.",
   },
   {
     name: "App Care",
@@ -108,16 +108,18 @@ const ADDON_GROUPS = [
     items: [
       {
         id: "extra_page",
-        name: "Extra page — standard design",
+        name: "Extra page: standard design",
         price: 150,
         qtyable: true,
-        benefit: "A clean, professional page for another service, location, or offer — more pages, more searches you can show up for.",
+        max: 20,
+        benefit: "A clean, professional page for another service, location, or offer: more pages, more searches you can show up for.",
       },
       {
         id: "extra_page_3d",
-        name: "Extra page — advanced 3D",
+        name: "Extra page: advanced 3D",
         price: 250,
         qtyable: true,
+        max: 20,
         benefit: "A premium animated page that makes a key product or offer unforgettable.",
       },
       {
@@ -143,7 +145,8 @@ const ADDON_GROUPS = [
         name: "Professional copywriting",
         price: 150,
         qtyable: true,
-        benefit: "Words written to sell, not just describe — turns visitors into customers (per page).",
+        max: 30,
+        benefit: "Words written to sell, not just describe: turns visitors into customers (per page).",
       },
       {
         id: "brand_video",
@@ -181,12 +184,9 @@ const stripePromise =
     ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
     : Promise.resolve(null);
 
-export default function CheckoutClient({ initialTier }) {
+export default function CheckoutClient() {
   const [step, setStep] = useState("build"); // build | details | pay
-  const [picked, setPicked] = useState(() => {
-    const start = TIERS.find((t) => t.id === initialTier)?.id || "orbit";
-    return { [start]: true };
-  });
+  const [picked, setPicked] = useState({ orbit: true });
   const [billing, setBilling] = useState("monthly"); // monthly | annual
   const [qty, setQty] = useState({}); // addonId -> quantity (>=1 means selected)
   const [intake, setIntake] = useState({
@@ -206,7 +206,7 @@ export default function CheckoutClient({ initialTier }) {
     try {
       const params = new URLSearchParams(window.location.search);
       const def = ALL_SELECTABLE.find((x) => x.id === params.get("tier"));
-      if (def) setPicked((p) => withPick(p, def, true));
+      if (def) setPicked({ [def.id]: true });
       const b = params.get("billing");
       if (b === "annual" || b === "monthly") setBilling(b);
     } catch {}
@@ -252,7 +252,10 @@ export default function CheckoutClient({ initialTier }) {
   const togglePick = (item) => setPicked((p) => withPick(p, item, !p[item.id]));
   const toggleAddon = (a) => setQty((q) => ({ ...q, [a.id]: q[a.id] ? 0 : 1 }));
   const bump = (a, d) =>
-    setQty((q) => ({ ...q, [a.id]: Math.max(0, (q[a.id] || 0) + d) }));
+    setQty((q) => ({
+      ...q,
+      [a.id]: Math.min(a.max ?? Infinity, Math.max(0, (q[a.id] || 0) + d)),
+    }));
 
   function validate() {
     const e = {};
@@ -272,7 +275,7 @@ export default function CheckoutClient({ initialTier }) {
       <Steps step={step} />
 
       {step === "build" && (
-        <div className="mt-10 grid gap-8 lg:grid-cols-[1.6fr_1fr]">
+        <div className="mt-10 grid gap-8 pb-28 lg:grid-cols-[1.6fr_1fr] lg:pb-0">
           <div>
             <SectionHead
               first
@@ -373,7 +376,7 @@ export default function CheckoutClient({ initialTier }) {
                                   <button
                                     type="button"
                                     onClick={() => bump(a, -1)}
-                                    className="grid size-7 place-items-center rounded-md border border-white/15 text-foreground hover:border-white/30"
+                                    className="grid size-10 place-items-center rounded-md border border-white/15 text-foreground transition-colors hover:border-white/30"
                                   >
                                     <Minus className="size-3.5" />
                                   </button>
@@ -383,7 +386,7 @@ export default function CheckoutClient({ initialTier }) {
                                   <button
                                     type="button"
                                     onClick={() => bump(a, 1)}
-                                    className="grid size-7 place-items-center rounded-md border border-white/15 text-foreground hover:border-white/30"
+                                    className="grid size-10 place-items-center rounded-md border border-white/15 text-foreground transition-colors hover:border-white/30"
                                   >
                                     <Plus className="size-3.5" />
                                   </button>
@@ -502,6 +505,27 @@ export default function CheckoutClient({ initialTier }) {
               </p>
             )}
           </Summary>
+
+          {/* Mobile order bar: keeps the total and CTA in reach on small screens. */}
+          <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-background/85 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden">
+            <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
+              <div>
+                <p className="text-xs text-muted-foreground">Total due today</p>
+                <p className="font-display text-lg font-semibold text-metallic">
+                  {usd(total)}
+                </p>
+              </div>
+              <button
+                type="button"
+                disabled={!canContinue}
+                onClick={() => canContinue && setStep("details")}
+                className="sheen group inline-flex h-11 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Continue
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
@@ -513,11 +537,11 @@ export default function CheckoutClient({ initialTier }) {
               So we can start the moment you pay.
             </p>
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
-              <Input label="First name" req v="firstName" {...{ intake, setIntake, errors }} />
-              <Input label="Last name" req v="lastName" {...{ intake, setIntake, errors }} />
-              <Input label="Email" req type="email" v="email" {...{ intake, setIntake, errors }} />
-              <Input label="Phone" req type="tel" v="phone" {...{ intake, setIntake, errors }} />
-              <Input label="Company" opt v="company" {...{ intake, setIntake, errors }} />
+              <Input label="First name" req v="firstName" autoComplete="given-name" {...{ intake, setIntake, errors }} />
+              <Input label="Last name" req v="lastName" autoComplete="family-name" {...{ intake, setIntake, errors }} />
+              <Input label="Email" req type="email" v="email" autoComplete="email" {...{ intake, setIntake, errors }} />
+              <Input label="Phone" req type="tel" v="phone" autoComplete="tel" {...{ intake, setIntake, errors }} />
+              <Input label="Company" opt v="company" autoComplete="organization" {...{ intake, setIntake, errors }} />
               <Input label="Current website" opt v="website" placeholder="https://" {...{ intake, setIntake, errors }} />
               <Input label="Current hosting" opt v="hosting" {...{ intake, setIntake, errors }} className="sm:col-span-2" />
             </div>
@@ -620,7 +644,7 @@ function BillingToggle({ billing, setBilling }) {
           key={b}
           type="button"
           onClick={() => setBilling(b)}
-          className={`rounded-full px-4 py-1.5 transition-colors ${
+          className={`rounded-full px-4 py-2.5 transition-colors ${
             billing === b
               ? "bg-edge/15 text-edge"
               : "text-muted-foreground hover:text-foreground"
@@ -804,21 +828,32 @@ function Summary({ products, selectedAddons, qty, plan, billing, planToday, tota
   );
 }
 
-function Input({ label, v, req, opt, type = "text", placeholder, className = "", intake, setIntake, errors }) {
+function Input({ label, v, req, opt, type = "text", placeholder, autoComplete, className = "", intake, setIntake, errors }) {
+  const id = "co-" + v;
+  const errId = id + "-err";
   return (
     <div className={className}>
-      <label className="mb-1.5 block text-sm font-medium">
+      <label htmlFor={id} className="mb-1.5 block text-sm font-medium">
         {label}{" "}
         {opt && <span className="text-muted-foreground/55">(optional)</span>}
       </label>
       <input
+        id={id}
         type={type}
         value={intake[v]}
         placeholder={placeholder}
+        autoComplete={autoComplete}
+        required={!!req}
+        aria-invalid={!!errors[v]}
+        aria-describedby={errors[v] ? errId : undefined}
         onChange={(e) => setIntake((s) => ({ ...s, [v]: e.target.value }))}
         className={`${FIELD} ${errors[v] ? "border-destructive/60" : ""}`}
       />
-      {errors[v] && <p className="mt-1 text-xs text-destructive">{errors[v]}</p>}
+      {errors[v] && (
+        <p id={errId} role="alert" className="mt-1 text-xs text-destructive">
+          {errors[v]}
+        </p>
+      )}
     </div>
   );
 }

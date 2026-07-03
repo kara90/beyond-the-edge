@@ -78,7 +78,7 @@ async function fulfill(stripe, env, session) {
   // 1) Customer confirmation + onboarding
   await sendEmail(env, {
     to: customerEmail,
-    subject: "Your project is booked — Beyond the Edge Studio",
+    subject: "Your project is booked | Beyond the Edge Studio",
     html: customerEmailHtml({
       name: m.first_name || cust.name || "there",
       itemsHtml,
@@ -90,7 +90,7 @@ async function fulfill(stripe, env, session) {
   // 2) Studio notification with the full order
   await sendEmail(env, {
     to: env.NOTIFY_EMAIL,
-    subject: `New order: ${m.first_name || ""} ${m.last_name || ""} — ${total}`.trim(),
+    subject: `New order: ${m.first_name || ""} ${m.last_name || ""} | ${total}`.trim(),
     html: ownerEmailHtml({ m, cust, itemsHtml, total, isSub }),
   });
 }
@@ -138,12 +138,12 @@ function customerEmailHtml({ name, itemsHtml, total, isSub }) {
 function ownerEmailHtml({ m, cust, itemsHtml, total, isSub }) {
   const row = (label, val) =>
     `<tr><td style="padding:4px 12px 4px 0;color:#7d8597;font-size:13px;white-space:nowrap">${label}</td><td style="padding:4px 0;color:#dfe5ee;font-size:13px">${escapeHtml(
-      val || "—"
+      val || "-"
     )}</td></tr>`;
   return shell(`
     <h1 style="margin:0 0 8px;font-size:20px;color:#f4f6fa">New ${
       isSub ? "subscription" : "order"
-    } — ${total}</h1>
+    }: ${total}</h1>
     <div style="margin:18px 0;padding:18px;border:1px solid #1d2433;border-radius:12px;background:#0d1320">
       <p style="margin:0 0 10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#5cc4e6">Items</p>
       <ul style="margin:0;padding-left:18px;color:#dfe5ee;font-size:14px;line-height:1.8">${itemsHtml}</ul>

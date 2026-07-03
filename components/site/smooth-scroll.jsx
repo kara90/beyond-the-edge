@@ -2,15 +2,18 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { isLite, onLite } from "@/components/site/perf";
 
 /*
-  SmoothScroll — Lenis momentum scrolling for the whole page. Lenis drives the
+  SmoothScroll: Lenis momentum scrolling for the whole page. Lenis drives the
   real window scroll, so the scroll-linked hero (framer-motion useScroll) keeps
   working. Disabled for reduced-motion. In-page anchor links are smoothed too.
 */
 export default function SmoothScroll() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // On weak devices the momentum rAF loop is pure overhead: native scroll.
+    if (isLite()) return;
 
     const lenis = new Lenis({
       duration: 1.1,
@@ -39,10 +42,21 @@ export default function SmoothScroll() {
     };
     document.addEventListener("click", onClick);
 
-    return () => {
+    let torn = false;
+    const teardown = () => {
+      if (torn) return;
+      torn = true;
       cancelAnimationFrame(raf);
       document.removeEventListener("click", onClick);
       lenis.destroy();
+    };
+
+    // If lite mode kicks in mid-session, hand scrolling back to the browser.
+    const unsubLite = onLite(teardown);
+
+    return () => {
+      teardown();
+      unsubLite();
     };
   }, []);
 

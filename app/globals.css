@@ -12,9 +12,28 @@ html.lite .fluid-canvas,
 html.lite .beams-layer {
   display: none !important;
 }
+/* Lite mode also drops blur, breathing auras, cursor rim glow, and the film
+   grain: the biggest remaining paint/compositing costs on weak devices. */
+html.lite .glass-clear,
+html.lite .glass-featured-clear {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background-color: oklch(0.21 0.03 260 / 0.92);
+}
+html.lite .aura-breathe,
+html.lite .aura-breathe-slow {
+  display: none;
+}
+html.lite .spotlight-edge::before,
+html.lite .spotlight-edge::after {
+  display: none !important;
+}
+html.lite body::after {
+  display: none;
+}
 
 /*
-  Beyond the Edge Studio — design tokens
+  Beyond the Edge Studio: design tokens
   --------------------------------------
   Dark, cinematic, space. One luminous boundary accent (cyan to white)
   where the dome glows and breaks, plus a refined champagne metallic for
@@ -252,27 +271,6 @@ html.lite .beams-layer {
     );
   }
 
-  /* Frosted glass panels — transparent, edgeless, premium. Definition comes
-     from blur + a soft floating shadow + a faint top sheen, not a hard border. */
-  .glass {
-    background-color: oklch(0.24 0.05 256 / 0.28);
-    -webkit-backdrop-filter: blur(24px) saturate(1.2);
-    backdrop-filter: blur(24px) saturate(1.2);
-    border: 1px solid oklch(1 0 0 / 0.04);
-    box-shadow:
-      0 40px 90px -50px oklch(0 0 0 / 0.8),
-      inset 0 1px 0 0 oklch(1 0 0 / 0.05);
-  }
-  .glass-featured {
-    background-color: oklch(0.27 0.06 238 / 0.32);
-    -webkit-backdrop-filter: blur(24px) saturate(1.2);
-    backdrop-filter: blur(24px) saturate(1.2);
-    border: 1px solid oklch(0.82 0.12 220 / 0.28);
-    box-shadow:
-      0 0 80px -22px oklch(0.82 0.12 220 / 0.45),
-      inset 0 1px 0 0 oklch(1 0 0 / 0.08);
-  }
-
   /* Transparent, lightly textured glass: a video or glow behind reads through
      it even at rest. Blur + a faint top sheen give the frosted texture while
      keeping text legible. Used across all pricing blocks. */
@@ -324,23 +322,6 @@ html.lite .beams-layer {
       transparent 100%
     );
   }
-  /* Longer top/bottom fade, for a video that needs to dissolve more fully. */
-  .media-feather-y-strong {
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      transparent 0%,
-      #000 30%,
-      #000 70%,
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      to bottom,
-      transparent 0%,
-      #000 30%,
-      #000 70%,
-      transparent 100%
-    );
-  }
   .media-feather-xy {
     -webkit-mask-image:
       linear-gradient(to right, transparent 0%, #000 13%, #000 87%, transparent 100%),
@@ -363,7 +344,7 @@ html.lite .beams-layer {
   }
 
   /*
-    Spotlight edge — a cursor-following neon glow that lights the rim of any
+    Spotlight edge: a cursor-following neon glow that lights the rim of any
     framed element (cards, photos, videos). The Spotlight component publishes
     --spot-x/-y/-xp on <html>; the glow tracks them. background-attachment:
     fixed means one global coordinate lights whichever frame the cursor is
@@ -453,7 +434,7 @@ html.lite .beams-layer {
   animation: aura-breathe 19s ease-in-out infinite alternate;
 }
 
-/* Thin animated blue/gray edge — a flowing highlight that travels along a hair
+/* Thin animated blue/gray edge: a flowing highlight that travels along a hair
    line, used at the top and bottom of full-bleed video sections instead of a
    soft fade. */
 @keyframes edge-flow {

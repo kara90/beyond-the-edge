@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { BrandMark } from "@/components/site/nav";
 
 /*
-  Intro — a brief cinematic load sequence: the void resolves, the mark draws in,
+  Intro: a brief cinematic load sequence: the void resolves, the mark draws in,
   then the curtain lifts to the hero. Roughly 1.3s, then it unmounts. Skipped
   entirely for reduced-motion. No storage, so it plays each load (kept short).
 */
 export default function Intro() {
+  const pathname = usePathname();
   const [show, setShow] = useState(true);
 
   useEffect(() => {
@@ -20,6 +22,9 @@ export default function Intro() {
     const t = setTimeout(() => setShow(false), 1300);
     return () => clearTimeout(t);
   }, []);
+
+  // The intro belongs to the homepage only; checkout/terms/privacy load clean.
+  if (pathname !== "/") return null;
 
   return (
     <AnimatePresence>

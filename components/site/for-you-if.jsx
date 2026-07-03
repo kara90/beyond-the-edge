@@ -3,13 +3,13 @@ import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
 
 /*
-  ForYouIf — a short, calm qualifier right before pricing, so the right buyer
+  ForYouIf: a short, calm qualifier right before pricing, so the right buyer
   recognizes themselves before they see the numbers.
 */
 const ITEMS = [
-  "You are too busy to build and maintain this yourself",
-  "You want it to look high-end, not like a template",
-  "You do not have an in-house design, video, or marketing team",
+  "You are done losing nights and weekends to a DIY builder",
+  "You want the high-end look without the $15,000 agency quote",
+  "You have been burned by a freelancer who stopped replying",
   "You want it handled for you, not one more tool to learn",
 ];
 

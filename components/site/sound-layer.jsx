@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
+import { isLite, onLite } from "@/components/site/perf";
 
 /*
-  SoundLayer — a soft, airy "whoosh" the moment the cursor passes onto a framed
+  SoundLayer: a soft, airy "whoosh" the moment the cursor passes onto a framed
   block (.spotlight-edge: cards, photos, videos, the form). No audio files: a
   short burst of filtered noise that swells and fades, with a band that drifts
   up so it reads as a breath of air rather than a tone. Very low volume, subtle.
@@ -14,6 +15,8 @@ import { useEffect } from "react";
 */
 export default function SoundLayer() {
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (isLite()) return;
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     const AC = window.AudioContext || window.webkitAudioContext;
     if (!AC) return;
@@ -88,12 +91,26 @@ export default function SoundLayer() {
     window.addEventListener("keydown", gesture);
     document.addEventListener("pointerover", onOver, { passive: true });
 
-    return () => {
+    let torn = false;
+    const teardown = () => {
+      if (torn) return;
+      torn = true;
       window.removeEventListener("pointerdown", gesture);
       window.removeEventListener("wheel", gesture);
       window.removeEventListener("keydown", gesture);
       document.removeEventListener("pointerover", onOver);
-      if (ctx) ctx.close();
+      try {
+        if (ctx) ctx.close();
+      } catch {}
+      ctx = null;
+    };
+
+    // If the page drops to lite mode later, release the audio context too.
+    const unsubLite = onLite(teardown);
+
+    return () => {
+      teardown();
+      unsubLite();
     };
   }, []);
 

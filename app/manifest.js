@@ -8,7 +8,7 @@ export default function manifest() {
       "Premium websites and cinematic video for businesses ready to look like the leader in their market.",
     start_url: "/",
     display: "standalone",
-    background_color: "#0b0e17",
+    background_color: "#0a0e17",
     theme_color: "#0a0e17",
     icons: [{ src: "/favicon.ico", sizes: "any", type: "image/x-icon" }],
   };

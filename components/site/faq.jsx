@@ -3,13 +3,13 @@ import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
 
 /*
-  FAQ — handles the common objections right before the closing CTA. Native
+  FAQ: handles the common objections right before the closing CTA. Native
   <details> for accessibility and zero JS. Markers hidden in globals.css.
 */
 const FAQS = [
   {
     q: "How long does a project take?",
-    a: "Most websites ship in two to five weeks depending on scope. We give you a clear timeline before we start, and we hit it.",
+    a: "Most websites ship in two to four weeks depending on scope. We give you a clear timeline before we start, and we hit it.",
   },
   {
     q: "What does the price include?",
@@ -25,11 +25,15 @@ const FAQS = [
   },
   {
     q: "How do payments work?",
-    a: "A deposit to start, the balance on launch. For larger builds we split it into clear milestones. Care plans are billed monthly.",
+    a: "Pay in full online, or email us to split larger builds: half to start, half at launch. Care plans are billed monthly, or annually with two months free.",
   },
   {
     q: "What if I do not like the design?",
     a: "You approve the direction before we build, and we refine it until it is right. You are never locked into something that does not feel like you.",
+  },
+  {
+    q: "How do I know you will not disappear like my last freelancer?",
+    a: "Because our model does not allow it. Your project is founder-led with one direct line, you approve the design before anything is built, you see progress throughout, and our care plans mean we are still here every month after launch. Half our business depends on staying, so we stay.",
   },
 ];
 
@@ -54,7 +58,7 @@ export default function Faq() {
         <div className="flex justify-center">
           <Eyebrow centered>FAQ</Eyebrow>
         </div>
-        <h2 className="mt-6 text-3xl font-semibold leading-[1.05] sm:text-5xl">
+        <h2 className="mt-6 text-3xl font-semibold leading-[1.08] sm:text-5xl">
           Questions, answered.
         </h2>
       </Reveal>

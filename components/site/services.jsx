@@ -7,19 +7,19 @@ const SERVICES = [
     icon: Globe,
     title: "Websites",
     meta: "Design · Build · Launch",
-    body: "A site that makes a local business look national. Fast, cinematic, and built to turn visitors into enquiries and sales.",
+    body: "A site that makes a local business look national. Fast, cinematic, and built for one job: turning visitors into calls, bookings, and paying customers.",
   },
   {
     icon: Clapperboard,
     title: "Cinematic video",
     meta: "Brand films · Social",
-    body: "Brand films and social cuts shot and crafted with real direction and a real eye, the kind of production big brands pay a premium for, brought to your business. Footage your competitors cannot match.",
+    body: "Brand films and social cuts with real direction behind them, the kind of production big brands pay six figures for, brought to your business at a price that makes sense. Footage your competitors simply cannot match.",
   },
   {
     icon: LineChart,
     title: "Ongoing growth",
     meta: "Content · Optimization",
-    body: "We do not vanish at launch. A steady flow of fresh content and refinement that keeps you visible and keeps the leads coming.",
+    body: "Most builders vanish the day it goes live. We stay: fresh content, steady refinement, and one team that already knows your brand, keeping the leads coming month after month.",
   },
 ];
 
@@ -31,15 +31,15 @@ export default function Services() {
     >
       <Reveal>
         <Eyebrow>What we do</Eyebrow>
-        <h2 className="mt-6 max-w-2xl text-3xl font-semibold leading-[1.05] sm:text-5xl">
-          Three ways we take a brand past the edge.
+        <h2 className="mt-6 max-w-2xl text-3xl font-semibold leading-[1.08] sm:text-5xl">
+          Three ways we turn how you look into what you earn.
         </h2>
       </Reveal>
 
       <div className="mt-16 grid gap-5 md:grid-cols-3">
         {SERVICES.map((s, i) => (
           <Reveal key={s.title} delay={i * 0.08}>
-            <article className="spotlight-edge group relative h-full overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-8 transition-all duration-500 hover:-top-1.5 hover:border-edge/30 hover:bg-white/[0.04] hover:shadow-[0_24px_70px_-24px_oklch(0.82_0.12_220/0.3)]">
+            <article className="spotlight-edge group relative h-full overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-edge/30 hover:bg-white/[0.04] hover:shadow-[0_24px_70px_-24px_oklch(0.82_0.12_220/0.3)]">
               {/* Accent line that draws across the top on hover */}
               <span className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-transparent via-edge to-transparent transition-transform duration-500 group-hover:scale-x-100" />
 

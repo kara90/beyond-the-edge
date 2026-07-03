@@ -31,13 +31,8 @@ import { isLite, onLite } from "@/components/site/perf";
 // keyframe) so the scroll scrub can seek to any frame instantly and stays
 // smooth instead of snapping between sparse keyframes.
 const HERO_VIDEO = "/media/hero.mp4";
-// Normal-encoded source used for the lite/reduced paths: it just plays
-// (cheap, hardware-decoded P-frames) rather than being seeked frame by frame,
-// which all-intra makes expensive to play back.
-const HERO_VIDEO_PLAIN =
-  "https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3d62cedb2129be183684ed.mp4";
-// Still frame used as the hero on lite devices (no video at all) and as the
-// poster while the scrub clip loads.
+// Still frame used as the hero on lite and reduced-motion devices (no video
+// at all) and as the poster while the scrub clip loads.
 const HERO_POSTER = "/media/hero-poster.webp";
 const FALLBACK_DURATION = 15;
 // The clip fades in from black; open on the flower scene and end just shy of
@@ -66,6 +61,17 @@ export default function Hero() {
   // Scrim is present only while the copy shows, then clears so the animation
   // reveal is unobstructed as you scroll into it.
   const scrimOpacity = useTransform(scrollYProgress, [0, 0.14], [1, 0]);
+  // Persistent mini CTA: fades in once the headline has cleared, then stays
+  // with the viewer for the whole pinned scrub.
+  const miniCtaOpacity = useTransform(scrollYProgress, [0.16, 0.24], [0, 1]);
+  const miniCtaPointer = useTransform(scrollYProgress, (p) =>
+    p > 0.16 ? "auto" : "none"
+  );
+  // Once the headline has faded, its (invisible) buttons must stop catching
+  // taps for the rest of the pinned scrub.
+  const copyPointer = useTransform(scrollYProgress, (p) =>
+    p > 0.14 ? "none" : "auto"
+  );
 
   useEffect(() => {
     const v = videoRef.current;
@@ -83,7 +89,27 @@ export default function Hero() {
 
     if (reduce || lite) return;
 
+    // The scrub clip mounts with preload="metadata" so it never competes with
+    // the first paint. On the first sign of intent (scroll or pointerdown),
+    // or after a short idle fallback, upgrade to a full buffer so the clip is
+    // ready before the viewer reaches the scrub.
+    let upgraded = false;
+    const upgrade = () => {
+      if (upgraded) return;
+      upgraded = true;
+      try {
+        v.preload = "auto";
+        v.load();
+        // load() rewinds the element; repaint the opening frame.
+        v.addEventListener("loadedmetadata", paintFirst, { once: true });
+      } catch {}
+    };
+    window.addEventListener("scroll", upgrade, { once: true, passive: true });
+    window.addEventListener("pointerdown", upgrade, { once: true });
+    const upgradeTimer = setTimeout(upgrade, 2500);
+
     let raf = 0;
+    let running = false;
     let target = 0;
     let cur = 0;
     const unsub = scrollYProgress.on("change", (p) => {
@@ -91,24 +117,56 @@ export default function Hero() {
     });
 
     const loop = () => {
-      const dur = v.duration && Number.isFinite(v.duration) ? v.duration : FALLBACK_DURATION;
-      const end = dur - HERO_END_TRIM;
-      // Ease the playhead toward the scroll target for a smooth, premium scrub,
-      // mapped into the visible range [HERO_START, end].
-      cur += (target - cur) * 0.12;
-      const t = Math.min(end, Math.max(HERO_START, HERO_START + cur * (end - HERO_START)));
-      if (Number.isFinite(t) && Math.abs(v.currentTime - t) > 0.015) {
-        try {
-          v.currentTime = t;
-        } catch {}
+      // Skip seeking while the tab is hidden; keep the loop alive so it
+      // resumes seamlessly when the tab returns.
+      if (!document.hidden) {
+        const dur = v.duration && Number.isFinite(v.duration) ? v.duration : FALLBACK_DURATION;
+        const end = dur - HERO_END_TRIM;
+        // Ease the playhead toward the scroll target for a smooth, premium scrub,
+        // mapped into the visible range [HERO_START, end].
+        cur += (target - cur) * 0.12;
+        const t = Math.min(end, Math.max(HERO_START, HERO_START + cur * (end - HERO_START)));
+        if (Number.isFinite(t) && Math.abs(v.currentTime - t) > 0.015) {
+          try {
+            v.currentTime = t;
+          } catch {}
+        }
       }
       raf = requestAnimationFrame(loop);
     };
-    raf = requestAnimationFrame(loop);
+    const start = () => {
+      if (running) return;
+      running = true;
+      raf = requestAnimationFrame(loop);
+    };
+    const stop = () => {
+      if (!running) return;
+      running = false;
+      cancelAnimationFrame(raf);
+    };
+    start();
+
+    // Cancel the rAF loop entirely while the track is far off-screen, and
+    // restart it as the viewer scrolls back toward the hero.
+    let io;
+    if (typeof IntersectionObserver !== "undefined" && trackRef.current) {
+      io = new IntersectionObserver(
+        (entries) => {
+          if (entries[0]?.isIntersecting) start();
+          else stop();
+        },
+        { rootMargin: "100%" }
+      );
+      io.observe(trackRef.current);
+    }
 
     return () => {
-      cancelAnimationFrame(raf);
+      stop();
       unsub();
+      if (io) io.disconnect();
+      clearTimeout(upgradeTimer);
+      window.removeEventListener("scroll", upgrade);
+      window.removeEventListener("pointerdown", upgrade);
     };
   }, [reduce, lite, scrollYProgress]);
 
@@ -125,14 +183,12 @@ export default function Hero() {
   if (reduce) {
     return (
       <section data-fluid-off className="relative isolate flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 text-center">
-        <video
-          ref={videoRef}
-          src={HERO_VIDEO_PLAIN}
-          poster={HERO_POSTER}
-          muted
-          playsInline
-          preload="auto"
+        <img
+          src={HERO_POSTER}
+          alt=""
           aria-hidden="true"
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div
@@ -159,6 +215,8 @@ export default function Hero() {
           src={HERO_POSTER}
           alt=""
           aria-hidden="true"
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div
@@ -191,7 +249,7 @@ export default function Hero() {
           poster={HERO_POSTER}
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover"
           style={{ scale }}
@@ -234,7 +292,7 @@ export default function Hero() {
         {/* Headline (clears early so the animation is seen cleanly) */}
         <motion.div
           className="relative z-10 flex max-w-3xl flex-col items-center px-6 text-center"
-          style={{ opacity: copyOpacity, y: copyY }}
+          style={{ opacity: copyOpacity, y: copyY, pointerEvents: copyPointer }}
         >
           <HeroCopy />
         </motion.div>
@@ -248,6 +306,19 @@ export default function Hero() {
           <span className="mx-auto mt-2 flex h-9 w-5 items-start justify-center rounded-full border border-white/25 p-1">
             <span className="h-2 w-1 animate-bounce rounded-full bg-edge" />
           </span>
+        </motion.div>
+
+        {/* Persistent mini CTA: rides the whole pinned scrub once the copy clears */}
+        <motion.div
+          className="absolute bottom-20 left-1/2 z-10 -translate-x-1/2"
+          style={{ opacity: miniCtaOpacity, pointerEvents: miniCtaPointer }}
+        >
+          <ButtonLink
+            href="#contact"
+            className="sheen h-10 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_28px_-6px_var(--primary)]"
+          >
+            Claim your build slot
+          </ButtonLink>
         </motion.div>
       </div>
     </section>
@@ -263,16 +334,15 @@ function HeroCopy() {
         Websites · Cinematic video · Growth
       </span>
       <h1 className="font-display text-balance text-5xl font-bold leading-[1.02] tracking-tight sm:text-7xl">
-        Most brands stay
-        <br className="hidden sm:block" /> inside the lines.
+        Your website is quietly costing you customers.
         <span className="mt-3 block text-metallic glow-edge">
-          We go beyond the edge.
+          We build the kind that wins them.
         </span>
       </h1>
       <p className="mt-7 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-        High-end websites and cinematic video for businesses ready to look like
-        the leader in their market. Major-brand quality, without the major-brand
-        agency price.
+        Studio-grade websites and cinematic video for business owners done with
+        template looks and $15,000 agency quotes. Real craft, accelerated by
+        AI, so it ships in weeks and costs a fraction of the big-agency price.
       </p>
       <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">
         <ButtonLink
@@ -280,7 +350,7 @@ function HeroCopy() {
           size="lg"
           className="sheen group h-12 rounded-full bg-primary px-7 text-[0.95rem] font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_34px_-6px_var(--primary)]"
         >
-          Start your project
+          Claim your build slot
           <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
         </ButtonLink>
         <ButtonLink
@@ -289,12 +359,12 @@ function HeroCopy() {
           size="lg"
           className="h-12 rounded-full border-white/15 bg-white/[0.02] px-7 text-[0.95rem] text-foreground backdrop-blur-sm transition-all duration-300 hover:border-edge/40 hover:bg-white/[0.06]"
         >
-          See the work
+          See the proof
         </ButtonLink>
       </div>
 
       <p className="mt-7 font-mono text-[0.7rem] uppercase tracking-[0.22em] text-muted-foreground/60">
-        Trusted by brands that refuse to blend in
+        Limited builds each month · founder-led · live in weeks
       </p>
     </>
   );

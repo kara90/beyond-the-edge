@@ -1,11 +1,12 @@
 import Reveal from "@/components/site/reveal";
 import Eyebrow from "@/components/site/eyebrow";
+import BeamsLayer from "@/components/site/beams-layer";
 
 const POINTS = [
   {
     k: "The line",
     title: "Average is a choice.",
-    body: "Most brands settle for the template, the stock look, the safe edit. It blends in. It gets scrolled past. It quietly costs them the customers they should be winning.",
+    body: "Most brands settle for the template, the stock look, the safe edit. It blends in, it gets scrolled past, and every scroll-past is a customer who spent their money somewhere else.",
   },
   {
     k: "The edge",
@@ -15,13 +16,16 @@ const POINTS = [
   {
     k: "The result",
     title: "You look like the leader.",
-    body: "When the website moves like a film and the film sells like a campaign, the perception shifts. You stop competing on price and start setting the standard.",
+    body: "When the website moves like a film and the film sells like a campaign, the perception shifts. You stop discounting to win jobs and start charging what the best in your market charge.",
   },
 ];
 
 export default function Why() {
   return (
-    <section id="why" className="relative overflow-hidden py-20 sm:py-28">
+    <section id="why" className="relative overflow-hidden py-28 sm:py-36">
+
+      {/* Ambient light-beam aura behind the boundary motif */}
+      <BeamsLayer className="-z-10" opacity={0.25} />
 
       {/* Quiet boundary motif — smaller and soft-edged (no hard ring line) */}
       <div
@@ -34,15 +38,16 @@ export default function Why() {
         }}
       />
 
-      {/* Floating rocks in the dark gutters (desktop) */}
-
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
           <Eyebrow>The difference</Eyebrow>
-          <h2 className="mt-6 text-3xl font-semibold leading-[1.05] sm:text-5xl">
+          <h2 className="mt-6 text-3xl font-semibold leading-[1.08] sm:text-5xl">
             There is a line most brands never cross.
             <br className="hidden sm:block" />
-            <span className="text-metallic"> We live on the other side of it.</span>
+            <span className="text-metallic">
+              {" "}
+              Your competitors are counting on you staying behind it.
+            </span>
           </h2>
         </Reveal>
 

@@ -47,6 +47,7 @@ const plans = [
       "Ongoing SEO and Google Business management",
       "Ads creative and performance optimization",
     ],
+    note: "Growth is scoped to your business, so it starts with a conversation.",
   },
 ];
 
@@ -65,7 +66,7 @@ export default function CarePlans() {
               key={b}
               type="button"
               onClick={() => setBilling(b)}
-              className={`rounded-full px-4 py-1.5 transition-colors ${
+              className={`rounded-full px-4 py-2.5 transition-colors ${
                 billing === b
                   ? "bg-edge/15 text-edge"
                   : "text-muted-foreground hover:text-foreground"
@@ -95,13 +96,13 @@ export default function CarePlans() {
           return (
             <div
               key={p.name}
-              className="spotlight-edge glass-clear flex flex-col rounded-2xl p-5 transition-all duration-500 hover:-top-1.5"
+              className="spotlight-edge glass-clear flex flex-col rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1.5"
             >
               <h4 className="font-display text-base font-semibold tracking-tight">
                 {p.name}
               </h4>
               {p.anchor && (
-                <p className="mt-2 text-[0.72rem] leading-snug text-muted-foreground/55">
+                <p className="mt-2 text-[0.72rem] leading-snug text-muted-foreground/80">
                   {p.anchor}
                 </p>
               )}
