@@ -1,7 +1,7 @@
 export const dynamic = "force-static";
 
 const BASE = "https://beyondtheedgestudio.com";
-const lastModified = "2026-06-26";
+const lastModified = "2026-07-03";
 
 export default function sitemap() {
   return [

@@ -9,17 +9,31 @@ const graph = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": "ProfessionalService",
       "@id": `${SITE}/#organization`,
       name: "Beyond the Edge Studio",
       url: SITE,
+      sameAs: [SITE],
       image: `${SITE}/opengraph-image`,
       logo: `${SITE}/opengraph-image`,
       slogan: "We go beyond the edge.",
       description:
         "Premium websites and cinematic video for businesses ready to look like the leader in their market.",
       email: "sebastien@beyondtheedgestudio.com",
-      areaServed: "Worldwide",
+      founder: {
+        "@type": "Person",
+        name: "Sebastien Ricci",
+        jobTitle: "Founder and Director",
+      },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "4375 N Las Vegas Blvd Suite 7 PMB 5028",
+        addressLocality: "Las Vegas",
+        addressRegion: "NV",
+        postalCode: "89115",
+        addressCountry: "US",
+      },
+      areaServed: "United States",
       knowsAbout: [
         "Web design",
         "Web development",
