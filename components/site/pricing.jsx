@@ -114,7 +114,7 @@ const guarantees = [
     body: "No juniors, no ghosting.",
   },
   {
-    title: "Care plans are month to month.",
+    title: "Standard plans are month to month.",
     body: "Cancel anytime.",
   },
 ];
@@ -470,8 +470,8 @@ export default function Pricing() {
             <CarePlans />
 
             <p className="mt-6 text-center text-xs leading-relaxed text-muted-foreground/70">
-              Plans are month to month, cancel anytime. We keep you because the
-              work is worth it, not because you are locked in.
+              Standard plans are month to month, cancel anytime. We keep you
+              because the work is worth it, not because you are locked in.
             </p>
           </div>
         </Reveal>
