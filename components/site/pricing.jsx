@@ -438,7 +438,7 @@ export default function Pricing() {
 
       {/* Keep growing: the monthly care plans. A discreet breathing aura sits
           behind them, no hard shape. */}
-      <div className="relative isolate mt-16">
+      <div id="plans" className="relative isolate mt-16 scroll-mt-24">
         <div
           aria-hidden="true"
           className="aura-breathe pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[150%] w-[92%] max-w-none -translate-x-1/2 -translate-y-1/2"

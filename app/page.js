@@ -1,6 +1,7 @@
 import Nav from "@/components/site/nav";
 import Hero from "@/components/site/hero";
 import Pain from "@/components/site/pain";
+import Burden from "@/components/site/burden";
 import Compare from "@/components/site/compare";
 import Marquee from "@/components/site/marquee";
 import Services from "@/components/site/services";
@@ -26,6 +27,7 @@ export default function Home() {
         {/* Single animated blue/gray separator right under the hero */}
         <div aria-hidden="true" className="edge-flow relative h-[2px] w-full" />
         <Pain />
+        <Burden />
         <Compare />
         <Marquee />
         <Services />
