@@ -143,11 +143,11 @@ const addons = [
 const pricingFaqs = [
   {
     q: "Do I own my website?",
-    a: "If you purchase a build, Liftoff, Orbit, Beyond, or Apex, it is yours. We host and manage it so you never have to think about it, and if you ever move on, we provide your files. A free or promotional landing page provided as part of a monthly plan stays part of that plan and remains live for as long as the plan is active. We will always be clear about what is yours to keep before you start.",
+    a: "If you purchase a build, Liftoff, Orbit, Beyond, or Apex, it is yours. We host and manage it so you never have to think about it, and if you ever move on, we provide your files. A free or promotional landing page provided as part of a monthly plan stays part of that plan and remains live for as long as the plan is active. You can also buy your page outright at any time. We will always be clear about what is yours to keep before you start.",
   },
   {
     q: "What happens if I pause my monthly plan?",
-    a: "Anything you purchased outright is always yours. Anything included free as part of a plan, like a complimentary landing page, stays live while the plan is active. No surprises, we make this clear up front.",
+    a: "Yes, you can pause. Your monthly deliverables stop, your site stays live on a simple $49 per month hosting rate, and you can resume whenever you are ready. Anything you purchased outright is always yours. Anything included free as part of a plan, like a complimentary landing page, stays live while your plan or hosting is active. No surprises, we make this clear up front.",
   },
   {
     q: "Could I just build this myself with a website builder?",

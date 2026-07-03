@@ -28,8 +28,12 @@ const FAQS = [
     a: "Pay in full online, or email us to split larger builds: half to start, half at launch. Care plans are billed monthly, or annually with two months free.",
   },
   {
+    q: "What does hosting cost after launch?",
+    a: "Every build includes six months of hosting on us after launch. After that, hosting is included in any care plan, available on its own for $49 per month, or we hand you a complete export of your files if you prefer to host elsewhere. Your site is never held hostage.",
+  },
+  {
     q: "What if I do not like the design?",
-    a: "You approve the direction before we build, and we refine it until it is right. You are never locked into something that does not feel like you.",
+    a: "You approve the direction before we build, and we refine it until it is right. Every build includes three rounds of design refinement, and most projects need fewer. You are never locked into something that does not feel like you.",
   },
   {
     q: "How do I know you will not disappear like my last freelancer?",
