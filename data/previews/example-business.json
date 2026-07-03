@@ -1,0 +1,25 @@
+{
+  "slug": "example-business",
+  "name": "Example Business",
+  "logo": "",
+  "heroLine": "A concept preview of what your brand could look like beyond the edge.",
+  "sections": [
+    {
+      "title": "The first impression",
+      "body": "Most visitors decide in seconds whether a business feels like the leader or an afterthought. This concept opens with a cinematic hero, confident typography, and copy that speaks directly to your best customer, so the first impression does the selling before anyone scrolls."
+    },
+    {
+      "title": "Built to convert",
+      "body": "Every section is arranged in the order a buyer actually thinks: the problem they feel, the proof they need, and one clear next step. No clutter, no dead ends. The page moves people from curious to ready with a single, obvious path to contact you."
+    },
+    {
+      "title": "What happens next",
+      "body": "If this direction feels right, we refine it around your real photos, offers, and voice, then ship it live on fast, secure hosting. You get a site that looks like a major brand built it, without the agency timeline or the agency invoice."
+    }
+  ],
+  "cta": {
+    "label": "Email us about this concept",
+    "href": "mailto:sebastien@beyondtheedgestudio.com"
+  },
+  "expiresAt": ""
+}

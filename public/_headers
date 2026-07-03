@@ -4,3 +4,7 @@
 /opengraph-image
   Content-Type: image/png
   Cache-Control: public, max-age=86400
+
+# Private prospect previews: keep every /p/ page out of search engines.
+/p/*
+  X-Robots-Tag: noindex, nofollow
