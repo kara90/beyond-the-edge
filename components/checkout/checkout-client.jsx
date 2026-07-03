@@ -95,7 +95,7 @@ const BESPOKE = [
   {
     name: "App Care",
     tag: "Care plan",
-    price: "From $200/mo",
+    price: "From $300/mo",
     desc: "Hosting, updates, security, and push-notification management for your app.",
   },
 ];

@@ -119,7 +119,7 @@ const appTiers = [
 
 const appCare = {
   name: "App Care",
-  price: "From $200",
+  price: "From $300",
   cadence: "per month",
   features: [
     "Hosting, updates, and security",
