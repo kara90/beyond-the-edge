@@ -761,7 +761,7 @@ function PayStep({ items, billing, intake, total, payError, setPayError, onBack 
         <span className="text-xs leading-relaxed text-muted-foreground">
           I agree to the{" "}
           <a
-            href="/terms"
+            href="/legal/client-services-agreement.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="link-underline text-edge hover:text-edge-bright"
@@ -770,7 +770,7 @@ function PayStep({ items, billing, intake, total, payError, setPayError, onBack 
           </a>{" "}
           and, for monthly plans, the{" "}
           <a
-            href="/terms"
+            href="/legal/care-plan-retainer-agreement.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="link-underline text-edge hover:text-edge-bright"
@@ -794,6 +794,18 @@ function PayStep({ items, billing, intake, total, payError, setPayError, onBack 
       <p className="mt-4 text-center text-xs text-muted-foreground/70">
         Payments are processed securely by Stripe. Your card details never touch
         our servers.
+      </p>
+      <p className="mt-2 text-center text-xs text-muted-foreground/70">
+        Deposits are non-refundable once work begins. See our{" "}
+        <a
+          href="/terms"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-underline text-edge/80 hover:text-edge-bright"
+        >
+          Terms of Service
+        </a>{" "}
+        for full refund terms.
       </p>
     </div>
   );

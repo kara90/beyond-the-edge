@@ -1,0 +1,5 @@
+# Cloudflare Pages redirects.
+# Stable agreement PDF paths, served by the live generator so the documents
+# can never drift from the versioned sources in legal/.
+/legal/client-services-agreement.pdf /api/agreement-pdf?id=csa 302
+/legal/care-plan-retainer-agreement.pdf /api/agreement-pdf?id=cpra 302
