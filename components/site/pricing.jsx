@@ -66,6 +66,7 @@ const tiers = [
     price: "From $7,497",
     cadence: "one-time",
     note: "Final price scales with scope and complexity.",
+    filmNote: "Filming days are scoped and quoted per project.",
     features: [
       "Everything in Orbit, fully bespoke",
       "Complete advanced SEO setup, tuned for speed and local visibility across every page",
@@ -85,6 +86,7 @@ const tiers = [
     price: "From $15,000",
     cadence: "one-time",
     note: "For brands that want the best that can be built.",
+    filmNote: "Filming days are scoped and quoted per project.",
     features: [
       "Everything in Beyond, with nothing held back",
       "Best-in-class SEO foundation, fully optimized and built to be found",
@@ -137,6 +139,10 @@ const addons = [
   { item: "Logo and brand identity", price: "from $750" },
   { item: "Online store or booking setup", price: "from $600" },
   { item: "Ongoing SEO program", price: "from $500 per month" },
+  {
+    item: "Production Day: on-location filming with our crew, scoped and quoted per project",
+    price: "from $3,500 per day",
+  },
   { item: "Rush delivery", price: "plus 25 percent" },
 ];
 
@@ -201,6 +207,11 @@ export default function Pricing() {
           You see and approve the design before build begins. No surprises, no
           sunk cost.
         </p>
+        <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed text-muted-foreground/70">
+          Video included in each tier is professionally produced. On-location
+          filming with crew, gear, and locations is quoted per production and
+          scales with scope.
+        </p>
         <p className="mx-auto mt-4 max-w-lg text-[0.95rem] leading-relaxed text-muted-foreground">
           Every tier is custom designed and built, never a template. Clear flat
           pricing. Choose where you want to start.
@@ -261,6 +272,11 @@ export default function Pricing() {
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 {t.note}
               </p>
+              {t.filmNote && (
+                <p className="mt-1.5 text-xs leading-snug text-muted-foreground/60">
+                  {t.filmNote}
+                </p>
+              )}
 
               <ul className="mt-7 flex-1 divide-y divide-white/[0.08] border-t border-white/[0.08]">
                 {t.features.map((f) => (
@@ -331,6 +347,11 @@ export default function Pricing() {
                 <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
                   {apex.note}
                 </p>
+                {apex.filmNote && (
+                  <p className="mt-1.5 max-w-sm text-xs leading-snug text-muted-foreground/60">
+                    {apex.filmNote}
+                  </p>
+                )}
                 <ButtonLink
                   href="#contact"
                   size="lg"

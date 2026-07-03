@@ -32,6 +32,14 @@ const FAQS = [
     a: "Every build includes six months of hosting on us after launch. After that, hosting is included in any care plan, available on its own for $49 per month, or we hand you a complete export of your files if you prefer to host elsewhere. Your site is never held hostage.",
   },
   {
+    q: "What does real filming cost?",
+    a: "Produced video is included wherever a tier lists it. Physical production is its own world: crew, cameras, lighting, locations, studio time, props, talent, travel, and usage rights. We scope it per project and quote it in writing before anything is booked, and the range is wide by nature, because a half-day single-camera shoot and a multi-day cinematic production are different animals. Site prices are the starting point for the build; filming is quoted on top, before you commit.",
+  },
+  {
+    q: "I hate marketing and I have no time. How much of this lands on me?",
+    a: "About fifteen minutes a month. You approve content before it goes out, answer the occasional question, and that is it. Everything else, the posting, the follow-up, the reviews, the updates, runs without you. That is the entire point.",
+  },
+  {
     q: "What if I do not like the design?",
     a: "You approve the direction before we build, and we refine it until it is right. Every build includes three rounds of design refinement, and most projects need fewer. You are never locked into something that does not feel like you.",
   },
