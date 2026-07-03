@@ -13,21 +13,27 @@ const NAV = [
   { href: "/#pricing", label: "Pricing" },
 ];
 
-export default function Footer() {
+export default function Footer({ quiet = false }) {
   return (
     <footer data-fluid-off className="relative isolate overflow-hidden border-t border-white/8 bg-background px-6 pt-16 pb-10">
       {/* Subtle background video (~50% transparent, top edge feathered).
-          Lazy-loaded + paused when off-screen via BgVideo. */}
-      <BgVideo
-        src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3d62ce257ee1fdf51b9869.mp4"
-        poster="/media/footer-poster.webp"
-        aria-hidden="true"
-        className="hf-liquid media-feather-y pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-[0.65] motion-reduce:hidden"
-      />
-      {/* Ambient light-beam aura above the footage */}
-      <BeamsLayer className="-z-10" opacity={0.45} />
-      {/* Cinematic grain over the footage */}
-      <CineGrain className="-z-10" opacity={0.13} />
+          Lazy-loaded + paused when off-screen via BgVideo. `quiet` (legal
+          pages) skips the decorative media entirely so no asset URL ships
+          in those pages' markup. */}
+      {!quiet && (
+        <>
+          <BgVideo
+            src="https://assets.cdn.filesafe.space/ddTAkxdfaM4RG7p54ZV8/media/6a3d62ce257ee1fdf51b9869.mp4"
+            poster="/media/footer-poster.webp"
+            aria-hidden="true"
+            className="hf-liquid media-feather-y pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-[0.65] motion-reduce:hidden"
+          />
+          {/* Ambient light-beam aura above the footage */}
+          <BeamsLayer className="-z-10" opacity={0.45} />
+          {/* Cinematic grain over the footage */}
+          <CineGrain className="-z-10" opacity={0.13} />
+        </>
+      )}
       {/* Thin animated blue/gray edge top + bottom */}
       <VideoEdges />
       {/* Veil so footer text stays readable over the video */}
