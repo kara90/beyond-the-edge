@@ -197,10 +197,13 @@ export default function Pricing() {
         <h2 className="mx-auto mt-6 max-w-2xl text-3xl font-semibold leading-[1.08] sm:text-5xl">
           Agency-level work. A fraction of the invoice.
         </h2>
-        <p className="mx-auto mt-5 max-w-lg text-[0.95rem] leading-relaxed text-muted-foreground">
+        <p className="mx-auto mt-4 max-w-lg text-sm font-medium text-edge/90">
+          You see and approve the design before build begins. No surprises, no
+          sunk cost.
+        </p>
+        <p className="mx-auto mt-4 max-w-lg text-[0.95rem] leading-relaxed text-muted-foreground">
           Every tier is custom designed and built, never a template. Clear flat
-          pricing, and a design you approve before we build. Choose where you
-          want to start.
+          pricing. Choose where you want to start.
         </p>
       </Reveal>
 

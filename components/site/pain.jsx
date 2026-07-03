@@ -12,6 +12,7 @@ const PAINS = [
   "The agencies that could fix it quote $15,000 to $50,000 and four months of meetings. That is a car, gone, before a single new customer walks in.",
   "The cheap freelancer felt like the smart move, until the replies slowed, then stopped. Now you own a half-finished site and a login you were never given.",
   "So it sits on the to-do list. If a customer is worth $500 to you, losing just two a week to a better-looking competitor is over $50,000 a year, every year it waits.",
+  "You know the feeling: someone asks for your website and you apologize before you send the link. Your customers feel that same hesitation. They just do not tell you, they call the competitor.",
 ];
 
 export default function Pain() {

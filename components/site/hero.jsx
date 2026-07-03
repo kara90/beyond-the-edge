@@ -362,8 +362,12 @@ function HeroCopy() {
           See the proof
         </ButtonLink>
       </div>
+      <p className="mt-3 text-xs text-muted-foreground/80">
+        Free scope. A straight answer on plan, price, and timeline within one
+        business day.
+      </p>
 
-      <p className="mt-7 font-mono text-[0.7rem] uppercase tracking-[0.22em] text-muted-foreground/60">
+      <p className="mt-6 font-mono text-[0.7rem] uppercase tracking-[0.22em] text-muted-foreground/60">
         Limited builds each month · founder-led · live in weeks
       </p>
     </>
