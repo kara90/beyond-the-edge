@@ -278,6 +278,7 @@ export default function Pricing() {
                 href={t.checkoutId ? `/checkout?tier=${t.checkoutId}` : "#contact"}
                 size="lg"
                 variant={t.featured ? "default" : "outline"}
+                data-cta-id={`pricing-${t.name.toLowerCase()}`}
                 className={`mt-8 h-11 rounded-full font-semibold ${
                   t.featured
                     ? "bg-primary text-primary-foreground hover:bg-primary/85"
@@ -333,6 +334,7 @@ export default function Pricing() {
                 <ButtonLink
                   href="#contact"
                   size="lg"
+                  data-cta-id={`pricing-${apex.name.toLowerCase()}`}
                   className="sheen group mt-8 h-12 rounded-full bg-primary px-7 font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_34px_-6px_var(--primary)]"
                 >
                   {apex.cta}

@@ -91,6 +91,7 @@ export default function Compare() {
               {o.featured && (
                 <ButtonLink
                   href="#pricing"
+                  data-cta-id="compare-see-pricing"
                   className="mt-7 h-10 self-start rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/85"
                 >
                   See pricing

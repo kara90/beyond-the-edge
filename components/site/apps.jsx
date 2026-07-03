@@ -252,6 +252,7 @@ export default function Apps() {
                   href={t.checkoutId ? `/checkout?tier=${t.checkoutId}` : "#contact"}
                   size="lg"
                   variant={t.featured ? "default" : "outline"}
+                  data-cta-id={`apps-${t.name.toLowerCase().replace(/\s+/g, "-")}`}
                   className={`mt-8 h-11 rounded-full font-semibold ${
                     t.featured
                       ? "bg-primary text-primary-foreground hover:bg-primary/85"

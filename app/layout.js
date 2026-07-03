@@ -11,6 +11,7 @@ import LiquidFilter from "@/components/site/liquid-filter";
 import SoundLayer from "@/components/site/sound-layer";
 import PerfGuard from "@/components/site/perf-guard";
 import JsonLd from "@/components/site/json-ld";
+import Analytics from "@/components/site/analytics";
 
 // Body: clean, highly readable.
 const geistSans = Geist({
@@ -98,6 +99,7 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col overflow-x-hidden">
         <JsonLd />
+        <Analytics />
         <PerfGuard />
         <LiquidFilter />
         <SoundLayer />

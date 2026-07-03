@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { ArrowRight, ArrowLeft, Check, Minus, Plus } from "lucide-react";
+import { track } from "@/lib/track";
 
 /*
   On-site checkout. Three steps inside one page: pick one or more products (and
@@ -249,7 +250,14 @@ export default function CheckoutClient() {
     return out;
   }, [selectedProducts, selectedPlan, selectedAddons, qty]);
 
-  const togglePick = (item) => setPicked((p) => withPick(p, item, !p[item.id]));
+  const togglePick = (item) => {
+    // Report a care plan being turned on (outside the state updater, so the
+    // event fires exactly once per click).
+    if (item.kind === "plan" && !picked[item.id]) {
+      track("plan_select", { plan: item.id, billing });
+    }
+    setPicked((p) => withPick(p, item, !p[item.id]));
+  };
   const toggleAddon = (a) => setQty((q) => ({ ...q, [a.id]: q[a.id] ? 0 : 1 }));
   const bump = (a, d) =>
     setQty((q) => ({
@@ -744,7 +752,10 @@ function PayStep({ items, billing, intake, total, payError, setPayError, onBack 
         <input
           type="checkbox"
           checked={consented}
-          onChange={(e) => setConsented(e.target.checked)}
+          onChange={(e) => {
+            if (e.target.checked) track("checkout_start", { total });
+            setConsented(e.target.checked);
+          }}
           className="mt-0.5 size-4 shrink-0 accent-[var(--edge)]"
         />
         <span className="text-xs leading-relaxed text-muted-foreground">

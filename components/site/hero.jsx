@@ -315,6 +315,7 @@ export default function Hero() {
         >
           <ButtonLink
             href="#contact"
+            data-cta-id="hero-mini-claim-slot"
             className="sheen h-10 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_28px_-6px_var(--primary)]"
           >
             Claim your build slot
@@ -348,6 +349,7 @@ function HeroCopy() {
         <ButtonLink
           href="#contact"
           size="lg"
+          data-cta-id="hero-claim-slot"
           className="sheen group h-12 rounded-full bg-primary px-7 text-[0.95rem] font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_34px_-6px_var(--primary)]"
         >
           Claim your build slot
@@ -357,6 +359,7 @@ function HeroCopy() {
           href="#work"
           variant="outline"
           size="lg"
+          data-cta-id="hero-see-proof"
           className="h-12 rounded-full border-white/15 bg-white/[0.02] px-7 text-[0.95rem] text-foreground backdrop-blur-sm transition-all duration-300 hover:border-edge/40 hover:bg-white/[0.06]"
         >
           See the proof

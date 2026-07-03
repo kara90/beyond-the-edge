@@ -54,6 +54,7 @@ export default function StickyCta() {
       <div className="relative">
         <a
           href="#brief"
+          data-cta-id="sticky-claim-slot"
           className="sheen flex min-h-12 w-full items-center justify-center rounded-full bg-primary px-6 pr-12 text-sm font-semibold text-primary-foreground shadow-lg transition-colors hover:bg-primary/90"
         >
           Claim your build slot

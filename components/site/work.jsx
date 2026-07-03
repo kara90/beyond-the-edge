@@ -80,6 +80,7 @@ export default function Work() {
             <ButtonLink
               href="#pricing"
               size="lg"
+              data-cta-id="work-get-this-level"
               className="sheen h-12 shrink-0 rounded-full bg-primary px-7 text-[0.95rem] font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_34px_-6px_var(--primary)]"
             >
               Get this level of work

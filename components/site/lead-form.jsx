@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowRight, Check, Mail } from "lucide-react";
 import BgVideo from "@/components/site/bg-video";
 import CineGrain from "@/components/site/cine-grain";
 import { FORM_ENDPOINT } from "@/components/site/config";
+import { track } from "@/lib/track";
 
 /*
   Lead form. Captures the details we need to scope a project on the first
@@ -21,6 +22,9 @@ const FIELD =
   "w-full rounded-lg border border-white/20 bg-white/[0.06] px-4 py-3 text-sm text-foreground placeholder:text-foreground/45 outline-none transition-colors focus:border-edge/50 focus:ring-2 focus:ring-edge/20";
 
 const FALLBACK_EMAIL = "sebastien@beyondtheedgestudio.com";
+
+// UTM attribution captured by the analytics layer (sessionStorage "bte_utm").
+const UTM_FIELDS = ["utm_source", "utm_medium", "utm_campaign", "utm_content"];
 
 // Are you already working with us?
 const RELATIONSHIP = [
@@ -119,6 +123,19 @@ export default function LeadForm() {
   // idle | submitting | success | fallback | error
   const [status, setStatus] = useState("idle");
   const [mailtoUrl, setMailtoUrl] = useState("");
+  // UTM record captured by the analytics layer; feeds the hidden inputs so
+  // attribution travels with the brief on both the JSON and FormData paths.
+  const [utm, setUtm] = useState({});
+
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem("bte_utm");
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === "object") setUtm(parsed);
+      }
+    } catch {}
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -138,6 +155,13 @@ export default function LeadForm() {
       String(data.get("name") || "").trim() || "website"
     }`;
 
+    // Attribution: drop empty utm fields from the flatten, then merge the
+    // captured record so the worker email shows where the lead came from.
+    for (const f of UTM_FIELDS) {
+      if (!payload[f]) delete payload[f];
+      if (utm[f]) payload[f] = utm[f];
+    }
+
     let ok = false;
     try {
       const res = await fetch(FORM_ENDPOINT, {
@@ -155,6 +179,7 @@ export default function LeadForm() {
     }
 
     if (ok) {
+      track("form_submit", { form: "project_brief" });
       setStatus("success");
       return;
     }
@@ -247,6 +272,12 @@ export default function LeadForm() {
         aria-hidden="true"
         className="absolute -left-[9999px] top-0 h-px w-px opacity-0"
       />
+
+      {/* Attribution: hidden UTM fields so the source rides the FormData
+          path (and the mailto fallback) as well as the JSON payload */}
+      {UTM_FIELDS.map((f) => (
+        <input key={f} type="hidden" name={f} value={utm[f] || ""} readOnly />
+      ))}
 
       {/* Contact details */}
       <div className="relative z-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

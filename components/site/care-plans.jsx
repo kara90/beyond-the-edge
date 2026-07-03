@@ -149,6 +149,9 @@ export default function CarePlans() {
 
               <a
                 href={href}
+                {...(p.checkoutId
+                  ? { "data-cta-id": `plan-add-${p.checkoutId}` }
+                  : {})}
                 className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-edge transition-colors hover:text-edge-bright"
               >
                 {p.checkoutId ? `Add ${p.name}` : "Talk to us"}

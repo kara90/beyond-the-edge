@@ -59,6 +59,7 @@ export default function Pain() {
             <ButtonLink
               href="#contact"
               size="lg"
+              data-cta-id="pain-start-project"
               className="sheen group h-12 rounded-full bg-primary px-7 text-[0.95rem] font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_34px_-6px_var(--primary)]"
             >
               Start your project
@@ -68,6 +69,7 @@ export default function Pain() {
               href="#pricing"
               variant="outline"
               size="lg"
+              data-cta-id="pain-see-pricing"
               className="h-12 rounded-full border-white/15 bg-white/[0.02] px-7 text-[0.95rem] text-foreground backdrop-blur-sm transition-all duration-300 hover:border-edge/40 hover:bg-white/[0.06]"
             >
               See pricing

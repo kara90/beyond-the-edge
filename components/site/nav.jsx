@@ -70,6 +70,7 @@ export default function Nav() {
             <ButtonLink
               href="#contact"
               size="sm"
+              data-cta-id="nav-start-project"
               className="sheen hidden h-9 rounded-full bg-primary px-5 font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_24px_-4px_var(--primary)] md:inline-flex"
             >
               Start your project
@@ -130,6 +131,7 @@ export default function Nav() {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
+              data-cta-id="nav-start-project"
               className="sheen mt-2 flex min-h-11 w-full items-center justify-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
             >
               Start your project

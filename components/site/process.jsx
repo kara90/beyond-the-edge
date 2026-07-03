@@ -58,6 +58,7 @@ export default function Process() {
         <ButtonLink
           href="#contact"
           size="lg"
+          data-cta-id="process-start-project"
           className="sheen h-12 rounded-full bg-primary px-7 text-[0.95rem] font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_34px_-6px_var(--primary)]"
         >
           Start your project
