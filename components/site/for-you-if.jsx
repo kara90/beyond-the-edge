@@ -11,6 +11,8 @@ const ITEMS = [
   "You want the high-end look without the $15,000 agency quote",
   "You have been burned by a freelancer who stopped replying",
   "You want it handled for you, not one more tool to learn",
+  "Leads text you at 9pm and get silence until noon.",
+  "You are still posting to social yourself at midnight.",
 ];
 
 export default function ForYouIf() {
