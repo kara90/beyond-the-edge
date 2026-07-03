@@ -133,16 +133,14 @@ const included = [
 const addons = [
   { item: "Extra page, standard design", price: "$150 each" },
   { item: "Extra page, advanced 3D", price: "$250 each" },
-  { item: "Produced brand video", price: "from $1,500" },
+  { item: "Produced brand video (studio-produced)", price: "from $1,500" },
+  { item: "Filmed commercial (real cameras, on location)", price: "from $3,500" },
+  { item: "Production Day (full crew)", price: "from $5,500" },
   { item: "Advanced 3D or custom animation module", price: "from $800" },
   { item: "Professional copywriting", price: "from $150 per page" },
   { item: "Logo and brand identity", price: "from $750" },
   { item: "Online store or booking setup", price: "from $600" },
   { item: "Ongoing SEO program", price: "from $500 per month" },
-  {
-    item: "Production Day: on-location filming with our crew, scoped and quoted per project",
-    price: "from $3,500 per day",
-  },
   { item: "Rush delivery", price: "plus 25 percent" },
 ];
 

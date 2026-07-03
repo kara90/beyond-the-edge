@@ -7,6 +7,7 @@ import Marquee from "@/components/site/marquee";
 import Services from "@/components/site/services";
 import Work from "@/components/site/work";
 import Apps from "@/components/site/apps";
+import Filmed from "@/components/site/filmed";
 import Why from "@/components/site/why";
 import Process from "@/components/site/process";
 import Founder from "@/components/site/founder";
@@ -38,6 +39,7 @@ export default function Home() {
         <CraftAi />
         <ForYouIf />
         <Apps />
+        <Filmed />
         <Pricing />
         <Faq />
         <Contact />

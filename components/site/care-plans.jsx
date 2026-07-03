@@ -41,7 +41,8 @@ const plans = [
       "One content update and light optimization",
       "A one-page monthly summary",
     ],
-    note: "Short social videos are quick branded clips for social. Full filmed or produced commercials are a separate add-on.",
+    note: "Short social videos are quick branded clips for social.",
+    filmedNote: true,
     stopDoing:
       "Stop thinking about: what to post, when to post, asking for reviews, missed calls, staying visible.",
   },
@@ -168,6 +169,18 @@ export default function CarePlans() {
               {p.note && (
                 <p className="mt-3 text-[0.72rem] leading-snug text-muted-foreground/70">
                   {p.note}
+                  {p.filmedNote && (
+                    <>
+                      {" "}
+                      <a
+                        href="#filmed"
+                        className="link-underline text-edge/80 transition-colors hover:text-edge-bright"
+                      >
+                        Full filmed or produced commercials are a separate
+                        add-on.
+                      </a>
+                    </>
+                  )}
                 </p>
               )}
 

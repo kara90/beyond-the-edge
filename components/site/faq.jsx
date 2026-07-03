@@ -34,6 +34,7 @@ const FAQS = [
   {
     q: "What does real filming cost?",
     a: "Produced video is included wherever a tier lists it. Physical production is its own world: crew, cameras, lighting, locations, studio time, props, talent, travel, and usage rights. We scope it per project and quote it in writing before anything is booked, and the range is wide by nature, because a half-day single-camera shoot and a multi-day cinematic production are different animals. Site prices are the starting point for the build; filming is quoted on top, before you commit.",
+    link: { href: "#filmed", label: "See Filmed for real above for starting packages." },
   },
   {
     q: "I hate marketing and I have no time. How much of this lands on me?",
@@ -55,7 +56,10 @@ const faqJsonLd = {
   mainEntity: FAQS.map((f) => ({
     "@type": "Question",
     name: f.q,
-    acceptedAnswer: { "@type": "Answer", text: f.a },
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: f.link ? `${f.a} ${f.link.label}` : f.a,
+    },
   })),
 };
 
@@ -85,6 +89,17 @@ export default function Faq() {
               </summary>
               <p className="mt-3 max-w-2xl text-[0.95rem] leading-relaxed text-muted-foreground">
                 {f.a}
+                {f.link && (
+                  <>
+                    {" "}
+                    <a
+                      href={f.link.href}
+                      className="link-underline text-edge transition-colors hover:text-edge-bright"
+                    >
+                      {f.link.label}
+                    </a>
+                  </>
+                )}
               </p>
             </details>
           ))}
