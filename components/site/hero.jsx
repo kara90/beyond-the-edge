@@ -28,8 +28,9 @@ import { isLite, onLite } from "@/components/site/perf";
   animation is seen cleanly. prefers-reduced-motion: a still first frame.
 */
 // Served from the site's own CDN, re-encoded all-intra (every frame a
-// keyframe) so the scroll scrub can seek to any frame instantly and stays
-// smooth instead of snapping between sparse keyframes.
+// keyframe, ~37KB) and faststart (metadata first), and the CDN honors byte
+// ranges. So the scrub can seek to any frame instantly by pulling only that
+// frame's bytes, and the clip streams progressively instead of loading whole.
 const HERO_VIDEO = "/media/hero.mp4";
 // Still frame used as the hero on lite and reduced-motion devices (no video
 // at all) and as the poster while the scrub clip loads.
@@ -89,34 +90,47 @@ export default function Hero() {
 
     if (reduce || lite) return;
 
-    // Feed the scrub clip from memory: fetch -> blob -> objectURL. This
-    // guarantees a full buffer and instant frame-accurate seeks, and it is
-    // immune to the media-stack stall where the element reports "loading"
-    // forever without ever issuing a network request (seen live on Chrome).
-    // The poster covers the stage until the clip lands.
-    let cancelled = false;
-    let blobUrl = null;
-    (async () => {
-      try {
-        const res = await fetch(HERO_VIDEO);
-        if (!res.ok || cancelled) return;
-        const blob = await res.blob();
-        if (cancelled) return;
-        blobUrl = URL.createObjectURL(blob);
-        v.src = blobUrl;
-        v.load();
-        // Loading the blob rewinds the element; repaint the opening frame.
-        v.addEventListener("loadedmetadata", paintFirst, { once: true });
-      } catch {}
-    })();
+    // Stream the scrub clip progressively. The clip is faststart (metadata
+    // first) and all-intra (every frame a keyframe, ~37KB), and the CDN honors
+    // byte-range requests, so the browser gets metadata almost immediately and
+    // then pulls only the small byte range for each frame it seeks to. A weak
+    // connection just means a given frame arrives a touch late; it never blocks
+    // the whole hero and never forces a downgrade. Kick the load explicitly so
+    // the fetch starts even if the element was mounted idle.
+    try {
+      v.load();
+    } catch {}
 
-    // Graceful exit: if the clip still has no metadata after a beat (slow
-    // connection, or a browser whose media decoders are exhausted by other
-    // tabs), swap the pinned scrub for the still single-screen hero instead
-    // of leaving a frozen 360vh track.
-    const fallbackTimer = setTimeout(() => {
-      if (v.readyState < 1) setLite(true);
-    }, 7000);
+    // Downgrade to the still hero only when the clip genuinely cannot play.
+    // An unsupported source (code 4) is hopeless, so drop immediately. A
+    // network dip (code 2) or a one-off decode glitch on a corrupt byte range
+    // (code 3) is retried instead: the retry budget resets on any successful
+    // recovery (onRecover) so independent transient stalls never accumulate
+    // into a permanent downgrade. Only a sustained, unrecoverable streak of
+    // failures (three retries with no recovery in between) gives up. This is
+    // what keeps a strong machine on weak wifi from ever losing the scrub.
+    let netRetries = 0;
+    const onRecover = () => {
+      netRetries = 0;
+    };
+    const onError = () => {
+      const code = v.error && v.error.code;
+      if (code === 4) {
+        setLite(true);
+      } else if (netRetries < 3) {
+        netRetries += 1;
+        try {
+          v.load();
+        } catch {}
+      } else {
+        setLite(true);
+      }
+    };
+    v.addEventListener("error", onError);
+    // Any of these firing means the stream is healthy again; reset the budget.
+    v.addEventListener("canplay", onRecover);
+    v.addEventListener("seeked", onRecover);
+    v.addEventListener("loadeddata", onRecover);
 
     let raf = 0;
     let running = false;
@@ -175,9 +189,10 @@ export default function Hero() {
       stop();
       unsub();
       if (io) io.disconnect();
-      cancelled = true;
-      clearTimeout(fallbackTimer);
-      if (blobUrl) URL.revokeObjectURL(blobUrl);
+      v.removeEventListener("error", onError);
+      v.removeEventListener("canplay", onRecover);
+      v.removeEventListener("seeked", onRecover);
+      v.removeEventListener("loadeddata", onRecover);
     };
   }, [reduce, lite, scrollYProgress]);
 
@@ -268,7 +283,7 @@ export default function Hero() {
           poster={HERO_POSTER}
           muted
           playsInline
-          preload="none"
+          preload="auto"
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover"
           style={{ scale }}
