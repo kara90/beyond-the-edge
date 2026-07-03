@@ -1,30 +1,33 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { X } from "lucide-react";
 
 /*
-  StickyCta: mobile-only bottom call to action. Appears once the reader has
-  scrolled past the #pain section (they are warmed up), hides again while the
-  #contact form is on screen (no duplicate ask). Kept on in lite mode too: two
-  IntersectionObservers and one fixed element cost nothing.
+  StickyCta: mobile-only bottom call to action (under 768px).
+  Appears once the reader has scrolled past 60% of the hero, hides again while
+  the #contact section (the form) is on screen, and can be dismissed with the
+  x for the rest of the visit. Only mounted on the homepage, so it never shows
+  on legal or checkout pages. Safe-area aware.
 */
 export default function StickyCta() {
-  const [pastPain, setPastPain] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const [contactInView, setContactInView] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
-    const pain = document.getElementById("pain");
     const contact = document.getElementById("contact");
-    if (!pain || !contact) return;
+    // The hero is the first section inside <main id="top">.
+    const hero = document.querySelector("#top > section");
+    if (!contact || !hero) return;
+
+    const onScroll = () => {
+      setPastHero(window.scrollY > hero.offsetHeight * 0.6);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     // Observers can batch entries on fast scrolls; the LAST entry is current.
-    const painIo = new IntersectionObserver((entries) => {
-      const e = entries[entries.length - 1];
-      // Past = the section's top has scrolled above the viewport.
-      setPastPain(e.boundingClientRect.top < 0);
-    });
-    painIo.observe(pain);
-
     const contactIo = new IntersectionObserver((entries) => {
       const e = entries[entries.length - 1];
       setContactInView(e.isIntersecting);
@@ -32,12 +35,12 @@ export default function StickyCta() {
     contactIo.observe(contact);
 
     return () => {
-      painIo.disconnect();
+      window.removeEventListener("scroll", onScroll);
       contactIo.disconnect();
     };
   }, []);
 
-  const visible = pastPain && !contactInView;
+  const visible = pastHero && !contactInView && !dismissed;
 
   return (
     <div
@@ -48,12 +51,22 @@ export default function StickyCta() {
       }`}
       style={{ marginBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
-      <a
-        href="#contact"
-        className="sheen flex min-h-12 w-full items-center justify-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-lg transition-colors hover:bg-primary/90"
-      >
-        Start your project
-      </a>
+      <div className="relative">
+        <a
+          href="#brief"
+          className="sheen flex min-h-12 w-full items-center justify-center rounded-full bg-primary px-6 pr-12 text-sm font-semibold text-primary-foreground shadow-lg transition-colors hover:bg-primary/90"
+        >
+          Claim your build slot
+        </a>
+        <button
+          type="button"
+          aria-label="Dismiss"
+          onClick={() => setDismissed(true)}
+          className="absolute right-1.5 top-1/2 grid size-9 -translate-y-1/2 place-items-center rounded-full text-primary-foreground/70 transition-colors hover:bg-black/10 hover:text-primary-foreground"
+        >
+          <X className="size-4" />
+        </button>
+      </div>
     </div>
   );
 }

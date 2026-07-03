@@ -25,6 +25,22 @@ const CONCEPTS = [
     result:
       "A cinematic one-pager with a live on-site checkout, the same system as this site",
   },
+  {
+    // TODO(asset): add walkthrough imagery for this concept card
+    id: "C-03",
+    label: "Concept build",
+    clientType: "Roofing and exteriors",
+    result:
+      "A quote-request machine for a roofing company: before and after gallery, financing options, and a form a crew can answer from the truck",
+  },
+  {
+    // TODO(asset): add walkthrough imagery for this concept card
+    id: "C-04",
+    label: "Concept build",
+    clientType: "Med spa",
+    result:
+      "A booking-first build for a med spa: treatment menu, gift cards, and a hero that feels like a five-star resort",
+  },
 ];
 
 export default function Work() {
