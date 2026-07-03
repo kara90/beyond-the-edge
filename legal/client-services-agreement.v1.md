@@ -1,37 +1,84 @@
-# Client Services Agreement
-
-Version 1.0 (placeholder)
-
-PLACEHOLDER DOCUMENT. This file is the versioned source the signing system renders, hashes, and attaches to acceptance records. Replace the sections below with the attorney-reviewed Client Services Agreement v1.1 text before sending any /agree link to a real client. When the text changes, save it as a NEW file (client-services-agreement.v2.md) and update the agreement registry so old acceptance records keep their original hash.
-
-## 1. Parties and services
-
-[To be provided by the attorney-reviewed Client Services Agreement. This section will identify the parties and describe the design, build, and launch services.]
-
-## 2. Fees and payment
-
-[To be provided. This section will state the fees, payment schedule, and what happens on non-payment.]
-
-## 3. Design approval and revisions
-
-[To be provided. This section will reflect the published policy: the client approves the design direction before build begins, and every build includes three rounds of design refinement.]
-
-## 4. Ownership and deliverables
-
-[To be provided. This section will reflect the published policy: purchased builds belong to the client, and a complete export of files is available.]
-
-## 5. Hosting
-
-[To be provided. This section will reflect the published policy: six months of hosting included after launch, then hosting through a care plan, standalone hosting at $49 per month, or a file export.]
-
-## 6. Term and termination
-
-[To be provided.]
-
-## 7. Limitation of liability
-
-[To be provided.]
-
-## 8. Governing law
-
-[To be provided. Expected: State of Nevada.]
+BEYOND THE EDGE STUDIO
+Client Services Agreement
+This Client Services Agreement (the “Agreement”) is between Sebastien Vautier, professionally known as Sebastien Ricci, doing business as Beyond the Edge Studio, 4375 N Las Vegas Blvd, Suite 7 PMB 5028, Las Vegas, NV 89115, and any successor entity to which this Agreement is assigned (the “Studio”), and the client identified on the applicable Order (the “Client”). The “Effective Date” is the date the Client first accepts this Agreement.
+# 1. Structure of the Engagement
+1.1 Each project is described in an order form, statement of work, written proposal, checkout page, or written confirmation issued by the Studio (each, an “Order”). Every Order incorporates this Agreement. If an Order conflicts with this Agreement, the Order controls for that project. This Agreement, together with the applicable Order, the Studio’s website Terms of Service, and Privacy Policy, is the entire agreement between the parties and replaces all prior discussions.
+1.2 The Client accepts this Agreement by signing it, checking an acceptance box at online checkout, paying any invoice or deposit, or directing the Studio in writing to begin work, whichever occurs first.
+# 2. Services and Scope
+2.1 The Studio provides website design and development, web application design and development, video and content production, marketing funnels and automations, hosting setup and management, and related creative services, as described in the applicable Order.
+2.2 The scope of each project is limited to what is stated in the Order. Anything not expressly listed is out of scope. Requests outside the scope require a written change order, which may adjust fees and timeline. The Studio may decline out-of-scope work.
+# 3. Design Approval Process
+3.1 Before build begins, the Studio presents a design direction for the Client’s written approval (“Design Approval”). Each Order includes up to three (3) rounds of design refinement before Design Approval unless the Order states otherwise. Additional rounds are billed at the Studio’s then-current rates.
+3.2 Design Approval constitutes acceptance of the creative direction. Material changes requested after Design Approval are change orders and may be billed separately. Minor refinements consistent with the approved direction are included.
+# 4. Client Responsibilities
+4.1 The Client will provide content, brand materials, credentials, access, decisions, and approvals promptly, and will respond to Studio requests within seven (7) business days. Delays caused by the Client extend the timeline day for day and do not reduce fees.
+4.2 The Client warrants that it owns or has all necessary rights to everything it supplies to the Studio, including text, images, video, logos, trademarks, data, and testimonials (“Client Materials”), and that Client Materials do not infringe any third-party right.
+4.3 The Client is solely responsible for the legality, accuracy, and regulatory compliance of its own business, products, services, pricing, offers, and claims, including any advertising, health, financial, or professional-licensing rules that apply to the Client’s industry. The Studio does not provide legal or compliance advice.
+4.4 Dormancy. If the Client provides no substantive response for thirty (30) days, the Studio may pause the project and release the build slot. If non-response continues for sixty (60) days, the Studio may close the project, all fees paid are earned, and reactivation is subject to scheduling and a reactivation fee of up to $500.
+# 5. Timeline
+Timelines are good-faith estimates, not guarantees, and depend on the Client’s cooperation and third-party services. Rush delivery, where offered, is billed at plus twenty-five percent (25%). The Studio is not liable for delay caused by the Client, third parties, or events beyond its reasonable control.
+# 6. Fees, Payment, and Refunds
+6.1 Fees are stated in the Order. Unless the Order states otherwise, projects are paid either in full at checkout or fifty percent (50%) to begin and fifty percent (50%) before launch, as agreed in writing.
+6.2 The initial payment, meaning the 50% deposit or, for projects paid in full, half of the amount paid, is non-refundable once work begins. It compensates the Studio for reserving a build slot and beginning work.
+6.3 Before Design Approval, the Client may cancel the project in writing and receive a refund of amounts paid above the non-refundable initial payment. From Design Approval onward, the full project fee for that Order is earned and non-refundable, and any unpaid balance becomes due.
+6.4 Launch, delivery of final files, and any transfer of ownership occur only after the Studio has received full payment in cleared funds.
+6.5 Late amounts accrue interest at 1.5% per month or the maximum lawful rate, whichever is lower. The Studio may suspend work and hosted services on seven (7) days’ notice for nonpayment. The Client is responsible for reasonable collection costs, including attorney fees.
+6.6 Chargebacks. Initiating a card chargeback or payment reversal on work that was delivered in accordance with this Agreement is a material breach. A reversed payment is treated as nonpayment: any license or ownership conditioned on that payment is suspended and reverts until the amount is restored, and the Studio may suspend services and take affected work offline while the dispute is pending. The Client agrees to contact the Studio to resolve billing issues before initiating a chargeback.
+# 7. Ownership and Intellectual Property
+7.1 Client Materials remain the Client’s property. The Client grants the Studio a license to use Client Materials to perform the services and as permitted by Section 7.6.
+7.2 Deliverables. Upon the Studio’s receipt of full payment for an Order, the Studio assigns to the Client all of the Studio’s right, title, and interest in the final deliverables identified in that Order, such as the final website design, site-specific custom code and content, and final edited video masters (the “Deliverables”), to the extent such rights exist and subject to Sections 7.3 through 7.5.
+7.3 Studio Tools. The Studio’s pre-existing and reusable materials, including frameworks, templates, component libraries, build and testing systems, internal tooling, prompts, processes, know-how, and generic code (“Studio Tools”), remain the exclusive property of the Studio. The Client receives a perpetual, non-exclusive, royalty-free license to use Studio Tools solely as embedded in the Deliverables for the Client’s own business. The Client may not extract, resell, or license Studio Tools on a standalone basis.
+7.4 Third-party assets. Fonts, stock media, plugins, platforms, and other third-party components are licensed under their own terms, which may be non-transferable and may require ongoing subscriptions held by the Client. The Studio will use assets licensed for the Client’s intended use.
+7.5 AI-assisted elements. Some elements of the Deliverables may be produced or assisted with artificial intelligence tools under human direction. The assignment in Section 7.2 conveys all rights to the extent such rights exist. The Studio makes no warranty that purely machine-generated elements are protectable or registrable under copyright law. The human-directed selection, arrangement, and original contributions are included in the assignment.
+7.6 Portfolio and credit. The Studio may display completed work in its portfolio, marketing, and case studies, and may identify the Client by name and logo, unless the Client opts out in writing before launch.
+7.7 Complimentary deliverables. Any website, landing page, or asset provided at no build fee as part of a monthly plan is not a Deliverable under this Section. It remains Studio property and is governed by the Care Plan and Retainer Agreement, including its Complimentary Build Program terms.
+# 8. Hosting, Launch, and Post-Launch Support
+8.1 Hosting is set up and managed by the Studio on third-party infrastructure. Each purchased build includes standard hosting at no additional charge for six (6) months after launch. After that period, hosting continues under any active Care Plan, or as hosting-only service at $49 per month, or the Client may self-host, in which case the Studio provides one complete export of the site files at no charge. Migration assistance beyond the export is available at $250.
+8.2 Fix warranty. For thirty (30) days after launch, the Studio will repair, at no charge, defects where the delivered site materially fails to function as designed and approved. This excludes new features, content changes, Client modifications, and issues caused by third-party services or platform changes.
+8.3 The Studio uses commercially reasonable efforts to keep hosted sites available but does not guarantee uninterrupted or error-free operation and is not responsible for outages, changes, or acts of third-party providers.
+8.4 Domains. The Client must register and own its domain name in the Client’s own name and account. The Studio may assist with registration and configuration at the Client’s direction. The Studio will never withhold a Client-owned domain.
+# 9. Video and Production
+9.1 Scope and quotes. Video included in a website tier or plan is produced video as described in that tier. On-location and physical production, including crew, cameras, lighting, sound, locations, studio time, sets, props, wardrobe, talent, travel, permits, and usage licensing, is scoped and quoted separately in each Order. Prices shown on the Studio’s website for video are base packages and starting points; physical production pricing scales with scope and is set by the Order.
+9.2 Production expenses and deposits. The Order itemizes production fees and expenses. The Studio may require a production deposit before committing third-party costs. Amounts the Studio commits to third parties, including locations, rentals, crew, talent, and travel, are non-refundable once committed and are payable by the Client even if the shoot is postponed or cancelled.
+9.3 Postponement and cancellation. If the Client postpones or cancels a scheduled shoot seven (7) or fewer days before the shoot date, all committed third-party costs are payable and a rescheduling fee of twenty-five percent (25%) of the production fee applies. If the Client postpones or cancels forty-eight (48) hours or less before the shoot, the full production fee for the affected shoot day is earned, in addition to committed third-party costs. If the Studio must postpone for weather, safety, or events beyond its reasonable control, the shoot is rescheduled in good faith and committed third-party costs are passed through at cost without markup.
+9.4 Rights and materials. Filming dates, locations, talent, releases, music licensing, and usage rights are set out in the Order. The Client is responsible for permissions relating to people, property, and materials it provides or requests. Unless the Order states otherwise, raw footage and project files remain Studio property; final edited masters are Deliverables. Reshoots and edits beyond the Order scope are billed separately.
+# 10. Third-Party Services
+10.1 The services may depend on third-party providers, including domain registrars, hosting and infrastructure platforms, marketing and automation platforms, analytics, payment processors, app stores, and browsers. Their terms govern their services. The Studio is not responsible for their acts, omissions, availability, policy changes, or pricing, and features that depend on them may change.
+10.2 Critical Technology Events. The Studio’s services depend on third-party artificial intelligence, automation, development, and infrastructure technologies. If any such technology that is material to the Studio’s ability to perform, including its ability to produce coded and automated deliverables such as websites, landing pages, web applications, installable apps, funnels, automations, and AI-produced video and imagery, becomes unavailable or discontinued, is restricted in a way that prohibits the Studio’s use, becomes unlawful for the Studio to use, or increases in cost or changes in terms so materially that continued performance is commercially impracticable, and no reasonable substitute is available after the Studio’s commercially reasonable efforts to find one (each, a “Critical Technology Event”), the Studio may suspend or terminate affected Orders on written notice, giving as much advance notice as is reasonably practicable. On such termination: the Studio delivers the work product completed to date in its then-current form; the Studio refunds payments received that are allocable to work not yet performed on the affected Order; and the Client’s receipt of that refund and work product is the Client’s sole and exclusive remedy. A Critical Technology Event is not a breach of this Agreement, and Section 13 continues to apply. Services that do not depend on an affected technology, including on-location filming and physical production, continue unaffected and are not terminable under this Section.
+# 11. Warranties and Disclaimers
+11.1 The Studio warrants that services will be performed in a professional and workmanlike manner and that Deliverables will materially conform to the approved design at launch. Except as expressly stated, the services and Deliverables are provided as is, and the Studio disclaims all other warranties, express or implied, including merchantability, fitness for a particular purpose, and non-infringement.
+11.2 No results guarantee. The Studio does not guarantee any business outcome, including search rankings, traffic, leads, conversions, sales, revenue, or return on investment. Any examples or figures are illustrative only.
+11.3 Accessibility. The Studio builds to good general web practice but does not warrant that any Deliverable complies with accessibility standards or laws, including WCAG or the Americans with Disabilities Act, unless an accessibility standard is expressly stated in the Order. Accessibility audits and remediation are available as separately scoped services, and the Client is responsible for the accessibility obligations that apply to its own business.
+# 12. Indemnification
+12.1 The Client will defend, indemnify, and hold harmless the Studio and its owner, employees, contractors, and affiliates from claims, damages, and expenses, including reasonable attorney fees, arising from Client Materials, the Client’s products, services, offers, or claims, the Client’s use of the Deliverables, the Client’s violation of law or third-party rights, or the Client’s breach of this Agreement.
+12.2 If a third party claims that Studio-authored elements of a Deliverable (excluding Client Materials, third-party assets, and machine-generated elements to the extent rights do not exist) infringe a United States copyright, the Studio will, at its option and expense, modify or replace the affected element or refund the fees paid for it. This is the Client’s exclusive remedy for such claims.
+# 13. Limitation of Liability
+To the fullest extent permitted by law: (a) neither party is liable for indirect, incidental, special, consequential, or punitive damages, or for lost profits, revenue, data, or goodwill; and (b) the Studio’s total liability arising out of an Order will not exceed the fees actually paid by the Client for that Order. These limits do not apply to the Client’s payment obligations or indemnification obligations.
+# 14. Confidentiality
+Each party will keep the other’s non-public business information confidential and use it only to perform this Agreement. The Studio’s methods, tooling, processes, and pricing structures are the Studio’s confidential information. Exceptions apply for information that is public, independently developed, rightfully received from others, or required to be disclosed by law. This Section survives for three (3) years after the engagement ends.
+# 15. Term and Termination
+15.1 This Agreement applies from the Effective Date and continues for each Order until completion. Either party may terminate an Order for material breach not cured within ten (10) days of written notice.
+15.2 Client termination for convenience is governed by Section 6.3. The Studio may terminate immediately for the Client’s unlawful content or conduct, abuse of Studio personnel, or nonpayment, in which case fees paid are earned, unpaid amounts for work performed become due, and licenses to unpaid work terminate and such work may be taken offline.
+# 16. Non-Solicitation
+During the engagement and for twelve (12) months after, the Client will not solicit for hire or engage, directly or indirectly, any Studio employee or contractor introduced through the work, other than through general public postings. If the Client does, the Client will pay the Studio liquidated damages of $10,000 per person, which the parties agree is a reasonable estimate of the Studio’s loss.
+# 17. General
+17.1 Independent contractor; no partnership, agency, or employment is created. Neither party is liable for delay caused by events beyond its reasonable control. The Client may not assign this Agreement without the Studio’s written consent; the Studio may assign it to a business entity it forms, an affiliate, or a successor. Notices are effective when sent by email to the addresses on the Order.
+17.2 This Agreement is governed by the laws of the State of Nevada, without regard to conflicts rules. Any dispute will be resolved exclusively in the state or federal courts located in Clark County, Nevada, and each party consents to that venue, except that either party may bring a qualifying claim in small claims court. Each party waives any right to a jury trial to the extent permitted by law. Any claim must be brought within one (1) year after it arises or it is barred. The prevailing party in any action to enforce this Agreement is entitled to reasonable attorney fees and costs.
+17.3 If any provision is unenforceable, the remainder stays in effect and the provision is enforced to the maximum extent permitted. No waiver is effective unless in writing. Sections 6, 7, and 11 through 17 survive termination. Electronic signatures and acceptances are binding under applicable law, including the E-SIGN Act and Nevada UETA.
+# Signatures
+Accepted and agreed by the parties as of the Effective Date. Acceptance may be given by handwritten signature, electronic signature, checking an acceptance box at online checkout, paying any invoice or deposit, or directing work to begin, each of which is binding.
+Studio: Sebastien Vautier (professionally known as Sebastien Ricci) d/b/a Beyond the Edge Studio
+____________________________________
+Signature, Sebastien Vautier, Owner                                        Date
+Client: Business name, contact name, title, email, and address as stated on the Order.
+____________________________________
+Signature, Name and Title                                                        Date
+# Exhibit A. Order Form (template)
+Client and business name: ______________________________    Email: ______________________________
+Project and tier (Liftoff, Orbit, Beyond, Apex, Standard App, Pro App, Video, Funnel): ______________________________
+Scope summary and page or feature count: __________________________________________________________________
+Project fee: $____________    Payment: [  ] Paid in full    [  ] 50% to begin, 50% before launch
+Estimated timeline: ____________    Included design rounds: 3    Add-ons: ______________________________
+Included post-launch hosting: 6 months, then Care Plan, hosting-only at $49 per month, or file export.
+Special terms: __________________________________________________________________
+This Order incorporates the Client Services Agreement. Signature or online acceptance below is acceptance of both.
