@@ -39,13 +39,13 @@ export default function PrivacyPage() {
           Privacy Policy
         </h1>
         <p className="mt-4 text-sm text-muted-foreground">
-          Last updated: June 25, 2026
+          Last updated: July 3, 2026
         </p>
         <p className="mt-8 text-[0.95rem] leading-relaxed text-muted-foreground">
-          This Privacy Policy explains how Sebastien Vautier, doing business as
-          Beyond the Edge Studio ("we," "us," or "our"), collects, uses, and
-          protects information when you visit beyondtheedgestudio.com (the
-          "Site") or contact us.
+          This Privacy Policy explains how Sebastien Vautier, professionally
+          known as Sebastien Ricci, doing business as Beyond the Edge Studio
+          ("we," "us," or "our"), collects, uses, and protects information when
+          you visit beyondtheedgestudio.com (the "Site") or contact us.
         </p>
 
         <div className="mt-10 space-y-10">
@@ -207,7 +207,8 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold">13. Contact</h2>
             <address className="mt-3 not-italic text-[0.95rem] leading-relaxed text-muted-foreground">
-              Sebastien Vautier d/b/a Beyond the Edge Studio
+              Sebastien Vautier (professionally known as Sebastien Ricci) d/b/a
+              Beyond the Edge Studio
               <br />
               4375 N Las Vegas Blvd, Suite 7 PMB 5028, Las Vegas, NV 89115,
               United States
