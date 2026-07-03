@@ -1,0 +1,21 @@
+{
+  "slug": "example-deal-x0000",
+  "businessName": "Example Business",
+  "contactName": "Alex Example",
+  "email": "client@example.com",
+  "agreementType": "complimentary-build",
+  "offerName": "Complimentary landing page with the Care plan",
+  "price": 300,
+  "billing": "monthly",
+  "minimumTermMonths": 6,
+  "buyoutPrice": 1500,
+  "includes": [
+    "Custom landing page, designed and built for your brand",
+    "Hosting, security, SSL, and backups",
+    "Up to 4 small updates a month",
+    "One fresh social content piece a month"
+  ],
+  "startDate": "",
+  "paymentUrl": "/checkout?tier=care&billing=monthly",
+  "expiresAt": ""
+}
