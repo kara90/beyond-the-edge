@@ -12,3 +12,9 @@
 # Private signing pages: never indexed.
 /agree/*
   X-Robots-Tag: noindex, nofollow
+
+# Private password-gated Growth Systems apps preview: keep out of search.
+/growth-systems
+  X-Robots-Tag: noindex, nofollow
+/growth-systems.html
+  X-Robots-Tag: noindex, nofollow

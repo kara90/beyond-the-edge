@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070A12">
+<title>Beyond the Edge — Growth Systems</title>
+<meta name="robots" content="noindex, nofollow">
+<!--
+  ============================================================
+  BEYOND THE EDGE — PASSWORD-PROTECTED LANDING PAGE (both apps)
+  ============================================================
+  PASSWORD: change it in the CONFIG block in the <script> at the bottom (look for PAGE_PASSWORD).
+  Current password is: 001100
+
+  IMPORTANT ABOUT PROTECTION:
+  - The gate below is a SOFT lock. It keeps casual visitors out and is fine for sharing with people you trust.
+  - It is NOT strong security: a technical person could read the page source. For a real wall, ALSO turn on
+    your host's password protection (for example Cloudflare Access, or Netlify/Vercel password protection) on top of this.
+
+  BRAND: Beyond the Edge deep-space identity (base #070A12) — electric-blue signal accent with a violet nebula
+  glow. No gold (gold is the CineMaster Academy look). Type: Space Grotesk (display) + Inter (body) + JetBrains
+  Mono (labels). Signature: an ambient signal-field in the hero.
+  PRICING: B2C prices are final. B2B prices are marked [SET PRICE] — drop in your real numbers.
+  ============================================================
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070A12; --bg2:#0A0E17; --panel:#0E131F; --panel2:#131A28; --raise:#171F2E;
+    --line:rgba(255,255,255,.07); --line2:rgba(255,255,255,.13); --line3:rgba(120,180,255,.22);
+    --text:#EDF1F8; --text2:#9AA4B6; --muted:#5B6270;
+    --edge:#2E90FF; --edge2:#74B7FF; --edge3:#A9D2FF;
+    --violet:#8A73FF;
+    --soft:rgba(46,144,255,.10); --edgesoft:rgba(46,144,255,.13);
+    --green:#5FD0A6; --warn:#F0A48C;
+    --display:'Space Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
+    --maxw:1160px;
+    --shadow:0 24px 60px -24px rgba(0,0,0,.7);
+    --glow-edge:0 0 40px -6px rgba(46,144,255,.55);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.62;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;font-weight:450}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:rgba(46,144,255,.28);color:#fff}
+  :focus-visible{outline:2px solid var(--edge2);outline-offset:3px;border-radius:4px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  h1,h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.02em;line-height:1.1}
+
+  /* ambient grain */
+  .grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.035;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px}
+
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--edge2);font-weight:500;display:inline-flex;align-items:center;gap:9px}
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:1px;background:var(--edge);box-shadow:0 0 10px 1px var(--edge);transform:rotate(45deg);flex:none}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;border-radius:11px;font-family:var(--body);font-size:14.5px;font-weight:600;transition:transform .18s ease,box-shadow .25s ease,background .2s ease,border-color .2s ease;border:1px solid transparent;min-height:46px;padding:13px 26px;letter-spacing:.005em}
+  .btn svg{flex:none}
+  .btn-primary{background:linear-gradient(135deg,#3A9BFF,#74B7FF);color:#04121F;box-shadow:0 10px 30px -10px rgba(46,144,255,.6)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px -12px rgba(46,144,255,.75)}
+  .btn-ghost{border-color:var(--line2);color:var(--text);background:rgba(255,255,255,.015)}
+  .btn-ghost:hover{transform:translateY(-2px);border-color:var(--line3);background:rgba(46,144,255,.06)}
+
+  .chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;padding:6px 13px;border-radius:8px;border:1px solid var(--line2);color:var(--text2)}
+  .edgeline{height:1px;background:linear-gradient(90deg,transparent,var(--line3),transparent)}
+
+  section{position:relative}
+
+  /* ---------- PASSWORD GATE ---------- */
+  #gate{position:fixed;inset:0;z-index:1000;background:radial-gradient(900px 620px at 50% -8%,#0E1626,#070A12 66%);display:flex;align-items:center;justify-content:center;padding:24px;overflow:hidden}
+  #gate .gglow{position:absolute;top:-160px;left:50%;transform:translateX(-50%);width:640px;height:520px;background:radial-gradient(circle,rgba(46,144,255,.18),transparent 62%);pointer-events:none}
+  #gate .gglow2{position:absolute;bottom:-180px;left:40%;width:520px;height:460px;background:radial-gradient(circle,rgba(138,115,255,.14),transparent 62%);pointer-events:none}
+  #gate .box{max-width:430px;width:100%;text-align:center;position:relative}
+  #gate .mark{width:62px;height:62px;border-radius:17px;background:linear-gradient(160deg,rgba(46,144,255,.2),rgba(46,144,255,.05));border:1px solid var(--line3);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;box-shadow:var(--glow-edge)}
+  #gate h1{font-size:29px;font-weight:600;letter-spacing:-.02em;margin-bottom:9px}
+  #gate p{color:var(--text2);font-size:14.5px;margin-bottom:26px}
+  #gate .field{position:relative}
+  #gate input{width:100%;background:rgba(10,14,23,.85);border:1px solid var(--line2);border-radius:12px;padding:16px 18px;color:var(--text);font-size:15px;font-family:var(--mono);letter-spacing:2px;outline:none;text-align:center;transition:border-color .2s,box-shadow .2s}
+  #gate input::placeholder{font-family:var(--body);letter-spacing:normal;color:var(--muted)}
+  #gate input:focus{border-color:var(--edge);box-shadow:0 0 0 4px rgba(46,144,255,.12)}
+  #gate .go{margin-top:12px;width:100%}
+  #gate .err{color:var(--warn);font-size:13px;margin-top:14px;height:18px;opacity:0;transition:opacity .2s}
+  #gate .foot{margin-top:28px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+  #content{display:none}
+
+  /* ---------- NAV ---------- */
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(7,10,18,.72);border-bottom:1px solid var(--line)}
+  nav .row{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:600;font-size:15.5px;letter-spacing:-.01em}
+  .brand .m{width:34px;height:34px;border-radius:10px;background:linear-gradient(160deg,rgba(46,144,255,.22),rgba(46,144,255,.05));border:1px solid var(--line3);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 12px rgba(46,144,255,.15)}
+  nav .links{display:flex;align-items:center;gap:32px}
+  nav .links a{font-size:13.5px;color:var(--text2);transition:color .18s}
+  nav .links a:hover{color:var(--text)}
+  nav .navcta .chip{color:var(--edge2);border-color:var(--line3);transition:background .2s,border-color .2s}
+  nav .navcta:hover .chip{background:rgba(46,144,255,.09)}
+  @media(max-width:880px){nav .links a:not(.navcta){display:none}}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:104px 0 78px;text-align:center;position:relative;overflow:hidden}
+  #signal{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;
+    -webkit-mask-image:radial-gradient(120% 78% at 50% 32%,#000 45%,transparent 82%);
+    mask-image:radial-gradient(120% 78% at 50% 32%,#000 45%,transparent 82%)}
+  .hero .glow{position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:860px;height:540px;background:radial-gradient(circle,rgba(46,144,255,.16),transparent 62%);pointer-events:none;z-index:0}
+  .hero .glow2{position:absolute;top:-90px;left:52%;transform:translateX(-50%);width:520px;height:440px;background:radial-gradient(circle,rgba(138,115,255,.13),transparent 60%);pointer-events:none;z-index:0}
+  .hero .inner{position:relative;z-index:1}
+  .hero h1{font-size:clamp(36px,5.6vw,63px);line-height:1.04;letter-spacing:-.03em;margin:24px auto 22px;max-width:940px;font-weight:600}
+  .hero h1 .g{background:linear-gradient(115deg,var(--edge2),var(--edge));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p.sub{font-size:clamp(16px,2.1vw,20px);color:var(--text2);max-width:680px;margin:0 auto 36px;line-height:1.58}
+  .hero .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .hero .trust{margin-top:44px;display:flex;gap:14px 26px;justify-content:center;flex-wrap:wrap;color:var(--muted);font-size:12.5px;font-family:var(--mono);letter-spacing:.02em}
+  .hero .trust span{display:inline-flex;align-items:center;gap:8px}
+  .hero .trust svg{opacity:.8}
+
+  /* ---------- CHOOSER ---------- */
+  .chooser{padding:18px 0 8px;position:relative}
+  .chooser .rail{text-align:center;margin-bottom:22px}
+  .chooser .rail .lab{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+  .chooser .cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;position:relative}
+  .chooser .cards::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:var(--bg);border:1px solid var(--line3);display:none;z-index:2}
+  @media(max-width:760px){.chooser .cards{grid-template-columns:1fr}}
+  .pathcard{background:linear-gradient(180deg,var(--panel),rgba(10,14,23,.5));border:1px solid var(--line);border-radius:20px;padding:32px;transition:border-color .25s,transform .25s,box-shadow .25s;cursor:pointer;position:relative;overflow:hidden}
+  .pathcard::after{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--edge),transparent);opacity:0;transition:opacity .3s}
+  .pathcard:hover{border-color:var(--line3);transform:translateY(-4px);box-shadow:var(--shadow)}
+  .pathcard:hover::after{opacity:.7}
+  .pathcard .ic{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;border:1px solid var(--line2)}
+  .pathcard h3{font-size:21px;font-weight:600;margin-bottom:8px}
+  .pathcard .who{font-family:var(--mono);font-size:11px;color:var(--edge2);letter-spacing:.16em;text-transform:uppercase;font-weight:500;margin-bottom:15px}
+  .pathcard p{color:var(--text2);font-size:14.5px;margin-bottom:20px}
+  .pathcard .go{font-size:13.5px;font-weight:600;color:var(--edge2);display:inline-flex;align-items:center;gap:8px;transition:gap .2s}
+  .pathcard:hover .go{gap:12px}
+
+  /* ---------- SECTION SHELL ---------- */
+  .sec{padding:96px 0}
+  .sec-head{text-align:center;max-width:700px;margin:0 auto 56px}
+  .sec-head h2{font-size:clamp(28px,3.9vw,44px);line-height:1.12;letter-spacing:-.025em;margin:16px 0 15px;font-weight:600}
+  .sec-head p{color:var(--text2);font-size:16.5px;line-height:1.6}
+  .band{background:linear-gradient(180deg,var(--bg2),var(--bg))}
+  .sec-head .eyebrow{margin-bottom:2px}
+
+  /* pain grid */
+  .pains{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:820px){.pains{grid-template-columns:1fr}}
+  .pain{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px;transition:border-color .25s,transform .25s}
+  .pain:hover{border-color:var(--line2);transform:translateY(-3px)}
+  .pain .x{width:36px;height:36px;border-radius:10px;background:rgba(240,164,140,.11);border:1px solid rgba(240,164,140,.16);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+  .pain h4{font-size:16px;font-weight:600;margin-bottom:8px;letter-spacing:-.01em}
+  .pain p{color:var(--text2);font-size:13.8px;line-height:1.6}
+  .pain .fix{margin-top:15px;padding-top:15px;border-top:1px solid var(--line);font-size:13.2px;color:var(--green);display:flex;gap:9px;align-items:flex-start;line-height:1.5}
+  .pain .fix svg{margin-top:2px;flex:none}
+
+  /* feature list */
+  .feats{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+  @media(max-width:760px){.feats{grid-template-columns:1fr}}
+  .feat{display:flex;gap:15px;padding:22px;background:var(--panel);border:1px solid var(--line);border-radius:15px;transition:border-color .25s,transform .25s,box-shadow .25s}
+  .feat:hover{border-color:var(--line3);transform:translateY(-3px);box-shadow:var(--shadow)}
+  .feat .ic{width:42px;height:42px;border-radius:11px;background:var(--edgesoft);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;flex:none}
+  .feat h4{font-size:15.5px;font-weight:600;margin-bottom:5px;letter-spacing:-.01em}
+  .feat p{color:var(--text2);font-size:13.6px;line-height:1.58}
+
+  /* pricing */
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
+  @media(max-width:900px){.tiers{grid-template-columns:1fr;max-width:440px;margin:0 auto}}
+  .tier{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;position:relative;transition:border-color .25s,transform .25s}
+  .tier:hover{transform:translateY(-4px);border-color:var(--line2)}
+  .tier.feat-tier{border-color:var(--line3);background:linear-gradient(180deg,rgba(46,144,255,.09),var(--panel));box-shadow:0 30px 70px -30px rgba(46,144,255,.4)}
+  .tier .badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--edge),var(--edge2));color:#04121F;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:20px;white-space:nowrap;box-shadow:var(--glow-edge)}
+  .tier .tname{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--edge2);font-weight:500;margin-bottom:14px}
+  .tier .price{font-family:var(--display);font-size:44px;font-weight:600;line-height:1;letter-spacing:-.03em;display:flex;align-items:baseline;gap:2px}
+  .tier .price small{font-family:var(--mono);font-size:14px;color:var(--muted);font-weight:400;letter-spacing:0}
+  .tier .price .setp{font-size:26px;color:var(--text2);letter-spacing:.01em}
+  .tier .pnote{font-size:13px;color:var(--text2);margin:12px 0 22px;min-height:19px;line-height:1.5}
+  .tier ul{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:26px;flex:1}
+  .tier li{display:flex;gap:11px;font-size:13.6px;color:var(--text2);align-items:flex-start;line-height:1.45}
+  .tier li svg{margin-top:2px;flex:none}
+  .tier .tcta{width:100%}
+  .pricing-note{text-align:center;margin-top:28px;font-family:var(--mono);font-size:12px;letter-spacing:.02em;color:var(--muted);line-height:1.7}
+
+  /* why us */
+  .why{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:900px){.why{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.why{grid-template-columns:1fr}}
+  .whycard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px;transition:border-color .25s,transform .25s}
+  .whycard:hover{border-color:var(--line2);transform:translateY(-3px)}
+  .whycard .ic{width:40px;height:40px;border-radius:11px;background:linear-gradient(160deg,rgba(46,144,255,.16),rgba(46,144,255,.04));border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+  .whycard h4{font-size:15.5px;font-weight:600;margin-bottom:8px;letter-spacing:-.01em}
+  .whycard p{color:var(--text2);font-size:13.6px;line-height:1.58}
+
+  /* credibility strip */
+  .cred{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:620px){.cred{grid-template-columns:1fr 1fr}}
+  .cred .c{background:linear-gradient(180deg,var(--panel),rgba(10,14,23,.4));border:1px solid var(--line);border-radius:16px;padding:24px 18px;text-align:center}
+  .cred .c b{font-family:var(--display);font-size:38px;font-weight:600;display:block;letter-spacing:-.03em;background:linear-gradient(135deg,#fff,var(--edge3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .cred .c span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);margin-top:4px;display:block}
+
+  /* faq */
+  .faq{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+  .qa{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:22px 24px;transition:border-color .25s}
+  .qa:hover{border-color:var(--line2)}
+  .qa h4{font-size:15.5px;font-weight:600;margin-bottom:9px;display:flex;gap:11px;align-items:flex-start;letter-spacing:-.01em}
+  .qa h4 svg{margin-top:1px;flex:none}
+  .qa p{color:var(--text2);font-size:14px;line-height:1.62;padding-left:29px}
+
+  /* final cta */
+  .final{text-align:center;padding:112px 0;position:relative;overflow:hidden}
+  .final .glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:760px;height:440px;background:radial-gradient(circle,rgba(46,144,255,.16),transparent 60%);pointer-events:none}
+  .final .glow2{position:absolute;top:40%;left:56%;transform:translate(-50%,-50%);width:480px;height:360px;background:radial-gradient(circle,rgba(138,115,255,.14),transparent 60%);pointer-events:none}
+  .final .inner{position:relative;z-index:1}
+  .final h2{font-size:clamp(30px,4.6vw,50px);line-height:1.08;margin-bottom:20px;letter-spacing:-.03em;font-weight:600}
+  .final p{color:var(--text2);font-size:17px;max-width:580px;margin:0 auto 34px;line-height:1.58}
+  .badge-soft{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:7px 14px}
+
+  footer{border-top:1px solid var(--line);padding:42px 0;color:var(--muted);font-size:13px}
+  footer .row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center}
+  footer a{transition:color .18s}
+  footer a:hover{color:var(--text2)}
+  footer .fnav{display:flex;gap:24px;font-family:var(--mono);font-size:12px;letter-spacing:.04em}
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .75s cubic-bezier(.2,.7,.2,1),transform .75s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1 !important;transform:none !important;transition:none}
+    #signal{display:none}
+    .btn:hover,.pathcard:hover,.feat:hover,.tier:hover,.pain:hover,.whycard:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- ============ PASSWORD GATE ============ -->
+<div id="gate">
+  <div class="gglow"></div><div class="gglow2"></div>
+  <div class="box">
+    <div class="mark">
+      <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#74B7FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c2.4 1.2 3.8 3.6 3.8 6.7L14.4 13H9.6L8.2 9.7C8.2 6.6 9.6 4.2 12 3z"/><path d="M9.6 13.5 8 17 M14.4 13.5 16 17"/></svg>
+    </div>
+    <h1>Beyond the Edge</h1>
+    <p>This page is private. Enter the access password to continue.</p>
+    <div class="field">
+      <label for="pw" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Access password</label>
+      <input id="pw" type="password" placeholder="Access password" autocomplete="off" onkeydown="if(event.key==='Enter')tryPw()">
+    </div>
+    <button class="btn btn-primary go" onclick="tryPw()">Enter <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#04121F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"/></svg></button>
+    <div class="err" id="err" role="alert">Incorrect password. Try again.</div>
+    <div class="foot">By invitation only · currently in private preview</div>
+  </div>
+</div>
+
+<!-- ============ PAGE CONTENT ============ -->
+<div id="content">
+
+  <nav>
+    <div class="wrap row">
+      <div class="brand"><span class="m"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c2.4 1.2 3.8 3.6 3.8 6.7L14.4 13H9.6L8.2 9.7C8.2 6.6 9.6 4.2 12 3z"/><path d="M9.6 13.5 8 17 M14.4 13.5 16 17"/></svg></span>Beyond the Edge</div>
+      <div class="links">
+        <a href="#agencies">For Agencies</a>
+        <a href="#business">For Local Business</a>
+        <a href="#why">Why Us</a>
+        <a href="#pricing-b2b">Pricing</a>
+        <a href="#contact" class="navcta"><span class="chip">Request access</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <canvas id="signal" aria-hidden="true"></canvas>
+    <div class="glow"></div><div class="glow2"></div>
+    <div class="wrap inner">
+      <span class="eyebrow">Growth systems for modern operators</span>
+      <h1>Two systems. One outcome: <span class="g">predictable growth</span> you can actually run.</h1>
+      <p class="sub">Beyond the Edge builds growth software that does the heavy lifting, finding and landing local clients, and keeping them coming back, without the bloated, break-prone tools everyone else settles for.</p>
+      <div class="cta">
+        <a href="#agencies" class="btn btn-primary">I find &amp; sell to businesses <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#04121F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"/></svg></a>
+        <a href="#business" class="btn btn-ghost">I run a local business</a>
+      </div>
+      <div class="trust">
+        <span><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#5FD0A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> 21+ years behind the camera and the business</span>
+        <span><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#5FD0A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Built for people, not for manuals</span>
+        <span><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#5FD0A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Done-for-you when you want it</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- CHOOSER -->
+  <section class="chooser"><div class="wrap">
+    <div class="rail reveal"><span class="lab">Choose your system</span></div>
+    <div class="cards">
+      <a href="#agencies" class="pathcard reveal">
+        <div class="ic" style="background:var(--edgesoft)"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l6-4 6 4v12 M9 21v-5h4v5 M15 13h6v8h-6 M18 9V5"/></svg></div>
+        <div class="who">For agencies &amp; operators</div>
+        <h3>The Lead Engine</h3>
+        <p>Find local businesses that need you, reach them with outreach that sounds human and lands in the inbox, handle every reply, and even build their site. Your whole new-client machine in one place.</p>
+        <span class="go">See how it works <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#74B7FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="#business" class="pathcard reveal" style="transition-delay:.08s">
+        <div class="ic" style="background:linear-gradient(160deg,rgba(138,115,255,.16),rgba(46,144,255,.06))"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#A9D2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10v10h16V10 M2 10l10-6 10 6 M9 20v-6h6v6"/></svg></div>
+        <div class="who">For local businesses</div>
+        <h3>Client Growth</h3>
+        <p>Stop losing money to missed calls and no-shows, bring your quiet customers back, and get more reviews, in one dead-simple app we set up for you. Everything busy owners need, nothing they do not.</p>
+        <span class="go">See how it works <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#74B7FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </div></section>
+
+  <div class="wrap"><div class="edgeline" style="margin:44px 0"></div></div>
+
+  <!-- ===================== B2B SECTION ===================== -->
+  <section class="sec" id="agencies"><div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The Lead Engine · for agencies &amp; operators</span>
+      <h2>Why buy this if you sell to local businesses</h2>
+      <p>Finding and closing local clients is the hardest, most manual part of the business. This turns it into a system that runs while you sleep.</p>
+    </div>
+
+    <div class="pains">
+      <div class="pain reveal">
+        <div class="x"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#F0A48C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 100 14 7 7 0 000-14z M16.5 16.5 21 21"/></svg></div>
+        <h4>Finding good leads eats your week</h4>
+        <p>Scrolling maps, copying details, guessing who actually needs help. Hours gone before you send a single message.</p>
+        <div class="fix"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#5FD0A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Pull qualified local businesses in seconds, scored by how badly they need you.</div>
+      </div>
+      <div class="pain reveal" style="transition-delay:.08s">
+        <div class="x"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#F0A48C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3z M3.5 7l8.5 6 8.5-6 M4 4l16 16"/></svg></div>
+        <h4>Your outreach reads like a robot</h4>
+        <p>Templated blasts get ignored or marked as spam, and one wrong move burns your sending domain for months.</p>
+        <div class="fix"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#5FD0A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Warm, human drafts per lead, sent safely with built-in caps that protect your domain.</div>
+      </div>
+      <div class="pain reveal" style="transition-delay:.16s">
+        <div class="x"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#F0A48C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v10H9l-4 4z"/></svg></div>
+        <h4>Replies pile up and leads go cold</h4>
+        <p>By the time you get back to a hot reply, they have moved on, or you double-message someone a teammate already handled.</p>
+        <div class="fix"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#5FD0A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> One shared inbox with replies pre-drafted for you, and no lead ever contacted twice.</div>
+      </div>
+    </div>
+
+    <div style="height:44px"></div>
+    <div class="feats">
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 100 14 7 7 0 000-14z M16.5 16.5 21 21"/></svg></div><div><h4>Smart lead finder</h4><p>Search any city, see each business's website quality and contact info at a glance, and work only the ones worth your time.</p></div></div>
+      <div class="feat reveal" style="transition-delay:.06s"><div class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h12v9H3z M3.5 7 9 11l5.5-4 M17.5 12H22 M20 10l2 2-2 2"/></svg></div><div><h4>Human outreach that lands</h4><p>Personalized drafts that sound like you wrote them, with the right offer suggested per lead and a discount lever you control.</p></div></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13h4l2 3h4l2-3h4 M4 13V6a2 2 0 012-2h12a2 2 0 012 2v7 M4 13v5a2 2 0 002 2h12a2 2 0 002-2v-5"/></svg></div><div><h4>Deliverability on guard</h4><p>Hard send caps, timed pauses, inbox rotation, and spam-rate monitoring keep your domain healthy so your email keeps arriving.</p></div></div>
+      <div class="feat reveal" style="transition-delay:.06s"><div class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7 4 12l5 5 M4 12h9a5 5 0 015 5v1"/></svg></div><div><h4>Smart inbox &amp; follow-ups</h4><p>Two-way conversations, pre-drafted replies you approve in a click, and a follow-up sequence you fully control.</p></div></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11a3 3 0 100-6 3 3 0 000 6z M3.5 20a5.5 5.5 0 0111 0 M17 6h4 M19 4v4"/></svg></div><div><h4>Built for a team</h4><p>Roles, task assignment with real alerts, internal chat, and multiple offices, so your whole crew works one clean pipeline.</p></div></div>
+      <div class="feat reveal" style="transition-delay:.06s"><div class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v4H4z M4 12h7v8H4z M14 12h6v8h-6z"/></svg></div><div><h4>One-click site builder</h4><p>Turn a lead into a finished landing page or a rebuilt site in minutes, the perfect free gift that closes the deal.</p></div></div>
+    </div>
+  </div></section>
+
+  <!-- B2B PRICING -->
+  <section class="sec band" id="pricing-b2b"><div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The Lead Engine · pricing</span>
+      <h2>Simple tiers. Start where you are, scale when you win.</h2>
+      <p>One flat price for the software. No hidden per-click surprises. Email included on every plan, always.</p>
+    </div>
+    <div class="tiers">
+      <div class="tier reveal">
+        <div class="tname">Starter</div>
+        <div class="price">$<span class="setp">[SET PRICE]</span><small>/mo</small></div>
+        <div class="pnote">Solo operators getting their first clients.</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Lead finder &amp; website scoring</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Human outreach drafting</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> 1 connected inbox, safe sending</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Smart inbox &amp; follow-ups</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Unlimited email included</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost tcta">Request access</a>
+      </div>
+      <div class="tier feat-tier reveal" style="transition-delay:.08s">
+        <div class="badge">Most popular</div>
+        <div class="tname">Growth</div>
+        <div class="price">$<span class="setp">[SET PRICE]</span><small>/mo</small></div>
+        <div class="pnote">Small teams landing clients every week.</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Everything in Starter</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Multiple inboxes &amp; rotation</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Team roles, tasks &amp; multi-office</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> One-click site builder</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Higher lead &amp; send volume</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary tcta">Request access</a>
+      </div>
+      <div class="tier reveal" style="transition-delay:.16s">
+        <div class="tname">Scale</div>
+        <div class="price">$<span class="setp">[SET PRICE]</span><small>/mo</small></div>
+        <div class="pnote">Agencies running high volume and billing clients.</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Everything in Growth</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Client contracts &amp; billing (e-sign + payments)</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Analytics &amp; pipeline</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Top lead &amp; send limits</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Priority support</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost tcta">Request access</a>
+      </div>
+    </div>
+    <div class="pricing-note reveal">Founding-member pricing for early access. Annual billing available at a discount. Prices shown are placeholders, final numbers on request.</div>
+  </div></section>
+
+  <!-- ===================== B2C SECTION ===================== -->
+  <section class="sec" id="business"><div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Client Growth · for local businesses</span>
+      <h2>Why buy this if you run a local business</h2>
+      <p>You are busy, you have money, and you have no time to learn complicated software. This is the opposite of that: everything you need, nothing you do not, set up for you.</p>
+    </div>
+
+    <div class="pains">
+      <div class="pain reveal">
+        <div class="x"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#F0A48C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h3l1.4 4-2 1.2a11 11 0 005.4 5.4l1.2-2 4 1.4v3a2 2 0 01-2 2A15 15 0 014 6a2 2 0 012-2z M3 3l18 18"/></svg></div>
+        <h4>Every missed call is lost money</h4>
+        <p>Most callers never call back, they just call the next business. Those are booked jobs walking out the door, every day.</p>
+        <div class="fix"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#5FD0A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Miss a call and the app instantly texts them back, so the lead never goes cold.</div>
+      </div>
+      <div class="pain reveal" style="transition-delay:.08s">
+        <div class="x"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#F0A48C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v15H4z M4 10h16 M8 3v4 M16 3v4 M9 15l6-4"/></svg></div>
+        <h4>No-shows and forgotten customers</h4>
+        <p>Empty slots you can't fill, and hundreds of past customers who simply drifted away and never came back.</p>
+        <div class="fix"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#5FD0A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Automatic reminders cut no-shows, and quiet customers get a nudge to come back.</div>
+      </div>
+      <div class="pain reveal" style="transition-delay:.16s">
+        <div class="x"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#F0A48C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 100 18 9 9 0 000-18z M8 8l8 8"/></svg></div>
+        <h4>Other software needs a manual</h4>
+        <p>The big all-in-one tools take months to learn. No busy owner has a spare day, let alone a spare month.</p>
+        <div class="fix"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#5FD0A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Dead-simple by design, and we set the whole thing up for you.</div>
+      </div>
+    </div>
+
+    <div style="height:44px"></div>
+    <div class="feats">
+      <div class="feat reveal"><div class="ic" style="background:linear-gradient(160deg,rgba(138,115,255,.14),rgba(46,144,255,.05))"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#A9D2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h3l1.4 4-2 1.2a11 11 0 005.4 5.4l1.2-2 4 1.4v3a2 2 0 01-2 2A15 15 0 014 6a2 2 0 012-2z"/></svg></div><div><h4>Missed-call text-back</h4><p>Never lose another caller. Miss the call, they get a friendly text in seconds, and you catch the job.</p></div></div>
+      <div class="feat reveal" style="transition-delay:.06s"><div class="ic" style="background:linear-gradient(160deg,rgba(138,115,255,.14),rgba(46,144,255,.05))"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#A9D2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v15H4z M4 10h16 M8 3v4 M16 3v4"/></svg></div><div><h4>Reminders &amp; win-backs</h4><p>Automatic appointment reminders that cut no-shows, and gentle nudges that bring quiet customers back in.</p></div></div>
+      <div class="feat reveal"><div class="ic" style="background:linear-gradient(160deg,rgba(138,115,255,.14),rgba(46,144,255,.05))"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#A9D2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l2.5 5.3 5.8.8-4.2 4 1 5.8-5.1-2.7-5.1 2.7 1-5.8-4.2-4 5.8-.8z"/></svg></div><div><h4>More 5-star reviews</h4><p>Ask every happy customer for a review at the right moment, and catch unhappy ones before they post.</p></div></div>
+      <div class="feat reveal" style="transition-delay:.06s"><div class="ic" style="background:linear-gradient(160deg,rgba(138,115,255,.14),rgba(46,144,255,.05))"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#A9D2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6 M10 21h4 M12 3a6 6 0 013.5 10.9c-.5.4-.7.9-.7 1.6H9.2c0-.7-.2-1.2-.7-1.6A6 6 0 0112 3z"/></svg></div><div><h4>Set-and-forget birthdays &amp; offers</h4><p>Set it once, pick the gift or offer, and the app sends it on every customer's birthday, forever. No manual work.</p></div></div>
+      <div class="feat reveal"><div class="ic" style="background:linear-gradient(160deg,rgba(138,115,255,.14),rgba(46,144,255,.05))"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#A9D2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v10H9l-4 4z"/></svg></div><div><h4>One simple inbox</h4><p>Every text and email from customers in one place, with replies drafted for you. Your assistant runs it in minutes.</p></div></div>
+      <div class="feat reveal" style="transition-delay:.06s"><div class="ic" style="background:linear-gradient(160deg,rgba(138,115,255,.14),rgba(46,144,255,.05))"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#A9D2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.2-3 7.4-7 8.4-4-1-7-4.2-7-8.4V6z M9 12l2 2 4-4"/></svg></div><div><h4>We handle the tricky stuff</h4><p>Setup, connections, and the technical bits are done for you, with plain-language guidance the whole way.</p></div></div>
+    </div>
+  </div></section>
+
+  <!-- B2C PRICING -->
+  <section class="sec band" id="pricing-b2c"><div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Client Growth · pricing</span>
+      <h2>Honest, flat pricing. Email is on us, on every plan.</h2>
+      <p>No surprise per-message bills like the other guys. We even eat the cost of your email, because we would rather go the extra mile than nickel-and-dime you.</p>
+    </div>
+    <div class="tiers">
+      <div class="tier reveal">
+        <div class="tname">Essentials</div>
+        <div class="price">$149<small>/mo</small></div>
+        <div class="pnote">Everything to bring customers back, by email.</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Customer list, tags &amp; segments</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Win-backs, offers &amp; birthday automations</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Reviews, booking page &amp; one inbox</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Unlimited email, on us</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost tcta">Request access</a>
+      </div>
+      <div class="tier feat-tier reveal" style="transition-delay:.08s">
+        <div class="badge">Most popular</div>
+        <div class="tname">Pro</div>
+        <div class="price">$299<small>/mo</small></div>
+        <div class="pnote">Add texting and calling to catch every lead.</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Everything in Essentials</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Missed-call text-back &amp; two-way SMS</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Bundled texts &amp; calling, number included</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Ready-made playbooks for your business type</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary tcta">Request access</a>
+      </div>
+      <div class="tier reveal" style="transition-delay:.16s">
+        <div class="tname">Premium</div>
+        <div class="price">$499<small>/mo</small></div>
+        <div class="pnote">Multi-location &amp; healthcare-ready.</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Everything in Pro</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Multiple locations</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Higher messaging allowance</li>
+          <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Priority support &amp; deeper setup</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost tcta">Request access</a>
+      </div>
+    </div>
+    <div class="pricing-note reveal">First two months at a reduced founding-member rate. Save about two months with annual billing. Optional done-for-you content retainer available separately.</div>
+  </div></section>
+
+  <div class="wrap"><div class="edgeline" style="margin:0"></div></div>
+
+  <!-- WHY US -->
+  <section class="sec" id="why"><div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Why Beyond the Edge</span>
+      <h2>Powerful where it counts. Simple where it matters.</h2>
+      <p>Most tools make you choose between capable and usable. We refuse that trade, and we stand behind it with real service.</p>
+    </div>
+    <div class="why">
+      <div class="whycard reveal"><div class="ic"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.5 5.3 5.8.8-4.2 4 1 5.8-5.1-2.7-5.1 2.7 1-5.8-4.2-4 5.8-.8z"/></svg></div><h4>Built by an operator</h4><p>21+ years of real-world craft and business behind it, not a faceless software factory.</p></div>
+      <div class="whycard reveal" style="transition-delay:.06s"><div class="ic"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6 M10 21h4 M12 3a6 6 0 013.5 10.9c-.5.4-.7.9-.7 1.6H9.2c0-.7-.2-1.2-.7-1.6A6 6 0 0112 3z"/></svg></div><h4>Simple on purpose</h4><p>If it needs a manual, it is too complex. You open it and know what to do in seconds.</p></div>
+      <div class="whycard reveal" style="transition-delay:.12s"><div class="ic"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.2-3 7.4-7 8.4-4-1-7-4.2-7-8.4V6z M9 12l2 2 4-4"/></svg></div><h4>Safe by design</h4><p>Guardrails protect your email, your reputation, and your data, so a wrong click can't burn you.</p></div>
+      <div class="whycard reveal" style="transition-delay:.18s"><div class="ic"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11a3 3 0 100-6 3 3 0 000 6z M3.5 20a5.5 5.5 0 0111 0 M16 5.2a3 3 0 010 5.6 M20.5 20a5.5 5.5 0 00-4-4.9"/></svg></div><h4>We do it with you</h4><p>Stuck on anything technical? We set it up and support you. That is the whole point.</p></div>
+    </div>
+
+    <div style="height:44px"></div>
+    <div class="cred reveal">
+      <div class="c"><b data-count="21" data-suffix="+">0</b><span>years of experience</span></div>
+      <div class="c"><b data-count="2">0</b><span>growth systems, one team</span></div>
+      <div class="c"><b data-count="0">0</b><span>manuals required</span></div>
+      <div class="c"><b data-count="1">0</b><span>flat, honest price</span></div>
+    </div>
+  </div></section>
+
+  <!-- FAQ -->
+  <section class="sec band"><div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Good questions</span><h2>Answers before you ask</h2></div>
+    <div class="faq">
+      <div class="qa reveal"><h4><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#74B7FF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 9a3 3 0 116 0c0 2-3 2.5-3 4 M12 17h.01"/></svg> Is this hard to set up?</h4><p>No. It is built to be simple, and for anything technical we set it up for you as part of your plan. You are never left figuring it out alone.</p></div>
+      <div class="qa reveal"><h4><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#74B7FF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 9a3 3 0 116 0c0 2-3 2.5-3 4 M12 17h.01"/></svg> Will you surprise me with usage fees?</h4><p>No. The software is one flat price, email is included on every plan, and any texting comes in a fair bundle with clear top-ups. No mystery charges.</p></div>
+      <div class="qa reveal"><h4><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#74B7FF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 9a3 3 0 116 0c0 2-3 2.5-3 4 M12 17h.01"/></svg> Do I need both systems?</h4><p>No. Pick the one that fits: the Lead Engine if you find and sell to businesses, Client Growth if you run a local business. Some use both.</p></div>
+      <div class="qa reveal"><h4><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#74B7FF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 9a3 3 0 116 0c0 2-3 2.5-3 4 M12 17h.01"/></svg> Why is access invitation-only right now?</h4><p>We are onboarding a first group of founding members and improving fast with their input. Request access and we will be in touch.</p></div>
+    </div>
+  </div></section>
+
+  <!-- FINAL CTA -->
+  <section class="final" id="contact">
+    <div class="glow"></div><div class="glow2"></div>
+    <div class="wrap inner">
+      <span class="eyebrow" style="justify-content:center">Private preview · founding members</span>
+      <h2 style="margin-top:18px">Ready to put growth on autopilot?</h2>
+      <p>Request access and we will show you exactly how it works for your business, and get you set up.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a href="mailto:hello@beyondtheedge.com?subject=Request%20access%20to%20Beyond%20the%20Edge" class="btn btn-primary">Request access <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#04121F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"/></svg></a>
+        <a href="tel:+13232874274" class="btn btn-ghost">Call 323-287-4274</a>
+      </div>
+      <div style="margin-top:28px"><span class="badge-soft"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#5B6270" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11h14v9H5z M8 11V7a4 4 0 018 0v4"/></svg> This is a private preview page. Please do not share the password.</span></div>
+    </div>
+  </section>
+
+  <footer><div class="wrap row">
+    <div>© <span id="yr"></span> Beyond the Edge. All rights reserved.</div>
+    <div class="fnav"><a href="#">Terms</a><a href="#">Privacy</a><a href="tel:+13232874274">Contact</a></div>
+  </div></footer>
+
+</div>
+
+<script>
+  /* ============ CONFIG ============ */
+  var PAGE_PASSWORD = "001100";   /* <-- change this to your chosen password */
+  /* ================================ */
+
+  var effectsStarted = false;
+
+  function reveal(){
+    document.getElementById('gate').style.display='none';
+    document.getElementById('content').style.display='block';
+    try{ sessionStorage.setItem('bte_ok','1'); }catch(e){}
+    document.body.style.overflow='auto';
+    startEffects();
+  }
+  function tryPw(){
+    var v=document.getElementById('pw').value.trim();
+    if(v===PAGE_PASSWORD){ reveal(); }
+    else{ var e=document.getElementById('err'); e.style.opacity='1'; var p=document.getElementById('pw'); p.value=''; p.focus(); }
+  }
+
+  /* ---- reveal-on-scroll + count-up + signal field ---- */
+  function startEffects(){
+    if(effectsStarted) return; effectsStarted = true;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // scroll reveal
+    var items = document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window && !reduce){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+      },{rootMargin:'0px 0px -8% 0px',threshold:.12});
+      items.forEach(function(el){ io.observe(el); });
+    } else { items.forEach(function(el){ el.classList.add('in'); }); }
+
+    // count-up
+    var nums = document.querySelectorAll('[data-count]');
+    function runCount(el){
+      var target = parseInt(el.getAttribute('data-count'),10) || 0;
+      var suffix = el.getAttribute('data-suffix') || '';
+      if(reduce || target===0){ el.textContent = target + suffix; return; }
+      var t0=null, dur=1100;
+      function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/dur,1); var e=1-Math.pow(1-p,3);
+        el.textContent = Math.round(e*target) + suffix; if(p<1) requestAnimationFrame(step); }
+      requestAnimationFrame(step);
+    }
+    if('IntersectionObserver' in window){
+      var io2 = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){ if(en.isIntersecting){ runCount(en.target); io2.unobserve(en.target); } });
+      },{threshold:.5});
+      nums.forEach(function(el){ io2.observe(el); });
+    } else { nums.forEach(runCount); }
+
+    if(!reduce) initSignal();
+  }
+
+  /* ---- ambient signal field: nodes + connections + traveling pulses ---- */
+  function initSignal(){
+    var cv = document.getElementById('signal'); if(!cv) return;
+    var ctx = cv.getContext('2d'); if(!ctx) return;
+    var dpr = Math.min(window.devicePixelRatio||1, 2), W=0, H=0;
+    var stars=[], nodes=[], pulses=[], raf=0, tPrev=0;
+
+    function size(){
+      var host = cv.parentElement; var r = host.getBoundingClientRect();
+      W = r.width; H = r.height;
+      cv.width = Math.max(1,Math.floor(W*dpr)); cv.height = Math.max(1,Math.floor(H*dpr));
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      build();
+    }
+    function rand(a,b){ return a + Math.random()*(b-a); }
+    function build(){
+      var starN = Math.min(90, Math.floor(W*H/14000));
+      stars=[]; for(var i=0;i<starN;i++){ stars.push({x:rand(0,W),y:rand(0,H),r:rand(.4,1.3),a:rand(.15,.7),tw:rand(.4,1.4),ph:rand(0,6.28)}); }
+      var nodeN = Math.min(11, Math.max(6, Math.floor(W/150)));
+      nodes=[]; for(var j=0;j<nodeN;j++){ nodes.push({x:rand(W*.08,W*.92),y:rand(H*.12,H*.9),vx:rand(-.05,.05),vy:rand(-.05,.05),r:rand(1.4,2.6)}); }
+      pulses=[];
+    }
+    function spawnPulse(){
+      if(nodes.length<2) return;
+      var a=Math.floor(rand(0,nodes.length)), b=Math.floor(rand(0,nodes.length));
+      if(a===b) return;
+      var dx=nodes[a].x-nodes[b].x, dy=nodes[a].y-nodes[b].y;
+      if(Math.sqrt(dx*dx+dy*dy) > W*.42) return;  // only near pairs
+      pulses.push({a:a,b:b,t:0,sp:rand(.5,.9)});
+    }
+    function frame(ts){
+      var dt = Math.min(50, ts-(tPrev||ts)); tPrev=ts;
+      ctx.clearRect(0,0,W,H);
+      // stars
+      for(var i=0;i<stars.length;i++){ var s=stars[i]; s.ph+=dt*.001*s.tw;
+        var a=s.a*(.55+.45*Math.sin(s.ph));
+        ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,6.2832); ctx.fillStyle='rgba(200,220,255,'+a.toFixed(3)+')'; ctx.fill(); }
+      // move nodes + draw connections
+      for(var j=0;j<nodes.length;j++){ var n=nodes[j]; n.x+=n.vx*dt*.06; n.y+=n.vy*dt*.06;
+        if(n.x<W*.05||n.x>W*.95) n.vx*=-1; if(n.y<H*.08||n.y>H*.94) n.vy*=-1; }
+      for(var p=0;p<nodes.length;p++){ for(var q=p+1;q<nodes.length;q++){
+        var A=nodes[p],B=nodes[q]; var d=Math.hypot(A.x-B.x,A.y-B.y); var max=W*.30;
+        if(d<max){ var o=(1-d/max)*.16; ctx.beginPath(); ctx.moveTo(A.x,A.y); ctx.lineTo(B.x,B.y);
+          ctx.strokeStyle='rgba(46,144,255,'+o.toFixed(3)+')'; ctx.lineWidth=1; ctx.stroke(); } } }
+      // node glows
+      for(var k=0;k<nodes.length;k++){ var m=nodes[k];
+        var g=ctx.createRadialGradient(m.x,m.y,0,m.x,m.y,10);
+        g.addColorStop(0,'rgba(116,183,255,.7)'); g.addColorStop(1,'rgba(116,183,255,0)');
+        ctx.beginPath(); ctx.arc(m.x,m.y,10,0,6.2832); ctx.fillStyle=g; ctx.fill();
+        ctx.beginPath(); ctx.arc(m.x,m.y,m.r,0,6.2832); ctx.fillStyle='rgba(180,215,255,.9)'; ctx.fill(); }
+      // pulses traveling node->node
+      for(var u=pulses.length-1;u>=0;u--){ var pu=pulses[u]; pu.t += dt*.001*pu.sp;
+        if(pu.t>=1){ pulses.splice(u,1); continue; }
+        var A2=nodes[pu.a],B2=nodes[pu.b]; if(!A2||!B2){ pulses.splice(u,1); continue; }
+        var x=A2.x+(B2.x-A2.x)*pu.t, y=A2.y+(B2.y-A2.y)*pu.t;
+        var pg=ctx.createRadialGradient(x,y,0,x,y,6);
+        pg.addColorStop(0,'rgba(169,210,255,.95)'); pg.addColorStop(1,'rgba(46,144,255,0)');
+        ctx.beginPath(); ctx.arc(x,y,6,0,6.2832); ctx.fillStyle=pg; ctx.fill(); }
+      if(Math.random()<.012) spawnPulse();
+      raf = requestAnimationFrame(frame);
+    }
+    function start(){ cancelAnimationFrame(raf); tPrev=0; raf=requestAnimationFrame(frame); }
+    function stop(){ cancelAnimationFrame(raf); }
+    size();
+    var rz; window.addEventListener('resize', function(){ clearTimeout(rz); rz=setTimeout(size,180); });
+    document.addEventListener('visibilitychange', function(){ if(document.hidden) stop(); else start(); });
+    start();
+  }
+
+  // stay unlocked for the session once entered
+  try{ if(sessionStorage.getItem('bte_ok')==='1'){ reveal(); } }catch(e){}
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  window.addEventListener('load',function(){ var p=document.getElementById('pw'); if(p && document.getElementById('gate').style.display!=='none') p.focus(); });
+</script>
+</body>
+</html>
