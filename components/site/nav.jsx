@@ -9,6 +9,7 @@ const LINKS = [
   { href: "#why", label: "Why us" },
   { href: "#apps", label: "Apps" },
   { href: "#pricing", label: "Pricing" },
+  { href: "/growth-systems", label: "Growth Systems" },
 ];
 
 export default function Nav() {
