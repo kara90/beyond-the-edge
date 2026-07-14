@@ -144,23 +144,14 @@ export default function Nav() {
   );
 }
 
-/* Brand mark: a boundary ring with a single point breaking through it. */
+/* Brand mark: the official Beyond the Edge rocket logo. */
 export function BrandMark({ className = "size-6" }) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className={className}
+    <img
+      src="/media/bte-logo.png"
+      alt=""
       aria-hidden="true"
-    >
-      <circle cx="12" cy="13" r="8" stroke="var(--edge)" strokeWidth="1.5" opacity="0.7" />
-      <path
-        d="M12 21 L12 3"
-        stroke="var(--primary)"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <circle cx="12" cy="4" r="2" fill="var(--edge-bright)" />
-    </svg>
+      className={`${className} object-contain`}
+    />
   );
 }
