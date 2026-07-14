@@ -4,25 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#070A12">
-<title>Beyond the Edge — Growth Systems</title>
+<title>Beyond the Edge, Growth Systems</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" type="image/png" href="/media/bte-logo.png">
+<link rel="icon" type="image/png" href="https://beyondtheedgestudio.com/media/bte-logo.png">
+<meta name="description" content="Beyond the Edge builds simple growth software for agencies and local businesses, find and land clients, and keep them coming back, without the bloated tools.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Beyond the Edge">
+<meta property="og:title" content="Beyond the Edge, Growth Systems">
+<meta property="og:description" content="Beyond the Edge builds simple growth software for agencies and local businesses, find and land clients, and keep them coming back, without the bloated tools.">
+<meta property="og:image" content="https://beyondtheedgestudio.com/media/bte-logo.png">
+<meta property="og:url" content="https://beyondtheedgestudio.com/growth-systems">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Beyond the Edge, Growth Systems">
+<meta name="twitter:description" content="Beyond the Edge builds simple growth software for agencies and local businesses, find and land clients, and keep them coming back, without the bloated tools.">
+<meta name="twitter:image" content="https://beyondtheedgestudio.com/media/bte-logo.png">
 <!--
   ============================================================
-  BEYOND THE EDGE — PASSWORD-PROTECTED LANDING PAGE (both apps)
+  BEYOND THE EDGE, PASSWORD-PROTECTED LANDING PAGE (both apps)
   ============================================================
   PASSWORD: change it in the CONFIG block in the <script> at the bottom (look for PAGE_PASSWORD).
-  Current password is: 001100
+  Current password is: 111222333
 
   IMPORTANT ABOUT PROTECTION:
   - The gate below is a SOFT lock. It keeps casual visitors out and is fine for sharing with people you trust.
   - It is NOT strong security: a technical person could read the page source. For a real wall, ALSO turn on
     your host's password protection (for example Cloudflare Access, or Netlify/Vercel password protection) on top of this.
 
-  BRAND: Beyond the Edge deep-space identity (base #070A12) — electric-blue signal accent with a violet nebula
+  BRAND: Beyond the Edge deep-space identity (base #070A12), electric-blue signal accent with a violet nebula
   glow. No gold (gold is the CineMaster Academy look). Type: Space Grotesk (display) + Inter (body) + JetBrains
   Mono (labels). Signature: an ambient signal-field in the hero.
-  PRICING: B2C prices are final. B2B prices are marked [SET PRICE] — drop in your real numbers.
+  PRICING: B2C prices are final. B2B pricing is shared on the access call (no public numbers on the page).
+  FORM: the "Request access" modal posts to the shared Beyond the Edge lead worker (siteId "beyond-the-edge"), the same system the main site uses. No third-party form key needed.
   ============================================================
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,6 +110,7 @@
   .brand:hover{opacity:.82}
   .brandmark{width:27px;height:27px;flex:none;object-fit:contain}
   .gate-logo{width:64px;height:64px;object-fit:contain;margin:0 auto 22px;display:block}
+  .brandimg{width:27px;height:27px;flex:none;display:block;object-fit:contain}
   .metallic{background:linear-gradient(100deg,oklch(0.78 0.06 78),oklch(0.93 0.05 92),oklch(0.8 0.07 70));-webkit-background-clip:text;background-clip:text;color:transparent}
   nav .links{display:flex;align-items:center;gap:32px}
   nav .links a{font-size:13.5px;color:var(--text2);transition:color .18s}
@@ -106,7 +119,8 @@
   nav .backlink:hover{color:var(--edge2)}
   nav .navcta .chip{color:var(--edge2);border-color:var(--line3);transition:background .2s,border-color .2s}
   nav .navcta:hover .chip{background:rgba(46,144,255,.09)}
-  @media(max-width:880px){nav .links a:not(.navcta):not(.backlink){display:none}}
+  @media(max-width:880px){nav .links{gap:18px}nav .links a:not(.navcta):not(.backlink):not(.loginlink){display:none}}
+  @media(max-width:520px){nav .backlink{display:none}nav .links{gap:14px}}
 
   /* ---------- HERO ---------- */
   .hero{padding:104px 0 78px;text-align:center;position:relative;overflow:hidden}
@@ -222,11 +236,119 @@
   .final p{color:var(--text2);font-size:17px;max-width:580px;margin:0 auto 34px;line-height:1.58}
   .badge-soft{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:7px 14px}
 
-  footer{border-top:1px solid var(--line);padding:42px 0;color:var(--muted);font-size:13px}
-  footer .row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center}
-  footer a{transition:color .18s}
-  footer a:hover{color:var(--text2)}
+  footer{border-top:1px solid var(--line);padding:58px 0 38px;color:var(--muted);font-size:13px;background:linear-gradient(180deg,var(--bg),var(--bg2))}
+  footer .cols{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:36px;margin-bottom:40px}
+  @media(max-width:760px){footer .cols{grid-template-columns:1fr;gap:28px}}
+  footer .fbrand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:15px;color:var(--text);margin-bottom:12px}
+  footer .ftag{font-size:13px;color:var(--text2);line-height:1.6;max-width:260px}
+  footer h5{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:15px;font-weight:500}
+  footer .fcol a{display:flex;align-items:center;gap:9px;color:var(--text2);padding:4px 0;font-size:13px;transition:color .18s}
+  footer .fcol a:hover{color:var(--text)}
+  footer .fcol a svg{flex:none;opacity:.7}
+  footer .faddr{display:flex;gap:9px;align-items:flex-start;color:var(--text2);font-size:13px;line-height:1.6;padding:4px 0;font-style:normal}
+  footer .faddr svg{flex:none;opacity:.7;margin-top:3px}
+  footer .base{border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center}
+  footer .base a{transition:color .18s}
+  footer .base a:hover{color:var(--text2)}
   footer .fnav{display:flex;gap:24px;font-family:var(--mono);font-size:12px;letter-spacing:.04em}
+
+  /* ---------- CALL PRICING (B2B, no public numbers yet) ---------- */
+  .tier .price.price-call{font-family:var(--mono);font-size:13.5px;font-weight:500;letter-spacing:.04em;color:var(--edge2);min-height:44px;display:flex;align-items:center;line-height:1.45}
+
+  /* ---------- REASSURANCE BADGES ---------- */
+  .assure{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 12px;margin-top:30px}
+  .assure span{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:7px 14px}
+  .assure svg{flex:none;opacity:.85}
+
+  /* ---------- HOW IT WORKS ---------- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:820px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px 26px;transition:border-color .25s,transform .25s}
+  .step:hover{border-color:var(--line2);transform:translateY(-3px)}
+  .step .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .step .ic{width:42px;height:42px;border-radius:11px;background:var(--edgesoft);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center}
+  .step .n{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+  .step h4{font-size:16px;font-weight:600;margin-bottom:8px;letter-spacing:-.01em}
+  .step p{color:var(--text2);font-size:13.8px;line-height:1.6}
+
+  /* ---------- FOUNDER ---------- */
+  .founder{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center;max-width:980px;margin:0 auto}
+  @media(max-width:860px){.founder{grid-template-columns:1fr;gap:30px;max-width:480px}}
+  .fphoto{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;border:1px solid var(--line2);background:linear-gradient(165deg,var(--panel2),var(--bg2));box-shadow:var(--shadow)}
+  .fphoto img{width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:1}
+  .fphoto .slot{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--muted);font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-align:center;padding:20px}
+  .fphoto .slot svg{opacity:.45}
+  .founder .ftext h3{font-size:clamp(24px,3vw,32px);letter-spacing:-.02em;line-height:1.15;margin:14px 0 16px}
+  .founder .ftext p{color:var(--text2);font-size:15.5px;line-height:1.68}
+  .credline{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:24px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--muted)}
+  .credline i{width:3px;height:3px;border-radius:50%;background:var(--edge2);opacity:.7}
+
+  /* ---------- PRODUCT MOCKUPS (illustrative, CSS only) ---------- */
+  .mock-wrap{margin-top:46px;position:relative}
+  .mock-cap{text-align:center;margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+  .browser{max-width:860px;margin:0 auto;background:linear-gradient(180deg,var(--panel),rgba(10,14,23,.65));border:1px solid var(--line2);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+  .browser .bbar{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
+  .browser .bdots{display:flex;gap:6px}
+  .browser .bdots i{width:9px;height:9px;border-radius:50%;background:var(--raise);border:1px solid var(--line2)}
+  .browser .burl{flex:1;max-width:340px;margin:0 auto;background:rgba(7,10,18,.7);border:1px solid var(--line);border-radius:7px;font-family:var(--mono);font-size:10.5px;color:var(--muted);padding:5px 12px;text-align:center;letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .browser .bbody{display:grid;grid-template-columns:1.3fr 1fr}
+  @media(max-width:720px){.browser .bbody{grid-template-columns:1fr}}
+  .leads .lhead{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .leadrow{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+  .leads .leadrow:last-child{border-bottom:none}
+  .leadrow .av{width:32px;height:32px;border-radius:9px;background:var(--edgesoft);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;flex:none}
+  .leadrow .grow{flex:1;min-width:0}
+  .leadrow .nm{font-size:13px;font-weight:600;letter-spacing:-.01em}
+  .leadrow .mt{font-size:11.5px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .st{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:20px;white-space:nowrap;flex:none}
+  .st-new{color:var(--edge2);background:rgba(46,144,255,.12);border:1px solid rgba(46,144,255,.25)}
+  .st-rep{color:var(--green);background:rgba(95,208,166,.1);border:1px solid rgba(95,208,166,.22)}
+  .st-fup{color:#B7A6FF;background:rgba(138,115,255,.12);border:1px solid rgba(138,115,255,.25)}
+  .draft{border-left:1px solid var(--line);padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+  @media(max-width:720px){.draft{border-left:none;border-top:1px solid var(--line)}}
+  .draft .dlab{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--edge2);display:flex;align-items:center;gap:7px}
+  .draft .dto{font-size:12px;color:var(--text2)}
+  .draft .dmsg{background:rgba(7,10,18,.55);border:1px solid var(--line);border-radius:10px;padding:12px 13px;font-size:12px;color:var(--text2);line-height:1.55;flex:1}
+  .draft .dbtns{display:flex;gap:8px}
+  .mbtn{font-size:11.5px;font-weight:600;border-radius:8px;padding:8px 13px;display:inline-flex;align-items:center;gap:6px;cursor:default}
+  .mbtn-p{background:linear-gradient(135deg,#3A9BFF,#74B7FF);color:#04121F}
+  .mbtn-g{border:1px solid var(--line2);color:var(--text2)}
+  .phone-wrap{display:flex;justify-content:center;position:relative}
+  .phone-wrap .pglow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:430px;height:430px;background:radial-gradient(circle,rgba(46,144,255,.12),transparent 62%);pointer-events:none}
+  .phone{width:310px;max-width:92vw;background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line2);border-radius:36px;padding:12px;box-shadow:var(--shadow);position:relative}
+  .phone .screen{background:var(--bg2);border:1px solid var(--line);border-radius:26px;padding:18px 14px 20px;overflow:hidden}
+  .phone .pnotch{width:86px;height:5px;border-radius:3px;background:var(--raise);margin:0 auto 16px}
+  .phone .phead{display:flex;align-items:baseline;justify-content:space-between;padding:0 4px;margin-bottom:14px}
+  .phone .phead b{font-family:var(--display);font-size:19px;font-weight:600;letter-spacing:-.02em}
+  .phone .phead span{font-family:var(--mono);font-size:10px;color:var(--green);letter-spacing:.06em;display:inline-flex;align-items:center;gap:6px}
+  .phone .phead span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 8px 1px rgba(95,208,166,.6)}
+  .pcard{display:flex;gap:11px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin-bottom:10px}
+  .pcard:last-child{margin-bottom:0}
+  .pcard .ic{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:none;border:1px solid var(--line2);background:var(--edgesoft)}
+  .pcard b{font-size:12.5px;font-weight:600;display:block;letter-spacing:-.01em}
+  .pcard span{font-size:11px;color:var(--muted);display:block;margin-top:2px;line-height:1.45}
+
+  /* ---------- REQUEST ACCESS MODAL ---------- */
+  .mov{position:fixed;inset:0;z-index:300;background:rgba(4,6,12,.74);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);display:none;align-items:flex-start;justify-content:center;padding:24px;overflow-y:auto}
+  .mov.open{display:flex}
+  .mbox{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line2);border-radius:20px;max-width:470px;width:100%;padding:34px 30px 30px;position:relative;box-shadow:var(--shadow);margin:auto 0;animation:mIn .25s cubic-bezier(.2,.7,.2,1)}
+  @keyframes mIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .mbox h3{font-size:22px;letter-spacing:-.02em;margin-bottom:8px}
+  .mbox .msub{color:var(--text2);font-size:13.5px;line-height:1.55;margin-bottom:22px}
+  .mclose{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--text2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,color .2s}
+  .mclose:hover{border-color:var(--line3);color:var(--text)}
+  .mfield{margin-bottom:13px}
+  .mfield label{display:block;font-size:12px;font-weight:500;color:var(--text2);margin-bottom:6px;letter-spacing:.01em}
+  .mfield input,.mfield select,.mfield textarea{width:100%;background:rgba(7,10,18,.72);border:1px solid var(--line2);border-radius:11px;padding:12px 14px;color:var(--text);font-size:14px;font-family:var(--body);outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+  .mfield textarea{resize:vertical;min-height:76px}
+  .mfield input:focus,.mfield select:focus,.mfield textarea:focus{border-color:var(--edge);box-shadow:0 0 0 4px rgba(46,144,255,.12)}
+  .mfield input::placeholder,.mfield textarea::placeholder{color:var(--muted)}
+  .mfield select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239AA4B6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;cursor:pointer}
+  .merr{display:none;color:var(--warn);font-size:12.5px;line-height:1.5;margin-top:12px}
+  .mok{display:none;text-align:center;padding:26px 0 10px}
+  .mok .okic{width:56px;height:56px;border-radius:16px;background:rgba(95,208,166,.1);border:1px solid rgba(95,208,166,.25);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+  .mok h4{font-size:19px;margin-bottom:8px;letter-spacing:-.01em}
+  .mok p{color:var(--text2);font-size:13.5px}
 
   /* ---------- SCROLL REVEAL ---------- */
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .75s cubic-bezier(.2,.7,.2,1),transform .75s cubic-bezier(.2,.7,.2,1)}
@@ -235,7 +357,8 @@
     html{scroll-behavior:auto}
     .reveal{opacity:1 !important;transform:none !important;transition:none}
     #signal{display:none}
-    .btn:hover,.pathcard:hover,.feat:hover,.tier:hover,.pain:hover,.whycard:hover{transform:none}
+    .btn:hover,.pathcard:hover,.feat:hover,.tier:hover,.pain:hover,.whycard:hover,.step:hover{transform:none}
+    .mbox{animation:none}
   }
 </style>
 </head>
@@ -246,7 +369,7 @@
 <div id="gate">
   <div class="gglow"></div><div class="gglow2"></div>
   <div class="box">
-    <img class="gate-logo" src="/media/bte-logo.png" alt="Beyond the Edge">
+    <img class="gate-logo" src="https://beyondtheedgestudio.com/media/bte-logo.png" alt="Beyond the Edge">
     <h1>Beyond the Edge</h1>
     <p>This page is private. Enter the access password to continue.</p>
     <div class="field">
@@ -265,7 +388,13 @@
   <nav>
     <div class="wrap row">
       <a class="brand" href="https://beyondtheedgestudio.com/" title="Back to Beyond the Edge Studio">
-        <img class="brandmark" src="/media/bte-logo.png" alt="" aria-hidden="true">
+        <!-- Official Beyond the Edge logo (falls back to the mark below if it ever fails to load). -->
+        <img class="brandimg" src="https://beyondtheedgestudio.com/media/bte-logo.png" alt="" width="27" height="27" onerror="this.style.display='none';var f=document.getElementById('bmfallback');if(f)f.style.display='block';">
+        <svg id="bmfallback" class="brandmark" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="display:none">
+          <circle cx="12" cy="13" r="8" stroke="var(--bm-ring)" stroke-width="1.5" opacity="0.7"/>
+          <path d="M12 21 L12 3" stroke="var(--bm-line)" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="12" cy="4" r="2" fill="var(--bm-dot)"/>
+        </svg>
         <span>Beyond the <span class="metallic">Edge</span></span>
       </a>
       <div class="links">
@@ -274,7 +403,8 @@
         <a href="#business">For Local Business</a>
         <a href="#why">Why Us</a>
         <a href="#pricing-b2b">Pricing</a>
-        <a href="#contact" class="navcta"><span class="chip">Request access</span></a>
+        <a href="https://app.beyondtheedgestudio.com" class="loginlink">Log in</a>
+        <a href="#contact" class="navcta js-request"><span class="chip">Request access</span></a>
       </div>
     </div>
   </nav>
@@ -360,6 +490,44 @@
       <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11a3 3 0 100-6 3 3 0 000 6z M3.5 20a5.5 5.5 0 0111 0 M17 6h4 M19 4v4"/></svg></div><div><h4>Built for a team</h4><p>Roles, task assignment with real alerts, internal chat, and multiple offices, so your whole crew works one clean pipeline.</p></div></div>
       <div class="feat reveal" style="transition-delay:.06s"><div class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v4H4z M4 12h7v8H4z M14 12h6v8h-6z"/></svg></div><div><h4>One-click site builder</h4><p>Turn a lead into a finished landing page or a rebuilt site in minutes, the perfect free gift that closes the deal.</p></div></div>
     </div>
+
+    <div class="mock-wrap reveal">
+      <div class="browser" role="img" aria-label="Illustrative preview of the Lead Engine: a scored list of local business leads with a message draft ready to send">
+        <div class="bbar"><div class="bdots"><i></i><i></i><i></i></div><div class="burl">app.beyondtheedgestudio.com/lead-engine</div></div>
+        <div class="bbody">
+          <div class="leads">
+            <div class="lhead"><span>Leads · Austin, TX</span><span>Scored today</span></div>
+            <div class="leadrow">
+              <div class="av"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l6-4 6 4v12 M9 21v-5h4v5"/></svg></div>
+              <div class="grow"><div class="nm">Rosewood Dental</div><div class="mt">No website found · strong reviews</div></div>
+              <span class="st st-new">New lead</span>
+            </div>
+            <div class="leadrow">
+              <div class="av"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l6-4 6 4v12 M9 21v-5h4v5"/></svg></div>
+              <div class="grow"><div class="nm">Summit Plumbing Co.</div><div class="mt">Website scored 42/100 · outdated</div></div>
+              <span class="st st-rep">Replied</span>
+            </div>
+            <div class="leadrow">
+              <div class="av"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l6-4 6 4v12 M9 21v-5h4v5"/></svg></div>
+              <div class="grow"><div class="nm">La Petite Bakery</div><div class="mt">Opened your email twice</div></div>
+              <span class="st st-fup">Follow-up</span>
+            </div>
+            <div class="leadrow">
+              <div class="av"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l6-4 6 4v12 M9 21v-5h4v5"/></svg></div>
+              <div class="grow"><div class="nm">Ironclad Fitness</div><div class="mt">No booking page · busy location</div></div>
+              <span class="st st-new">New lead</span>
+            </div>
+          </div>
+          <div class="draft">
+            <div class="dlab"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#74B7FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9 M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg> Draft ready</div>
+            <div class="dto">To: Rosewood Dental</div>
+            <div class="dmsg">Hi Maria, I looked up Rosewood Dental and noticed patients can't find a website for you, even though your reviews are excellent. I build simple sites for practices like yours and would love to send over a free preview this week...</div>
+            <div class="dbtns"><span class="mbtn mbtn-p">Approve &amp; send</span><span class="mbtn mbtn-g">Edit</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="mock-cap">Illustrative preview of the Lead Engine</div>
+    </div>
   </div></section>
 
   <!-- B2B PRICING -->
@@ -372,7 +540,7 @@
     <div class="tiers">
       <div class="tier reveal">
         <div class="tname">Starter</div>
-        <div class="price">$<span class="setp">[SET PRICE]</span><small>/mo</small></div>
+        <div class="price price-call">Pricing on your access call</div>
         <div class="pnote">Solo operators getting their first clients.</div>
         <ul>
           <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Lead finder &amp; website scoring</li>
@@ -381,12 +549,12 @@
           <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Smart inbox &amp; follow-ups</li>
           <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Unlimited email included</li>
         </ul>
-        <a href="#contact" class="btn btn-ghost tcta">Request access</a>
+        <a href="#contact" class="btn btn-ghost tcta js-request" data-system="Lead Engine">Request access</a>
       </div>
       <div class="tier feat-tier reveal" style="transition-delay:.08s">
         <div class="badge">Most popular</div>
         <div class="tname">Growth</div>
-        <div class="price">$<span class="setp">[SET PRICE]</span><small>/mo</small></div>
+        <div class="price price-call">Pricing on your access call</div>
         <div class="pnote">Small teams landing clients every week.</div>
         <ul>
           <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Everything in Starter</li>
@@ -395,11 +563,11 @@
           <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> One-click site builder</li>
           <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Higher lead &amp; send volume</li>
         </ul>
-        <a href="#contact" class="btn btn-primary tcta">Request access</a>
+        <a href="#contact" class="btn btn-primary tcta js-request" data-system="Lead Engine">Request access</a>
       </div>
       <div class="tier reveal" style="transition-delay:.16s">
         <div class="tname">Scale</div>
-        <div class="price">$<span class="setp">[SET PRICE]</span><small>/mo</small></div>
+        <div class="price price-call">Pricing on your access call</div>
         <div class="pnote">Agencies running high volume and billing clients.</div>
         <ul>
           <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Everything in Growth</li>
@@ -408,10 +576,15 @@
           <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Top lead &amp; send limits</li>
           <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Priority support</li>
         </ul>
-        <a href="#contact" class="btn btn-ghost tcta">Request access</a>
+        <a href="#contact" class="btn btn-ghost tcta js-request" data-system="Lead Engine">Request access</a>
       </div>
     </div>
-    <div class="pricing-note reveal">Founding-member pricing for early access. Annual billing available at a discount. Prices shown are placeholders, final numbers on request.</div>
+    <div class="assure reveal">
+      <span><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.2-3 7.4-7 8.4-4-1-7-4.2-7-8.4V6z M9 12l2 2 4-4"/></svg> Setup done for you</span>
+      <span><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Cancel anytime</span>
+      <span><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> No long contracts</span>
+    </div>
+    <div class="pricing-note reveal">Beyond the Edge is in private preview. We share Lead Engine pricing on your access call and tailor it to your team size.</div>
   </div></section>
 
   <!-- ===================== B2C SECTION ===================== -->
@@ -452,6 +625,35 @@
       <div class="feat reveal"><div class="ic" style="background:linear-gradient(160deg,rgba(138,115,255,.14),rgba(46,144,255,.05))"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#A9D2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v10H9l-4 4z"/></svg></div><div><h4>One simple inbox</h4><p>Every text and email from customers in one place, with replies drafted for you. Your assistant runs it in minutes.</p></div></div>
       <div class="feat reveal" style="transition-delay:.06s"><div class="ic" style="background:linear-gradient(160deg,rgba(138,115,255,.14),rgba(46,144,255,.05))"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#A9D2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.2-3 7.4-7 8.4-4-1-7-4.2-7-8.4V6z M9 12l2 2 4-4"/></svg></div><div><h4>We handle the tricky stuff</h4><p>Setup, connections, and the technical bits are done for you, with plain-language guidance the whole way.</p></div></div>
     </div>
+
+    <div class="mock-wrap reveal">
+      <div class="phone-wrap">
+        <div class="pglow"></div>
+        <div class="phone" role="img" aria-label="Illustrative preview of the Client Growth app: a Today screen showing a missed call answered by text, reminders, a new review, and win-back suggestions">
+          <div class="screen">
+            <div class="pnotch"></div>
+            <div class="phead"><b>Today</b><span>All running</span></div>
+            <div class="pcard">
+              <div class="ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#A9D2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h3l1.4 4-2 1.2a11 11 0 005.4 5.4l1.2-2 4 1.4v3a2 2 0 01-2 2A15 15 0 014 6a2 2 0 012-2z"/></svg></div>
+              <div><b>Missed call, text sent</b><span>Sarah got a friendly reply in 9 seconds</span></div>
+            </div>
+            <div class="pcard">
+              <div class="ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#A9D2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9 M10.3 21a1.9 1.9 0 003.4 0"/></svg></div>
+              <div><b>3 reminders going out today</b><span>Tomorrow's appointments are covered</span></div>
+            </div>
+            <div class="pcard">
+              <div class="ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#A9D2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l2.5 5.3 5.8.8-4.2 4 1 5.8-5.1-2.7-5.1 2.7 1-5.8-4.2-4 5.8-.8z"/></svg></div>
+              <div><b>New 5-star review</b><span>Posted to your Google profile</span></div>
+            </div>
+            <div class="pcard">
+              <div class="ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#A9D2FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4 M21 6H8a5 5 0 00-5 5 M7 22l-4-4 4-4 M3 18h13a5 5 0 005-5"/></svg></div>
+              <div><b>2 customers to win back</b><span>One tap sends the offer</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mock-cap">Illustrative preview of the Client Growth app</div>
+    </div>
   </div></section>
 
   <!-- B2C PRICING -->
@@ -472,7 +674,7 @@
           <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Reviews, booking page &amp; one inbox</li>
           <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Unlimited email, on us</li>
         </ul>
-        <a href="#contact" class="btn btn-ghost tcta">Request access</a>
+        <a href="#contact" class="btn btn-ghost tcta js-request" data-system="Client Growth">Request access</a>
       </div>
       <div class="tier feat-tier reveal" style="transition-delay:.08s">
         <div class="badge">Most popular</div>
@@ -485,7 +687,7 @@
           <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Bundled texts &amp; calling, number included</li>
           <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Ready-made playbooks for your business type</li>
         </ul>
-        <a href="#contact" class="btn btn-primary tcta">Request access</a>
+        <a href="#contact" class="btn btn-primary tcta js-request" data-system="Client Growth">Request access</a>
       </div>
       <div class="tier reveal" style="transition-delay:.16s">
         <div class="tname">Premium</div>
@@ -497,13 +699,53 @@
           <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Higher messaging allowance</li>
           <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Priority support &amp; deeper setup</li>
         </ul>
-        <a href="#contact" class="btn btn-ghost tcta">Request access</a>
+        <a href="#contact" class="btn btn-ghost tcta js-request" data-system="Client Growth">Request access</a>
       </div>
+    </div>
+    <div class="assure reveal">
+      <span><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.2-3 7.4-7 8.4-4-1-7-4.2-7-8.4V6z M9 12l2 2 4-4"/></svg> Setup done for you</span>
+      <span><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> Cancel anytime</span>
+      <span><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#5FD0A6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg> No long contracts</span>
     </div>
     <div class="pricing-note reveal">First two months at a reduced founding-member rate. Save about two months with annual billing. Optional done-for-you content retainer available separately.</div>
   </div></section>
 
   <div class="wrap"><div class="edgeline" style="margin:0"></div></div>
+
+  <!-- HOW IT WORKS -->
+  <section class="sec" id="how"><div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Getting started</span>
+      <h2>How it works</h2>
+      <p>Three steps between you and a system that runs itself. We carry the heavy ones.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="top">
+          <div class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11a3 3 0 100-6 3 3 0 000 6z M3.5 20a5.5 5.5 0 0111 0 M17 6h4 M19 4v4"/></svg></div>
+          <span class="n">STEP 01</span>
+        </div>
+        <h4>Request access</h4>
+        <p>Tell us about your business and which system fits.</p>
+      </div>
+      <div class="step reveal" style="transition-delay:.08s">
+        <div class="top">
+          <div class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h8 M16 6h4 M4 12h3 M11 12h9 M4 18h8 M16 18h4"/><circle cx="14" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="14" cy="18" r="2"/></svg></div>
+          <span class="n">STEP 02</span>
+        </div>
+        <h4>We set it up for you</h4>
+        <p>We connect everything and build your setup, so you skip the hard part.</p>
+      </div>
+      <div class="step reveal" style="transition-delay:.16s">
+        <div class="top">
+          <div class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8 M15 7h6v6"/></svg></div>
+          <span class="n">STEP 03</span>
+        </div>
+        <h4>You grow on autopilot</h4>
+        <p>Your leads, reminders, and follow-ups run themselves, with us on call.</p>
+      </div>
+    </div>
+  </div></section>
 
   <!-- WHY US -->
   <section class="sec" id="why"><div class="wrap">
@@ -521,10 +763,27 @@
 
     <div style="height:44px"></div>
     <div class="cred reveal">
-      <div class="c"><b data-count="21" data-suffix="+">0</b><span>years of experience</span></div>
-      <div class="c"><b data-count="2">0</b><span>growth systems, one team</span></div>
+      <div class="c"><b data-count="21" data-suffix="+">21+</b><span>years of experience</span></div>
+      <div class="c"><b data-count="2">2</b><span>growth systems, one team</span></div>
       <div class="c"><b data-count="0">0</b><span>manuals required</span></div>
-      <div class="c"><b data-count="1">0</b><span>flat, honest price</span></div>
+      <div class="c"><b data-count="1">1</b><span>flat, honest price</span></div>
+    </div>
+  </div></section>
+
+  <!-- FOUNDER -->
+  <section class="sec band" id="founder"><div class="wrap">
+    <div class="founder reveal">
+      <div class="fphoto">
+        <!-- Founder avatar (monogram placeholder). Drop in a real photo when ready:
+             replace the .slot div with <img src="/founder.jpg" alt="Sebastien, founder of Beyond the Edge"> -->
+        <div class="slot"><span style="font-family:var(--display);font-weight:700;font-size:clamp(52px,9vw,92px);line-height:1;letter-spacing:.02em;background:linear-gradient(135deg,var(--edge2),var(--edge));-webkit-background-clip:text;background-clip:text;color:transparent">SR</span></div>
+      </div>
+      <div class="ftext">
+        <span class="eyebrow">The person behind it</span>
+        <h3>Built by an operator, not a software company</h3>
+        <p>Beyond the Edge is built by Sebastien, a filmmaker and operator with 21+ years of experience building and running businesses. He built these systems because the existing tools were powerful but bloated and impossible for a busy owner to actually use. Every feature here exists because it solved a real problem, and simplicity is the whole point.</p>
+        <div class="credline"><span>21+ years of experience</span><i></i><span>Real operator</span><i></i><span>Done-for-you support</span></div>
+      </div>
     </div>
   </div></section>
 
@@ -547,23 +806,80 @@
       <h2 style="margin-top:18px">Ready to put growth on autopilot?</h2>
       <p>Request access and we will show you exactly how it works for your business, and get you set up.</p>
       <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-        <a href="mailto:hello@beyondtheedge.com?subject=Request%20access%20to%20Beyond%20the%20Edge" class="btn btn-primary">Request access <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#04121F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"/></svg></a>
+        <a href="mailto:sebastien@beyondtheedgestudio.com?subject=Request%20access%20to%20Beyond%20the%20Edge" class="btn btn-primary js-request">Request access <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#04121F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"/></svg></a>
         <a href="tel:+13232874274" class="btn btn-ghost">Call 323-287-4274</a>
       </div>
       <div style="margin-top:28px"><span class="badge-soft"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#5B6270" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11h14v9H5z M8 11V7a4 4 0 018 0v4"/></svg> This is a private preview page. Please do not share the password.</span></div>
     </div>
   </section>
 
-  <footer><div class="wrap row">
-    <div>© <span id="yr"></span> Beyond the Edge. All rights reserved.</div>
-    <div class="fnav"><a href="https://beyondtheedgestudio.com/">Main site</a><a href="https://beyondtheedgestudio.com/terms">Terms</a><a href="https://beyondtheedgestudio.com/privacy">Privacy</a><a href="tel:+13232874274">Contact</a></div>
+  <footer><div class="wrap">
+    <div class="cols">
+      <div class="fcol">
+        <div class="fbrand">
+          <img class="brandmark" src="https://beyondtheedgestudio.com/media/bte-logo.png" alt="" aria-hidden="true">
+          <span>Beyond the <span class="metallic">Edge</span></span>
+        </div>
+        <p class="ftag">Growth systems for modern operators.</p>
+      </div>
+      <div class="fcol">
+        <h5>Contact</h5>
+        <a href="mailto:sebastien@beyondtheedgestudio.com"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3z M3.5 7l8.5 6 8.5-6"/></svg> sebastien@beyondtheedgestudio.com</a>
+        <a href="tel:+13232874274"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h3l1.4 4-2 1.2a11 11 0 005.4 5.4l1.2-2 4 1.4v3a2 2 0 01-2 2A15 15 0 014 6a2 2 0 012-2z"/></svg> 323-287-4274</a>
+        <address class="faddr"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.3-7-11a7 7 0 0114 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg> <span>4375 N Las Vegas Blvd, Suite 7 PMB 5028, Las Vegas, NV 89115</span></address>
+      </div>
+      <div class="fcol">
+        <h5>Pages</h5>
+        <a href="https://beyondtheedgestudio.com/">Main site</a>
+        <a href="/terms">Terms</a>
+        <a href="/privacy">Privacy</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="base">
+      <div>© <span id="yr"></span> Beyond the Edge. All rights reserved.</div>
+      <div class="fnav"><a href="https://beyondtheedgestudio.com/">beyondtheedgestudio.com</a></div>
+    </div>
   </div></footer>
+
+  <!-- REQUEST ACCESS MODAL -->
+  <div class="mov" id="reqmodal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+    <div class="mbox">
+      <button class="mclose" type="button" aria-label="Close" onclick="closeModal()"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12 M18 6L6 18"/></svg></button>
+      <div id="mformview">
+        <h3 id="mtitle">Request access</h3>
+        <p class="msub">Tell us a little about your business and we will reach out to get you set up.</p>
+        <form id="mform" method="POST">
+          <input type="hidden" name="subject" value="New access request, Beyond the Edge Growth Systems">
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="mfield"><label for="f-name">Full name</label><input id="f-name" name="name" type="text" required autocomplete="name" placeholder="Your name"></div>
+          <div class="mfield"><label for="f-email">Email</label><input id="f-email" name="email" type="email" required autocomplete="email" placeholder="you@yourbusiness.com"></div>
+          <div class="mfield"><label for="f-biz">Business name</label><input id="f-biz" name="business" type="text" required autocomplete="organization" placeholder="Your business"></div>
+          <div class="mfield"><label for="f-sys">Which system?</label>
+            <select id="f-sys" name="system">
+              <option>Lead Engine</option>
+              <option>Client Growth</option>
+              <option selected>Not sure yet</option>
+            </select>
+          </div>
+          <div class="mfield"><label for="f-msg">Message <span style="color:var(--muted);font-weight:400">(optional)</span></label><textarea id="f-msg" name="message" placeholder="Anything we should know?"></textarea></div>
+          <button type="submit" class="btn btn-primary" id="msubmit" style="width:100%">Request access</button>
+          <div class="merr" id="merr" role="alert">Something went wrong sending your request. Please try again in a moment, or call 323-287-4274.</div>
+        </form>
+      </div>
+      <div class="mok" id="mok">
+        <div class="okic"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#5FD0A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-11"/></svg></div>
+        <h4>Thanks, we will be in touch shortly.</h4>
+        <p>Your request is in. Keep an eye on your inbox.</p>
+      </div>
+    </div>
+  </div>
 
 </div>
 
 <script>
   /* ============ CONFIG ============ */
-  var PAGE_PASSWORD = "001100";   /* <-- change this to your chosen password */
+  var PAGE_PASSWORD = "111222333";   /* <-- change this to your chosen password */
   /* ================================ */
 
   var effectsStarted = false;
@@ -684,6 +1000,60 @@
     document.addEventListener('visibilitychange', function(){ if(document.hidden) stop(); else start(); });
     start();
   }
+
+  /* ---- request access modal (posts to the shared BTE lead worker, no storage) ---- */
+  var _mov = document.getElementById('reqmodal');
+  var _mlastFocus = null;
+
+  function openModal(system){
+    var sel = document.getElementById('f-sys');
+    if(sel){ sel.value = (system === 'Lead Engine' || system === 'Client Growth') ? system : 'Not sure yet'; }
+    document.getElementById('mformview').style.display = 'block';
+    document.getElementById('mok').style.display = 'none';
+    document.getElementById('merr').style.display = 'none';
+    _mlastFocus = document.activeElement;
+    _mov.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ var f = document.getElementById('f-name'); if(f) f.focus(); }, 60);
+  }
+  function closeModal(){
+    _mov.classList.remove('open');
+    document.body.style.overflow = 'auto';
+    if(_mlastFocus && _mlastFocus.focus) _mlastFocus.focus();
+  }
+  _mov.addEventListener('click', function(e){ if(e.target === _mov) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && _mov.classList.contains('open')) closeModal(); });
+  document.querySelectorAll('.js-request').forEach(function(el){
+    el.addEventListener('click', function(e){ e.preventDefault(); openModal(el.getAttribute('data-system')); });
+  });
+
+  document.getElementById('mform').addEventListener('submit', function(e){
+    e.preventDefault();
+    var form = e.target;
+    var btn = document.getElementById('msubmit');
+    var err = document.getElementById('merr');
+    btn.disabled = true; btn.textContent = 'Sending...'; err.style.display = 'none';
+    var fd = new FormData(form), data = { siteId: 'beyond-the-edge' };
+    fd.forEach(function(v, k){ data[k] = v; });
+    fetch('https://bte-form-handler.sebastienriccidirector.workers.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      if(res && res.success){
+        form.reset();
+        document.getElementById('mformview').style.display = 'none';
+        document.getElementById('mok').style.display = 'block';
+        setTimeout(function(){ if(_mov.classList.contains('open')) closeModal(); }, 2600);
+      } else {
+        err.style.display = 'block';
+      }
+    })
+    .catch(function(){ err.style.display = 'block'; })
+    .then(function(){ btn.disabled = false; btn.textContent = 'Request access'; });
+  });
 
   // stay unlocked for the session once entered
   try{ if(sessionStorage.getItem('bte_ok')==='1'){ reveal(); } }catch(e){}
