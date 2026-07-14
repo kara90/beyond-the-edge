@@ -117,9 +117,23 @@
   nav .links a:hover{color:var(--text)}
   nav .backlink{display:inline-flex;align-items:center;gap:6px}
   nav .backlink:hover{color:var(--edge2)}
+  nav .appswrap{position:relative}
+  nav .appsbtn{display:inline-flex;align-items:center;gap:6px;font-family:var(--body);font-size:13.5px;color:var(--text2);background:none;border:none;cursor:pointer;padding:0;transition:color .18s}
+  nav .appsbtn:hover,nav .appsbtn[aria-expanded="true"]{color:var(--text)}
+  nav .appsbtn svg{transition:transform .2s}
+  nav .appsbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
+  .appsdrop{position:absolute;top:calc(100% + 15px);right:0;min-width:290px;background:rgba(9,13,22,.97);border:1px solid var(--line2);border-radius:15px;padding:8px;box-shadow:var(--shadow);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:none;flex-direction:column;gap:2px;z-index:60}
+  .appsdrop.open{display:flex}
+  .appsdrop .drophead{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:9px 12px 5px}
+  .appsdrop .appitem{display:flex;gap:12px;align-items:center;padding:11px 12px;border-radius:11px;transition:background .15s;color:var(--text2)}
+  .appsdrop .appitem:hover{background:rgba(46,144,255,.09)}
+  .appsdrop .ai{width:36px;height:36px;border-radius:10px;background:var(--edgesoft);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;flex:none}
+  .appsdrop b{display:block;font-size:14px;font-weight:600;color:var(--text);letter-spacing:-.01em}
+  .appsdrop i{display:block;font-size:12px;color:var(--muted);font-style:normal;margin-top:1px}
+  .appsdrop .soon{margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--edge2);border:1px solid var(--line3);border-radius:20px;padding:3px 7px;align-self:center;flex:none}
   nav .navcta .chip{color:var(--edge2);border-color:var(--line3);transition:background .2s,border-color .2s}
   nav .navcta:hover .chip{background:rgba(46,144,255,.09)}
-  @media(max-width:880px){nav .links{gap:18px}nav .links a:not(.navcta):not(.backlink):not(.loginlink){display:none}}
+  @media(max-width:880px){nav .links{gap:18px}nav .links a:not(.navcta):not(.backlink):not(.loginlink):not(.appitem){display:none}}
   @media(max-width:520px){nav .backlink{display:none}nav .links{gap:14px}}
 
   /* ---------- HERO ---------- */
@@ -403,7 +417,16 @@
         <a href="#business">For Local Business</a>
         <a href="#why">Why Us</a>
         <a href="#pricing-b2b">Pricing</a>
-        <a href="https://app.beyondtheedgestudio.com" class="loginlink">Log in</a>
+        <div class="appswrap">
+          <button type="button" class="appsbtn" id="appsbtn" aria-haspopup="true" aria-expanded="false" onclick="toggleApps()">Apps <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="appsdrop" id="appsdrop" role="menu">
+            <div class="drophead">Your apps</div>
+            <a class="appitem" role="menuitem" href="https://app.beyondtheedgestudio.com" target="_blank" rel="noopener"><span class="ai"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l6-4 6 4v12 M9 21v-5h4v5 M15 13h6v8h-6 M18 9V5"/></svg></span><span><b>Lead Engine</b><i>Find and sell to businesses (B2B)</i></span><span class="soon">Portal</span></a>
+            <a class="appitem" role="menuitem" href="https://app.beyondtheedgestudio.com" target="_blank" rel="noopener"><span class="ai"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10v10h16V10 M2 10l10-6 10 6 M9 20v-6h6v6"/></svg></span><span><b>Client Growth</b><i>Bring customers back (B2C)</i></span><span class="soon">Portal</span></a>
+            <a class="appitem" role="menuitem" href="https://bte-ads-cockpit.sebastienriccidirector.workers.dev" target="_blank" rel="noopener"><span class="ai"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5 M4 19h16 M8 15l3-4 3 2 4-6"/></svg></span><span><b>Ads Cockpit</b><i>Meta ads intelligence</i></span></a>
+            <a class="appitem" role="menuitem" href="https://app.beyondtheedgestudio.com" target="_blank" rel="noopener"><span class="ai"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#74B7FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z"/></svg></span><span><b>Portal and account</b><i>Log in, all your apps in one place</i></span></a>
+          </div>
+        </div>
         <a href="#contact" class="navcta js-request"><span class="chip">Request access</span></a>
       </div>
     </div>
@@ -1023,6 +1046,20 @@
   }
   _mov.addEventListener('click', function(e){ if(e.target === _mov) closeModal(); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && _mov.classList.contains('open')) closeModal(); });
+  // apps launcher dropdown
+  function toggleApps(){
+    var d=document.getElementById('appsdrop'), b=document.getElementById('appsbtn');
+    var open=d.classList.toggle('open');
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  document.addEventListener('click', function(e){
+    var w=document.querySelector('.appswrap');
+    if(w && !w.contains(e.target)){ var d=document.getElementById('appsdrop'); if(d && d.classList.contains('open')){ d.classList.remove('open'); document.getElementById('appsbtn').setAttribute('aria-expanded','false'); } }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape'){ var d=document.getElementById('appsdrop'); if(d && d.classList.contains('open')){ d.classList.remove('open'); document.getElementById('appsbtn').setAttribute('aria-expanded','false'); } }
+  });
+
   document.querySelectorAll('.js-request').forEach(function(el){
     el.addEventListener('click', function(e){ e.preventDefault(); openModal(el.getAttribute('data-system')); });
   });
