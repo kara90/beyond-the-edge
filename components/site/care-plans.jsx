@@ -6,7 +6,10 @@ import { Check, ArrowRight } from "lucide-react";
 /*
   Care plans grid with a monthly / annual toggle. Annual bills 10 months
   (two months free). Fixed plans (Care, Presence) deep-link into the checkout
-  carrying the chosen billing; Growth is custom scope and routes to contact.
+  carrying the chosen billing; Momentum and Growth are scoped per business and
+  route to contact. Momentum is the step where the Client Growth system turns
+  on, so it carries real per-message cost: like Growth, its annual bills 11
+  months (one month free, not two).
   Client component so the toggle is interactive; the rest of Pricing stays SSR.
 */
 
@@ -36,15 +39,28 @@ const plans = [
     features: [
       "Everything in Care",
       "Four social content pieces a month, including one short branded video",
-      "Automated review requests",
-      "Missed-call text back",
       "One content update and light optimization",
       "A one-page monthly summary",
     ],
     note: "Short social videos are quick branded clips for social.",
     filmedNote: true,
     stopDoing:
-      "Stop thinking about: what to post, when to post, asking for reviews, missed calls, staying visible.",
+      "Stop thinking about: what to post, when to post, staying visible.",
+  },
+  {
+    name: "Momentum",
+    from: true,
+    monthly: 1100,
+    annualMonths: 11, // carries per-message cost: one month free on annual
+    features: [
+      "Everything in Presence",
+      "Your Client Growth system, switched on under your site: missed-call text back, reviews on autopilot, appointment reminders, and booking",
+      "Your own Client Growth dashboard, with your own login: calls recovered, reviews gained, and customers brought back",
+      "A monthly message allowance for the texts the system sends",
+    ],
+    note: "The system is set up around how your business actually runs, so Momentum starts with a conversation.",
+    stopDoing:
+      "Stop thinking about: missed calls, no-shows, chasing reviews. The engine runs itself, and you can watch it run.",
   },
   {
     name: "Growth",
@@ -53,14 +69,16 @@ const plans = [
     annualMonths: 11, // heavier plan: one month free on annual, not two
     anchor: "A junior in-house marketer: $4,000+ per month",
     features: [
-      "Everything in Presence",
+      "Everything in Momentum",
       "Ongoing content and campaign management",
       "Ongoing SEO and Google Business management",
       "Ads creative and performance optimization",
+      "A higher monthly message allowance",
+      "At the top of this tier, ongoing cinematic video can be included rather than quoted per shoot, scoped to your business",
     ],
     note: "Growth is scoped to your business, so it starts with a conversation.",
     stopDoing:
-      "Stop thinking about: marketing. All of it. Campaigns, content, SEO, ads creative: handled and reported.",
+      "Stop thinking about: marketing. All of it. Campaigns, content, SEO, ads creative, and your customer engine: handled, reported, and visible.",
   },
 ];
 
@@ -96,7 +114,7 @@ export default function CarePlans() {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-3">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {plans.map((p) => {
           const months = p.annualMonths || ANNUAL_MONTHS;
           const amount = annual ? p.monthly * months : p.monthly;
@@ -121,16 +139,16 @@ export default function CarePlans() {
               <h4 className="font-display text-base font-semibold tracking-tight">
                 {p.name}
               </h4>
-              {p.anchor && (
-                <p className="mt-2 text-[0.72rem] leading-snug text-muted-foreground/80">
-                  {p.anchor}
-                </p>
-              )}
+              {/* A tier without a cost anchor still reserves the slot, so every
+                  price keeps the same baseline across the row. The anchors wrap
+                  to two lines at card width, hence min-h-8 (2 x 0.72rem snug). */}
               <p
-                className={`flex flex-wrap items-baseline gap-x-1.5 ${
-                  p.anchor ? "mt-1" : "mt-2"
-                }`}
+                aria-hidden={p.anchor ? undefined : "true"}
+                className="mt-2 min-h-8 text-[0.72rem] leading-snug text-muted-foreground/80"
               >
+                {p.anchor || " "}
+              </p>
+              <p className="mt-1 flex flex-wrap items-baseline gap-x-1.5">
                 <span className="font-display text-xl font-semibold tracking-tight text-metallic">
                   {priceLabel}
                 </span>
@@ -198,6 +216,12 @@ export default function CarePlans() {
           );
         })}
       </div>
+
+      <p className="mt-5 text-center text-[0.72rem] leading-relaxed text-muted-foreground/60">
+        Tiers that include texting come with a monthly message allowance.
+        Unusually high volume is billed in clear top-up blocks, never a
+        surprise.
+      </p>
     </>
   );
 }

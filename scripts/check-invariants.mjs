@@ -55,6 +55,18 @@ mustInclude(
   "Renews monthly until cancelled. Cancel anytime by email.",
   "renewal microcopy (plans)"
 );
+// Texting tiers promise an allowance with no surprise overage. Billing promise:
+// it must stay on the page next to the tiers that carry it.
+mustInclude(
+  "components/site/care-plans.jsx",
+  "billed in clear top-up blocks, never a",
+  "message allowance small print"
+);
+mustInclude(
+  "components/site/faq.jsx",
+  "What is the Client Growth dashboard?",
+  "Client Growth dashboard FAQ"
+);
 mustInclude(
   "components/checkout/checkout-client.jsx",
   "including automatic renewal: my plan renews each billing period",
@@ -88,6 +100,7 @@ const PRICE_LOCKS = [
   ["components/site/apps.jsx", '"From $300"', "App Care price"],
   ["components/site/care-plans.jsx", "monthly: 300", "Care monthly"],
   ["components/site/care-plans.jsx", "monthly: 600", "Presence monthly"],
+  ["components/site/care-plans.jsx", "monthly: 1100", "Momentum monthly"],
   ["components/site/care-plans.jsx", "monthly: 1800", "Growth monthly"],
   ["components/site/care-plans.jsx", "annualMonths: 11", "Growth annual months"],
   ["components/site/filmed.jsx", '"From $3,500"', "Filmed Commercial price"],

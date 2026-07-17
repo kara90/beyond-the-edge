@@ -41,6 +41,10 @@ const FAQS = [
     a: "About fifteen minutes a month. You approve content before it goes out, answer the occasional question, and that is it. Everything else, the posting, the follow-up, the reviews, the updates, runs without you. That is the entire point.",
   },
   {
+    q: "What is the Client Growth dashboard?",
+    a: "It is your own login, included from Momentum up. The Client Growth system is the engine that runs quietly under your site: it texts back missed calls, asks happy customers for reviews, sends appointment reminders, and takes bookings. The dashboard is where you watch it work: calls recovered, reviews gained, customers brought back, and your conversations in one place. It is your account, not a report we email you, so you are never guessing whether the work is happening. This is separate from a custom app, which is your own branded app on iPhone and Android.",
+  },
+  {
     q: "What if I do not like the design?",
     a: "You approve the direction before we build, and we refine it until it is right. Every build includes three rounds of design refinement, and most projects need fewer. You are never locked into something that does not feel like you.",
   },
