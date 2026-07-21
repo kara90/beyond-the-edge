@@ -15,7 +15,7 @@ const OPTIONS = [
     items: [
       "Free to $50 a month",
       "Nights and weekends, gone",
-      "Still looks like a template",
+      "Still looks generic",
       "Every update is on you",
     ],
     featured: false,

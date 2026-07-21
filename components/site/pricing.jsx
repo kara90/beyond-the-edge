@@ -9,15 +9,36 @@ import CarePlans from "@/components/site/care-plans";
 
 /*
   PRICING (websites only)
-  Three one-time build tiers with agency-rate value anchoring. Orbit is the
+  Four one-time build tiers with agency-rate value anchoring. Orbit is the
   recommended pick; Apex (the ultimate tier) renders as a wide flagship band
-  below the other three. Beneath: a three-column guarantee band, the shared
+  below the other four. Beneath: a three-column guarantee band, the shared
   "included in every project" strip, an add-ons disclosure, the monthly care
   plans, and a short objection-handling FAQ. App tiers live in the Apps
   section. No new styles: reuses the site tokens.
 */
 
 const tiers = [
+  {
+    name: "Landing Page",
+    // No checkoutId: there is no "landing" product in functions/_lib/catalog.js,
+    // so the CTA falls back to #contact rather than a broken checkout link.
+    tag: "The focused entry point",
+    anchor: "Typical agency: $3,000+",
+    price: "$1,497",
+    cadence: "one-time",
+    note: "One high-converting page, custom designed and built.",
+    features: [
+      "Custom designed single page, built for one goal",
+      "Smooth animation and scroll effects",
+      "Conversion-focused layout with a clear call to action",
+      "Lead capture or booking form",
+      "Mobile responsive, fast, and secure",
+      "SEO-ready build and analytics setup",
+      "Hosting set up and managed by us",
+    ],
+    cta: "Start your landing page",
+    featured: false,
+  },
   {
     name: "Liftoff",
     checkoutId: "liftoff",
@@ -211,7 +232,7 @@ export default function Pricing() {
           scales with scope.
         </p>
         <p className="mx-auto mt-4 max-w-lg text-[0.95rem] leading-relaxed text-muted-foreground">
-          Every tier is custom designed and built, never a template. Clear flat
+          Every tier is custom designed and built, never off-the-shelf. Clear flat
           pricing. Choose where you want to start.
         </p>
       </Reveal>
@@ -236,8 +257,8 @@ export default function Pricing() {
           <div className="absolute inset-0 bg-background/45" />
         </div>
 
-      {/* Three one-time build tiers */}
-      <div className="grid items-stretch gap-5 lg:grid-cols-3">
+      {/* One-time build tiers (Landing Page, Liftoff, Orbit, Beyond) */}
+      <div className="grid items-stretch gap-5 lg:grid-cols-4">
         {buildTiers.map((t, i) => (
           <Reveal key={t.name} delay={i * 0.08} className="h-full">
             <article

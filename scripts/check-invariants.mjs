@@ -91,6 +91,7 @@ mustNotMatch(
 
 // ── 2) Price locks (display + server must both hold) ────────────────────
 const PRICE_LOCKS = [
+  ["components/site/pricing.jsx", '"$1,497"', "Landing Page price"],
   ["components/site/pricing.jsx", '"$2,497"', "Liftoff price"],
   ["components/site/pricing.jsx", '"$3,497"', "Orbit price"],
   ["components/site/pricing.jsx", '"From $7,497"', "Beyond price"],

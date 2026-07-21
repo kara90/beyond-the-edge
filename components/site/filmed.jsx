@@ -52,7 +52,7 @@ export default function Filmed() {
         <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground">
           Most of what we make ships from the studio. Some stories need a set:
           real cinema cameras, real lighting, real direction. The founder has
-          spent 21 years behind the camera on commercial productions, and the
+          spent 22 years behind the camera on commercial productions, and the
           gear, the crew, and the eye come with the package.
         </p>
       </Reveal>

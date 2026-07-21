@@ -382,8 +382,9 @@ function HeroCopy() {
         </span>
       </h1>
       <p className="mx-auto mt-7 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-        Studio-grade websites and cinematic video for business owners done with
-        template looks and $15,000 agency quotes. Real craft, accelerated by
+        Studio-grade websites and cinematic video for business owners who are
+        tired of looking forgettable but refuse to pay $15,000 agency prices.
+        Real craft, accelerated by
         AI, so it ships in weeks and costs a fraction of the big-agency price.
       </p>
       <div className="mx-auto mt-9 flex w-full flex-col items-center justify-center gap-3 sm:flex-row">

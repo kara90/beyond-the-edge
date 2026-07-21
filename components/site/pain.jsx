@@ -8,7 +8,7 @@ import ButtonLink from "@/components/site/button-link";
   Sits directly after the hero. Empathetic, premium, never infomercial.
 */
 const PAINS = [
-  "You lost a weekend to a DIY builder and it still screams template. Customers judge you in about three seconds, and the jobs you lose to that first impression never even call to tell you.",
+  "You lost a weekend to a DIY builder and it still screams DIY. Customers judge you in about three seconds, and the jobs you lose to that first impression never even call to tell you.",
   "The agencies that could fix it quote $15,000 to $50,000 and four months of meetings. That is a car, gone, before a single new customer walks in.",
   "The cheap freelancer felt like the smart move, until the replies slowed, then stopped. Now you own a half-finished site and a login you were never given.",
   "So it sits on the to-do list. If a customer is worth $500 to you, losing just two a week to a better-looking competitor is over $50,000 a year, every year it waits.",

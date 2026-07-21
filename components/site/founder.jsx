@@ -43,7 +43,7 @@ export default function Founder() {
             responsible for the result, start to finish.
           </blockquote>
           <p className="mt-5 max-w-xl text-[0.95rem] leading-relaxed text-foreground/90">
-            Behind every project: a working director of photography with 21
+            Behind every project: a working director of photography with 22
             years of commercial credits, including an Absolut Vodka commercial
             and an Amazon Prime series.
           </p>
